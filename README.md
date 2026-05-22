@@ -1,7 +1,7 @@
 <div align="center">
-<img width="1200" height="475" alt="Nebula Orbit" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+<img width="1200" height="475" alt="NebulaSim" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 
-# Nebula Orbit
+# NebulaSim
 
 ### Le simulateur orbital cinématique qui fait décoller vos missions.
 
@@ -64,7 +64,7 @@ Puis, dans l'application, importez le fichier via le menu *Charger un prérégla
 
 <div align="center">
 
-*Nebula Orbit · Mission Brief 02 · Rev 1972.05*
+*NebulaSim · Mission Brief 02 · Rev 1972.05*
 **3 étages · 2 séparations autonomes · 1 atterrissage cinématique.**
 
 </div>
