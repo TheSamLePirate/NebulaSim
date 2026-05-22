@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "timestamp": 1765713254799,
+  "bodies": [
+    {
+      "id": "manual_1765712970862",
+      "name": "Soleil",
+      "mass": 2020,
+      "radius": 35.138768806985354,
+      "color": "#FDB813",
+      "position": {
+        "x": -48.93061701373346,
+        "y": -113.63742257974113
+      },
+      "velocity": {
+        "x": 0.031163256619581234,
+        "y": 0.44657612374409955
+      },
+      "trail": [],
+      "description": "Soleil merged with New Body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": true
+    },
+    {
+      "id": "manual_1765712981187",
+      "name": "Terre",
+      "mass": 277.838,
+      "radius": 16.881114630067046,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 155.376818557497,
+        "y": -47.85534756573942
+      },
+      "velocity": {
+        "x": -0.40337270170224926,
+        "y": 2.0322030610090067
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713007487",
+      "name": "New Body2",
+      "mass": 261.015,
+      "radius": 16.693733630806953,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 234.28177627604256,
+        "y": -83.94724817149071
+      },
+      "velocity": {
+        "x": -1.0666212936935275,
+        "y": 1.6288652127850882
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713027845",
+      "name": "New Body3",
+      "mass": 277.542,
+      "radius": 16.87791681925614,
+      "color": "#D980FA",
+      "position": {
+        "x": -210.40535194925508,
+        "y": -56.92005682044484
+      },
+      "velocity": {
+        "x": 2.733073829552055,
+        "y": 1.7503250312655685
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713046829",
+      "name": "New Body",
+      "mass": 693.191,
+      "radius": 19.623916723473464,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -91.11425906267651,
+        "y": 21.033822915583723
+      },
+      "velocity": {
+        "x": -1.9124533336570706,
+        "y": -1.5325004707429903
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713061637",
+      "name": "New Body",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 154.5032959257042,
+        "y": -376.77685000626855
+      },
+      "velocity": {
+        "x": -0.15361804155911188,
+        "y": -0.8020828678516235
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713064928",
+      "name": "New Body",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -223.61372148079437,
+        "y": -283.98221349418844
+      },
+      "velocity": {
+        "x": 0.49393800033883056,
+        "y": 0.535661512338712
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713067762",
+      "name": "New Body",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -292.07264684055747,
+        "y": -214.3837682097512
+      },
+      "velocity": {
+        "x": 0.6845660216377831,
+        "y": 0.4326404412536632
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713073962",
+      "name": "New Body",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 260.021714211715,
+        "y": -334.15764452618043
+      },
+      "velocity": {
+        "x": -0.5555792810304446,
+        "y": -0.0025657000746343622
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713078862",
+      "name": "New Body",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 270.54989656328934,
+        "y": -23.37218752018744
+      },
+      "velocity": {
+        "x": 0.6412455370965365,
+        "y": -3.0246009440810653
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713098612",
+      "name": "New Body",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -148.1011141265203,
+        "y": 9.707972424367327
+      },
+      "velocity": {
+        "x": 1.7886618635165235,
+        "y": -0.8829740628385769
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713104437",
+      "name": "New Body",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -238.31470958834925,
+        "y": -363.1068318408823
+      },
+      "velocity": {
+        "x": 0.33447686706809615,
+        "y": 0.4545843748835962
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713109820",
+      "name": "New Body",
+      "mass": 691.551,
+      "radius": 19.616810703290138,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 159.1852654600228,
+        "y": -462.0942197383519
+      },
+      "velocity": {
+        "x": -0.12480542148650023,
+        "y": 0.3363075338939555
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765713175145",
+      "name": "New BodyK",
+      "mass": 2000,
+      "radius": 35,
+      "color": "#FDB813",
+      "position": {
+        "x": 957.2056417135357,
+        "y": -130.5069128805164
+      },
+      "velocity": {
+        "x": -4.3,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": true
+    },
+    {
+      "id": "manual_1765713194637",
+      "name": "New BodyJ",
+      "mass": 2000,
+      "radius": 35,
+      "color": "#FDB813",
+      "position": {
+        "x": -1283.2896726154977,
+        "y": -112.52540955524327
+      },
+      "velocity": {
+        "x": 6.7,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": true
+    },
+    {
+      "id": "manual_1765713209220",
+      "name": "New BodyJ",
+      "mass": 2000,
+      "radius": 35,
+      "color": "#22A6B3",
+      "position": {
+        "x": -53.354845166814826,
+        "y": 829.7053646890693
+      },
+      "velocity": {
+        "x": 0,
+        "y": -6.7
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": true
+    },
+    {
+      "id": "manual_1765713223637",
+      "name": "New Body8",
+      "mass": 2000,
+      "radius": 35,
+      "color": "#EB4D4B",
+      "position": {
+        "x": -13.795537851213922,
+        "y": -1432.3677536302916
+      },
+      "velocity": {
+        "x": 0,
+        "y": 8
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": true
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": false,
+    "trailLength": 10,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 1.2029238533156537,
+    "offset": {
+      "x": 77.39902960015164,
+      "y": 182.22911998966964
+    }
+  },
+  "flightComputerModules": [],
+  "moduleGroups": [],
+  "followBodyId": null,
+  "followCenterOfMass": true,
+  "speed": 20.0
+}

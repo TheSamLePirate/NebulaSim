@@ -1,0 +1,64 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-13T12:29:18.369Z",
+  "rootGroup": {
+    "id": "fc_group_1765628799452",
+    "name": "Phone Page Control",
+    "color": "#10b981",
+    "isCollapsed": true,
+    "parentGroupId": null,
+    "displayOutput": {
+      "moduleId": "fc_mod_1765628637658",
+      "outputKey": "result"
+    }
+  },
+  "groups": [
+    {
+      "id": "fc_group_1765628799452",
+      "name": "Phone Page Control",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_mod_1765628637658",
+        "outputKey": "result"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "fc_mod_1765628402600",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdda2",
+      "inputs": {},
+      "groupId": "fc_group_1765628799452",
+      "customScriptMode": "async",
+      "customScriptCode": "//async\nconst payload={valueName:\"pageControl\",sleepTime:200,value:0}\nconst result=await game.actions.postApiValue(payload);\n\nreturn result;",
+      "customScriptManualTrigger": 1765628854120,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": 0,
+      "customScriptLogs": [],
+      "name": "ControlPhone"
+    },
+    {
+      "id": "fc_mod_1765628637658",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3c9add",
+      "inputs": {},
+      "groupId": "fc_group_1765628799452",
+      "customScriptCode": "//async\nconst payload={valueName:\"pageNumber\",sleepTime:200,value:1}\nconst result=await game.actions.postApiValue(payload);\n\nreturn result;",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765628706525,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": 1,
+      "customScriptLogs": [],
+      "name": "PhonePage"
+    }
+  ]
+}

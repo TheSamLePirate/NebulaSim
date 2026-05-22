@@ -1,0 +1,83 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-11T13:10:04.035Z",
+  "rootGroup": {
+    "id": "fc_group_1765458518334",
+    "name": "Camera",
+    "color": "#10b981",
+    "isCollapsed": true,
+    "parentGroupId": null
+  },
+  "groups": [
+    {
+      "id": "fc_group_1765458518334",
+      "name": "Camera",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    }
+  ],
+  "modules": [
+    {
+      "id": "fc_mod_1765458284995",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#57dd3c",
+      "inputs": {},
+      "groupId": "fc_group_1765458518334",
+      "name": "getCamera",
+      "customScriptCode": "//async\nconst payload={valueName:\"Camera\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result==1?true:false;",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765458396969,
+      "customScriptAsyncState": false,
+      "customScriptLastResult": false,
+      "customScriptLogs": [],
+      "customScriptOutputType": "boolean",
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_mod_1765458291894",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#3cdd9f",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765458284995:result",
+          "label": "getCamera - result"
+        }
+      },
+      "groupId": "fc_group_1765458518334",
+      "changeLastValue": false,
+      "changeTriggered": false,
+      "name": "ChangeCamera"
+    },
+    {
+      "id": "fc_mod_1765458411709",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#3c9cdd",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765458284995:result",
+          "label": "getCamera - result"
+        },
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765458291894:triggered",
+          "label": "ChangeCamera - triggered"
+        }
+      },
+      "groupId": "fc_group_1765458518334",
+      "customScriptCode": "game.actions.setShowCameraViewer(input[0]);",
+      "name": "SetCamera"
+    }
+  ]
+}

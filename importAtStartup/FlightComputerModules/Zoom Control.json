@@ -1,0 +1,57 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-13T12:19:15.526Z",
+  "rootGroup": {
+    "id": "fc_group_1765628335226",
+    "name": "ZoomControl",
+    "color": "#10b981",
+    "isCollapsed": true,
+    "parentGroupId": null
+  },
+  "groups": [
+    {
+      "id": "fc_group_1765628335226",
+      "name": "ZoomControl",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    }
+  ],
+  "modules": [
+    {
+      "id": "fc_mod_1765626214516",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#d2dd3c",
+      "inputs": {},
+      "groupId": "fc_group_1765628335226",
+      "name": "ZoomP",
+      "customScriptCode": "//async\nconst payload={valueName:\"ZoomP\",sleepTime:200}\nconst result=await game.actions.getApiValueAndReset(payload);\nif (result===1){\ngame.actions.onZoom(1.5);\n}\nreturn result;",
+      "customScriptManualTrigger": 1765626281471,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_mod_1765626355090",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#54dd3c",
+      "inputs": {},
+      "groupId": "fc_group_1765628335226",
+      "name": "ZoomM",
+      "customScriptCode": "//async\nconst payload={valueName:\"ZoomM\",sleepTime:200}\nconst result=await game.actions.getApiValueAndReset(payload);\nif (result===1){\ngame.actions.onZoom(0.5);\n}\nreturn result;",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0
+    }
+  ]
+}

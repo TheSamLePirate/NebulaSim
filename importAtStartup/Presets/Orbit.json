@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "timestamp": 1765926816401,
+  "bodies": [
+    {
+      "id": "manual_1765926256421",
+      "name": "Sun",
+      "mass": 2000,
+      "radius": 35,
+      "color": "#FDB813",
+      "position": {
+        "x": -69.66651099675315,
+        "y": -290.07078677060395
+      },
+      "velocity": {
+        "x": 0.0037310012750111092,
+        "y": -0.0004900945519210354
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": true
+    },
+    {
+      "id": "manual_1765926299283",
+      "name": "Terre",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 746.5094547951669,
+        "y": -522.6094301203593
+      },
+      "velocity": {
+        "x": -0.2984067721419979,
+        "y": -0.964017063303865
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765926338633",
+      "name": "Lune",
+      "mass": 2.915,
+      "radius": 3.2096094594073667,
+      "color": "#ffffff",
+      "position": {
+        "x": 775.7017649995304,
+        "y": -543.9476828538623
+      },
+      "velocity": {
+        "x": -0.5124758515208789,
+        "y": -1.3106242298734136
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 500,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": true
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 19.874560987596947,
+    "offset": {
+      "x": -14836.056716483563,
+      "y": 10388.219332930254
+    }
+  },
+  "flightComputerModules": [],
+  "moduleGroups": [],
+  "followBodyId": "manual_1765926299283",
+  "followCenterOfMass": false,
+  "speed":50.0
+}

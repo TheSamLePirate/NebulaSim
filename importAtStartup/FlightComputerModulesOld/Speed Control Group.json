@@ -1,0 +1,88 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-10T19:54:19.767Z",
+  "rootGroup": {
+    "id": "fc_group_1765396433931",
+    "name": "speedControl",
+    "color": "#10b981",
+    "isCollapsed": true,
+    "parentGroupId": null,
+    "displayOutput": {
+      "moduleId": "fc_mod_1765396132051",
+      "outputKey": "result"
+    }
+  },
+  "groups": [
+    {
+      "id": "fc_group_1765396433931",
+      "name": "speedControl",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_mod_1765396132051",
+        "outputKey": "result"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "fc_mod_1765396132051",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#ef4444",
+      "inputs": {},
+      "groupId": "fc_group_1765396433931",
+      "customScriptCode": "//async\nconst payload={valueName:\"Speed\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "customScriptManualTrigger": 1765396299888,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 39.94,
+      "name": "GetSpeed",
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_mod_1765396307655",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#06b6d4",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765396132051:result",
+          "label": "GetSpeed - result"
+        }
+      },
+      "groupId": "fc_group_1765396433931",
+      "changeLastValue": 39.94,
+      "changeTriggered": false
+    },
+    {
+      "id": "fc_mod_1765396326788",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#fb923c",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765396307655:triggered",
+          "label": "Module - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765396132051:result",
+          "label": "GetSpeed - result"
+        }
+      },
+      "groupId": "fc_group_1765396433931",
+      "customScriptCode": "game.actions.setSpeed(input[0])"
+    }
+  ]
+}

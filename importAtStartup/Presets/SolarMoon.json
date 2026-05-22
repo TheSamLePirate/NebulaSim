@@ -1,0 +1,272 @@
+{
+  "version": 1,
+  "timestamp": 1764310833414,
+  "bodies": [
+    {
+      "id": "custom_1764310701531",
+      "name": "Soleil",
+      "mass": 50000,
+      "radius": 32.45933485323085,
+      "color": "#FFFF00",
+      "position": {
+        "x": 38.43782006406778,
+        "y": 454.45112376969814
+      },
+      "velocity": {
+        "x": -0.005232440713577637,
+        "y": 0.060038278814359795
+      },
+      "trail": [],
+      "description": "L'étoile du systeme.",
+      "realMass": "50000 units",
+      "realDiameter": "64.9186697064617 units",
+      "orbitPeriod": "Not orbiting",
+      "isStar": true
+    },
+    {
+      "id": "custom_1764310701532",
+      "name": "Mercure",
+      "mass": 1,
+      "radius": 4,
+      "color": "#A9A9A9",
+      "position": {
+        "x": -253.50256814836078,
+        "y": 494.91163115435626
+      },
+      "velocity": {
+        "x": -1.2746052053655192,
+        "y": -9.112206701156712
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "1 units",
+      "realDiameter": "8 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701533",
+      "name": "Vénus",
+      "mass": 15,
+      "radius": 8.12415060330663,
+      "color": "#F5DEB3",
+      "position": {
+        "x": 526.5795917574977,
+        "y": 342.15956349044774
+      },
+      "velocity": {
+        "x": 1.5730821947051294,
+        "y": 6.960115831736727
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "15 units",
+      "realDiameter": "16.24830120661326 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701534",
+      "name": "Terre",
+      "mass": 20,
+      "radius": 8.987196820661973,
+      "color": "#1E90FF",
+      "position": {
+        "x": -662.2636748771858,
+        "y": 573.5316142142435
+      },
+      "velocity": {
+        "x": -1.008987727296021,
+        "y": -5.758864163210185
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "20 units",
+      "realDiameter": "17.974393641323946 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701535",
+      "name": "Mars",
+      "mass": 5,
+      "radius": 4.828313737302301,
+      "color": "#FF4500",
+      "position": {
+        "x": -811.3360725248751,
+        "y": 920.5866167308419
+      },
+      "velocity": {
+        "x": -2.315320595311695,
+        "y": -4.531006836095072
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "5 units",
+      "realDiameter": "9.656627474604601 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701536",
+      "name": "Jupiter",
+      "mass": 200,
+      "radius": 15.894952099644108,
+      "color": "#D2691E",
+      "position": {
+        "x": -1713.311393623854,
+        "y": 227.4519078832301
+      },
+      "velocity": {
+        "x": 0.4620825466930128,
+        "y": -3.6742427479463244
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "200 units",
+      "realDiameter": "31.789904199288216 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701537",
+      "name": "Saturne",
+      "mass": 150,
+      "radius": 15.031905882288767,
+      "color": "#F4A460",
+      "position": {
+        "x": -2258.3174421890894,
+        "y": -371.1657948436864
+      },
+      "velocity": {
+        "x": 1.1129989384050711,
+        "y": -3.0202214079788003
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "150 units",
+      "realDiameter": "30.063811764577533 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701538",
+      "name": "Uranus",
+      "mass": 60,
+      "radius": 12.2830336866663,
+      "color": "#AFEEEE",
+      "position": {
+        "x": -1099.6966788099057,
+        "y": -2737.005973182734
+      },
+      "velocity": {
+        "x": 2.5310304069775444,
+        "y": -0.9985993225925471
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "60 units",
+      "realDiameter": "24.5660673733326 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701539",
+      "name": "Neptune",
+      "mass": 60,
+      "radius": 12.2830336866663,
+      "color": "#4169E1",
+      "position": {
+        "x": 1634.7731096121447,
+        "y": 4307.77461630627
+      },
+      "velocity": {
+        "x": -2.338490911783985,
+        "y": 0.8013308270287595
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "60 units",
+      "realDiameter": "24.5660673733326 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701540",
+      "name": "Pluton",
+      "mass": 0.1,
+      "radius": 4,
+      "color": "#DEB887",
+      "position": {
+        "x": 4210.685535524853,
+        "y": -3194.2222894180572
+      },
+      "velocity": {
+        "x": 1.3804567515413295,
+        "y": 1.5671647170623606
+      },
+      "trail": [],
+      "description": "A user-created celestial object.",
+      "realMass": "0.1 units",
+      "realDiameter": "8 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "custom_1764310701541",
+      "name": "Lune",
+      "mass": 0.05,
+      "radius": 1.6,
+      "color": "#C0C0C0",
+      "position": {
+        "x": -644.2636748771858,
+        "y": 573.5316142142435
+      },
+      "velocity": {
+        "x": -1.008987727296021,
+        "y": -6.503864163210185
+      },
+      "trail": [],
+      "description": "La lune de la Terre.",
+      "realMass": "0.05 units",
+      "realDiameter": "3.2 units",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": true,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 4000,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008
+  },
+  "camera": {
+    "scale": 0.062330966133000494,
+    "offset": {
+      "x": 15.856425784786197,
+      "y": -27.2620422146044
+    }
+  },
+  "followBodyId": null,
+  "followCenterOfMass": true,
+  "speed": 1.0
+}

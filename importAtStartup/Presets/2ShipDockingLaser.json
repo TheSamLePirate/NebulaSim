@@ -1,0 +1,1249 @@
+{
+  "version": 1,
+  "timestamp": 1765097580247,
+  "bodies": [
+    {
+      "id": "manual_1764400480186",
+      "name": "Earth",
+      "mass": 991.0014998582079,
+      "radius": 20.702367455283042,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 12.394969024513832,
+        "y": 112.74584648580496
+      },
+      "velocity": {
+        "x": 0.006968089161339891,
+        "y": 0.031933372420307284
+      },
+      "trail": [],
+      "description": "The Earth, where you learn to take-off",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1764400494074",
+      "name": "Lune",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -531.8516479177223,
+        "y": 389.4077642222368
+      },
+      "velocity": {
+        "x": -0.4026111508792611,
+        "y": -0.7823712724124423
+      },
+      "trail": [],
+      "description": "The Moon, where you learn to land ;)",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "rocket_1764400993240",
+      "name": "Explorer 1",
+      "mass": 0.001,
+      "radius": 2,
+      "color": "#3c7eb6",
+      "position": {
+        "x": 9.424173280445007,
+        "y": 90.23827085953663
+      },
+      "velocity": {
+        "x": 0.00696848787970925,
+        "y": 0.03193319989309587
+      },
+      "trail": [],
+      "description": "A spaceship, where you learn to drink you pee :D",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false,
+      "isRocket": true,
+      "angle": -1.7020289367734533,
+      "thrust": {
+        "x": 0,
+        "y": 0
+      },
+      "maneuvers": [
+        {
+          "id": "m_1764478505993",
+          "type": "burn_until_altitude",
+          "thrust": 0.02,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 5,
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764478537951",
+          "type": "burn",
+          "thrust": 0.002,
+          "duration": 0.5,
+          "angleOffset": 3.141592653589793,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "m_1764478552700",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "off",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764478559792",
+          "type": "rotate",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 270
+        },
+        {
+          "id": "m_1764478570679",
+          "type": "burn",
+          "thrust": 0.002,
+          "duration": 0.5,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "m_1764478582376",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400480186",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764478597406",
+          "type": "wait_for_transfer",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400480186",
+          "param": 0
+        },
+        {
+          "id": "m_1764478606263",
+          "type": "auto_transfer",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764507343395",
+          "type": "change_simulation_speed",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 100
+        },
+        {
+          "id": "m_1764478619409",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "30:descending",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764507343395",
+          "type": "change_simulation_speed",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 10
+        },
+        {
+          "id": "m_1764478625792",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764478625792",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764478537951",
+          "type": "burn",
+          "thrust": 0,
+          "duration": 20,
+          "angleOffset": 3.141592653589793,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "m_1764484990768",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "radial_out",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764484994579",
+          "type": "auto_land",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400494074"
+        }
+      ],
+      "landedOnBodyId": "rocket_17644009932498",
+      "fuel": 1000,
+      "maxFuel": 1000,
+      "dryMass": 0.001,
+      "sasMode": "radial_out",
+      "landingAngle": -1.7020291625262864,
+      "dockingRelativePosition": {
+        "x": -10.436151876687557,
+        "y": 19.103423977530596
+      },
+      "dockingRelativeAngle": 0.9999910876293492
+    },
+    {
+      "id": "rocket_17644009932498",
+      "name": "Explorer 2",
+      "mass": 0.001,
+      "radius": 2,
+      "color": "#f97316",
+      "position": {
+        "x": -8.14931044648114,
+        "y": 103.08472358576455
+      },
+      "velocity": {
+        "x": 0.00696828852111516,
+        "y": 0.03193328615783916
+      },
+      "trail": [],
+      "description": "A spaceship, where you learn to drink you pee :D",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false,
+      "isRocket": true,
+      "angle": -2.7020200244028025,
+      "thrust": {
+        "x": 0,
+        "y": 0
+      },
+      "maneuvers": [
+        {
+          "id": "m_1764478505993",
+          "type": "burn_until_altitude",
+          "thrust": 0.02,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 8,
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764478537951",
+          "type": "burn",
+          "thrust": 0.002,
+          "duration": 0.5,
+          "angleOffset": 3.141592653589793,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "m_1764478552700",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "off",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764478559792",
+          "type": "rotate",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 90
+        },
+        {
+          "id": "m_1764478570679",
+          "type": "burn",
+          "thrust": 0.002,
+          "duration": 0.5,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "m_1764478582376",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400480186",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764478597406",
+          "type": "wait_for_transfer",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400480186",
+          "param": 0
+        },
+        {
+          "id": "m_1764478606263",
+          "type": "auto_transfer",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "m_1764478619409",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "60:descending",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764478625792",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764478625792",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764478537951",
+          "type": "burn",
+          "thrust": 0,
+          "duration": 20,
+          "angleOffset": 3.141592653589793,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "m_1764484990768",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "radial_out",
+          "parentBodyId": "manual_1764400494074"
+        },
+        {
+          "id": "m_1764484994579",
+          "type": "auto_land",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400494074"
+        }
+      ],
+      "landedOnBodyId": "manual_1764400480186",
+      "fuel": 1000,
+      "maxFuel": 1000,
+      "dryMass": 0.001,
+      "sasMode": "radial_out",
+      "landingAngle": -2.702029162526286
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": true,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 200,
+    "centerOfMassThreshold": 10000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 15,
+    "nebulaOpacity": 0.2,
+    "showCenterOfMass": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008
+  },
+  "camera": {
+    "scale": 50.774161590613836,
+    "offset": {
+      "x": -345.39930265673985,
+      "y": -4400.45327482198
+    }
+  },
+  "followBodyId": "rocket_1764400993240",
+  "followCenterOfMass": false,
+  "speed": 1.0,
+  "flightComputerModules": [
+    {
+      "id": "fc_module_1765057685542_0",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#10b981",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_7:body",
+          "label": "Ship Select - body"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_1:value",
+          "label": "Shoulder - value"
+        },
+        "input_2": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_2:value",
+          "label": "Elbow - value"
+        },
+        "input_3": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_3:value",
+          "label": "Wrist - value"
+        },
+        "input_4": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_4:state",
+          "label": "Claw - state"
+        }
+      },
+      "groupId": "fc_group_1765057685542_0",
+      "customScriptCode": "return \"roboticArm:\"+input[0].id+\":\"+input[1]+\":\"+input[2]+\":\"+input[3]+\":\"+input[4];",
+      "customScriptManualTrigger": 1765033993165,
+      "customScriptLastResult": null,
+      "customScriptLogs": [
+        "ERROR: Cannot read properties of null (reading 'id')"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptInputsCount": 5,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1765057685542_1",
+      "type": "slider",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#f43f5e",
+      "inputs": {},
+      "groupId": "fc_group_1765057685542_0",
+      "name": "Shoulder",
+      "sliderMin": -3.14,
+      "sliderMax": 3.14,
+      "sliderStep": 0.1,
+      "sliderValue": -1.44,
+      "dashboardConfig": {
+        "x": 1,
+        "y": 0,
+        "showTitle": true,
+        "customLabel": "Shoulder"
+      }
+    },
+    {
+      "id": "fc_module_1765057685542_2",
+      "type": "slider",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#facc15",
+      "inputs": {},
+      "groupId": "fc_group_1765057685542_0",
+      "name": "Elbow",
+      "sliderMax": 3.14,
+      "sliderMin": -3.14,
+      "sliderStep": 0.1,
+      "sliderValue": -0.04,
+      "dashboardConfig": {
+        "x": 2,
+        "y": 0,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_module_1765057685542_3",
+      "type": "slider",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#6366f1",
+      "inputs": {},
+      "groupId": "fc_group_1765057685542_0",
+      "name": "Wrist",
+      "sliderMax": 3.14,
+      "sliderMin": -3.14,
+      "sliderStep": 0.1,
+      "sliderValue": 0.46,
+      "dashboardConfig": {
+        "x": 3,
+        "y": 0,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_module_1765057685542_4",
+      "type": "button",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#ef4444",
+      "inputs": {},
+      "groupId": "fc_group_1765057685542_0",
+      "name": "Claw",
+      "buttonState": false,
+      "dashboardConfig": {
+        "x": 1,
+        "y": 1,
+        "showTitle": false,
+        "customLabel": "Claw"
+      }
+    },
+    {
+      "id": "fc_module_1765057685542_5",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#06b6d4",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_7:body",
+          "label": "Ship Select - body"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_1:value",
+          "label": "Shoulder - value"
+        },
+        "input_2": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_2:value",
+          "label": "Elbow - value"
+        },
+        "input_3": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_3:value",
+          "label": "Wrist - value"
+        },
+        "input_4": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_4:state",
+          "label": "Claw - state"
+        }
+      },
+      "groupId": "fc_group_1765057685542_0",
+      "customScriptOutputType": "vector",
+      "customScriptCode": "const getClawRoboticArmCenter = (\n    size, \n    angle, \n    armState\n) => {\n    // 1. Arm Base Offset\n    // In drawRoboticArm: ctx.translate(0, size * 0.25);\n    // This is a displacement of (0, 0.25 * size) in the ship's local frame.\n    // We rotate this offset by the ship's angle to get it in world space.\n    const baseDist = size * 0.25;\n    const baseX = -baseDist * Math.sin(angle);\n    const baseY = baseDist * Math.cos(angle);\n    // 2. Shoulder Segment\n    // Length: size * 0.4\n    // Rotation: Adds armState.shoulder to the current rotation (ship definition)\n    const shoulderLen = size * 0.4;\n    const shoulderAngle = angle + armState.shoulder;\n    const shoulderX = shoulderLen * Math.cos(shoulderAngle);\n    const shoulderY = shoulderLen * Math.sin(shoulderAngle);\n    // 3. Elbow Segment\n    // Length: size * 0.35\n    // Rotation: Adds armState.elbow to the previous rotation\n    const elbowLen = size * 0.35;\n    const elbowAngle = shoulderAngle + armState.elbow;\n    const elbowX = elbowLen * Math.cos(elbowAngle);\n    const elbowY = elbowLen * Math.sin(elbowAngle);\n    // 4. Wrist/Claw Segment\n    // Length: size * 0.2 (Distance to the center point between the claw tips)\n    // Rotation: Adds armState.wrist to the previous rotation\n    const clawLen = size * 0.2;\n    const clawAngle = elbowAngle + armState.wrist;\n    const clawX = clawLen * Math.cos(clawAngle);\n    const clawY = clawLen * Math.sin(clawAngle);\n    // Sum all vectors to get the final relative position\n    return {\n        x: baseX + shoulderX + elbowX + clawX,\n        y: baseY + shoulderY + elbowY + clawY\n    };\n};\n\n// ✅ Launch it with the same values you pass to drawRoboticArm:\n\nconst armState={\"shoulder\":input[1],\"elbow\":input[2],\"wrist\":input[3]}\nconst size=2.5;\nconst angle=input[0].angle;\nconsole.log(JSON.stringify(armState));\nconst zero={\"x\":0,\"y\":0};\nconst center = getClawRoboticArmCenter(size,angle, armState);\nconst real={\"x\":input[0].position.x+center.x,\"y\":input[0].position.y+center.y};\nconsole.log(JSON.stringify(center))\n//return center.x.toFixed(1)+':'+center.y.toFixed(1);\nconsole.log(input[0].angle);\nreturn real;",
+      "customScriptManualTrigger": 1765037084151,
+      "customScriptLastResult": null,
+      "customScriptLogs": [
+        "ERROR: Cannot read properties of null (reading 'angle')"
+      ],
+      "customScriptAsyncState": true,
+      "name": "Claw",
+      "customScriptInputsCount": 5,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1765057685542_6",
+      "type": "marker",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#32fb5a",
+      "inputs": {
+        "primary": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_5:result",
+          "label": "Claw - result"
+        }
+      },
+      "groupId": "fc_group_1765057685542_0",
+      "markerShape": "ring",
+      "markerTitle": "Claw",
+      "markerDescription": "",
+      "markerColor": "#32fb5a",
+      "markerVisible": true,
+      "markerPulse": false
+    },
+    {
+      "id": "fc_module_1765057685542_7",
+      "type": "selector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#fb923c",
+      "inputs": {},
+      "groupId": "fc_group_1765057685542_0",
+      "selectorBodyId": "",
+      "name": "Ship Select",
+      "dashboardConfig": {
+        "x": 0,
+        "y": 1,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_module_1765057689919_0",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#a855f7",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_7:body",
+          "label": "Ship Select - body"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_1:value",
+          "label": "Shoulder - value"
+        },
+        "input_2": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_2:value",
+          "label": "Elbow - value"
+        },
+        "input_3": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_3:value",
+          "label": "Wrist - value"
+        },
+        "input_4": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_4:state",
+          "label": "Claw - state"
+        }
+      },
+      "groupId": "fc_group_1765057689919_0",
+      "customScriptCode": "return \"roboticArm:\"+input[0].id+\":\"+input[1]+\":\"+input[2]+\":\"+input[3]+\":\"+input[4];",
+      "customScriptManualTrigger": 1765033993165,
+      "customScriptLastResult": null,
+      "customScriptLogs": [
+        "ERROR: Cannot read properties of null (reading 'id')"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptInputsCount": 5,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1765057689919_1",
+      "type": "slider",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#22d3ee",
+      "inputs": {},
+      "groupId": "fc_group_1765057689919_0",
+      "name": "Shoulder",
+      "sliderMin": -3.14,
+      "sliderMax": 3.14,
+      "sliderStep": 0.1,
+      "sliderValue": 1.36,
+      "dashboardConfig": {
+        "x": 1,
+        "y": 2,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_module_1765057689919_2",
+      "type": "slider",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#f97316",
+      "inputs": {},
+      "groupId": "fc_group_1765057689919_0",
+      "name": "Elbow",
+      "sliderMax": 3.14,
+      "sliderMin": -3.14,
+      "sliderStep": 0.1,
+      "sliderValue": 0.16,
+      "dashboardConfig": {
+        "x": 2,
+        "y": 2,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_module_1765057689919_3",
+      "type": "slider",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3cdd9f",
+      "inputs": {},
+      "groupId": "fc_group_1765057689919_0",
+      "name": "Wrist",
+      "sliderMax": 3.14,
+      "sliderMin": -3.14,
+      "sliderStep": 0.1,
+      "sliderValue": 0.46,
+      "dashboardConfig": {
+        "x": 3,
+        "y": 2,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_module_1765057689919_4",
+      "type": "button",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3c9cdd",
+      "inputs": {},
+      "groupId": "fc_group_1765057689919_0",
+      "name": "Claw",
+      "buttonState": false,
+      "dashboardConfig": {
+        "x": 1,
+        "y": 3,
+        "showTitle": false,
+        "customLabel": "Claw"
+      }
+    },
+    {
+      "id": "fc_module_1765057689919_5",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#593cdd",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_7:body",
+          "label": "Ship Select - body"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_1:value",
+          "label": "Shoulder - value"
+        },
+        "input_2": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_2:value",
+          "label": "Elbow - value"
+        },
+        "input_3": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_3:value",
+          "label": "Wrist - value"
+        },
+        "input_4": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_4:state",
+          "label": "Claw - state"
+        }
+      },
+      "groupId": "fc_group_1765057689919_0",
+      "customScriptOutputType": "vector",
+      "customScriptCode": "const getClawRoboticArmCenter = (\n    size, \n    angle, \n    armState\n) => {\n    // 1. Arm Base Offset\n    // In drawRoboticArm: ctx.translate(0, size * 0.25);\n    // This is a displacement of (0, 0.25 * size) in the ship's local frame.\n    // We rotate this offset by the ship's angle to get it in world space.\n    const baseDist = size * 0.25;\n    const baseX = -baseDist * Math.sin(angle);\n    const baseY = baseDist * Math.cos(angle);\n    // 2. Shoulder Segment\n    // Length: size * 0.4\n    // Rotation: Adds armState.shoulder to the current rotation (ship definition)\n    const shoulderLen = size * 0.4;\n    const shoulderAngle = angle + armState.shoulder;\n    const shoulderX = shoulderLen * Math.cos(shoulderAngle);\n    const shoulderY = shoulderLen * Math.sin(shoulderAngle);\n    // 3. Elbow Segment\n    // Length: size * 0.35\n    // Rotation: Adds armState.elbow to the previous rotation\n    const elbowLen = size * 0.35;\n    const elbowAngle = shoulderAngle + armState.elbow;\n    const elbowX = elbowLen * Math.cos(elbowAngle);\n    const elbowY = elbowLen * Math.sin(elbowAngle);\n    // 4. Wrist/Claw Segment\n    // Length: size * 0.2 (Distance to the center point between the claw tips)\n    // Rotation: Adds armState.wrist to the previous rotation\n    const clawLen = size * 0.2;\n    const clawAngle = elbowAngle + armState.wrist;\n    const clawX = clawLen * Math.cos(clawAngle);\n    const clawY = clawLen * Math.sin(clawAngle);\n    // Sum all vectors to get the final relative position\n    return {\n        x: baseX + shoulderX + elbowX + clawX,\n        y: baseY + shoulderY + elbowY + clawY\n    };\n};\n\n// ✅ Launch it with the same values you pass to drawRoboticArm:\n\nconst armState={\"shoulder\":input[1],\"elbow\":input[2],\"wrist\":input[3]}\nconst size=2.5;\nconst angle=input[0].angle;\nconsole.log(JSON.stringify(armState));\nconst zero={\"x\":0,\"y\":0};\nconst center = getClawRoboticArmCenter(size,angle, armState);\nconst real={\"x\":input[0].position.x+center.x,\"y\":input[0].position.y+center.y};\nconsole.log(JSON.stringify(center))\n//return center.x.toFixed(1)+':'+center.y.toFixed(1);\nconsole.log(input[0].angle);\nreturn real;",
+      "customScriptManualTrigger": 1765037084151,
+      "customScriptLastResult": null,
+      "customScriptLogs": [
+        "ERROR: Cannot read properties of null (reading 'angle')"
+      ],
+      "customScriptAsyncState": true,
+      "name": "Claw",
+      "customScriptInputsCount": 5,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1765057689919_6",
+      "type": "marker",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#d73cdd",
+      "inputs": {
+        "primary": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_5:result",
+          "label": "Claw - result"
+        }
+      },
+      "groupId": "fc_group_1765057689919_0",
+      "markerShape": "ring",
+      "markerTitle": "Claw",
+      "markerDescription": "",
+      "markerColor": "#32fb5a",
+      "markerVisible": true,
+      "markerPulse": false
+    },
+    {
+      "id": "fc_module_1765057689919_7",
+      "type": "selector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#dd3c64",
+      "inputs": {},
+      "groupId": "fc_group_1765057689919_0",
+      "selectorBodyId": "",
+      "name": "Ship Select",
+      "dashboardConfig": {
+        "x": 0,
+        "y": 3,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_mod_1765057725957",
+      "type": "track_distance",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#dd923c",
+      "inputs": {
+        "primary": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_5:result",
+          "label": "Claw - result"
+        },
+        "target": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_5:result",
+          "label": "Claw - result"
+        }
+      },
+      "groupId": "fc_group_1765057905814",
+      "name": "ClawDist",
+      "dashboardConfig": {
+        "x": 0,
+        "y": 2,
+        "showTitle": false,
+        "customLabel": "ClawDist"
+      }
+    },
+    {
+      "id": "fc_mod_1765057788990",
+      "type": "logic_gate",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#aadd3c",
+      "inputs": {
+        "inputA": {
+          "type": "module_output",
+          "value": "fc_module_1765057685542_4:state",
+          "label": "Claw - state"
+        },
+        "inputB": {
+          "type": "module_output",
+          "value": "fc_module_1765057689919_4:state",
+          "label": "Claw - state"
+        }
+      },
+      "groupId": "fc_group_1765057905814",
+      "name": "Claws"
+    },
+    {
+      "id": "fc_mod_1765057816961",
+      "type": "logic_gate",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3cdd4c",
+      "inputs": {
+        "inputA": {
+          "type": "module_output",
+          "value": "fc_mod_1765057788990:result",
+          "label": "Claws - result"
+        },
+        "inputB": {
+          "type": "module_output",
+          "value": "fc_mod_1765057849289:triggered",
+          "label": "DockOk - triggered"
+        }
+      },
+      "groupId": "fc_group_1765057905814",
+      "name": "GoDock"
+    },
+    {
+      "id": "fc_mod_1765057849289",
+      "type": "notify",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3cddca",
+      "inputs": {
+        "inputA": {
+          "type": "module_output",
+          "value": "fc_mod_1765057725957:distance",
+          "label": "ClawDist - distance"
+        }
+      },
+      "groupId": "fc_group_1765057905814",
+      "name": "DockOk",
+      "comparisonOperator": "<",
+      "comparisonValue": 0.2
+    },
+    {
+      "id": "fc_module_1765057951308_0",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3c71dd",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765057816961:result",
+          "label": "GoDock - result"
+        },
+        "input_0": {
+          "type": "body",
+          "value": "rocket_1764400993240",
+          "label": "Explorer 1"
+        },
+        "input_1": {
+          "type": "body",
+          "value": "rocket_17644009932498",
+          "label": "Explorer 2"
+        }
+      },
+      "groupId": "fc_group_1765057951308_0",
+      "customScriptManualTrigger": 1765054459595,
+      "customScriptCode": "game.actions.updateRocket(input[0].id,{\"landedOnBodyId\":input[1].id});",
+      "customScriptLogs": [
+        "hello"
+      ],
+      "customScriptAsyncState": true,
+      "name": "DockScript"
+    },
+    {
+      "id": "fc_module_1765057951308_1",
+      "type": "button",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#843cdd",
+      "inputs": {
+        "reset": {
+          "type": "module_output",
+          "value": "fc_module_1765057951308_2:result",
+          "label": "Module - result"
+        }
+      },
+      "groupId": "fc_group_1765057951308_0",
+      "buttonState": false,
+      "name": "Dock",
+      "dashboardConfig": {
+        "x": 0,
+        "y": 4,
+        "showTitle": false,
+        "customLabel": "Dock"
+      }
+    },
+    {
+      "id": "fc_module_1765057951308_2",
+      "type": "logic_gate",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#dd3cb7",
+      "inputs": {
+        "inputA": {
+          "type": "module_output",
+          "value": "fc_module_1765057951308_0:state",
+          "label": "Module - state"
+        }
+      },
+      "groupId": "fc_group_1765057951308_0",
+      "logicOperator": "NOR"
+    },
+    {
+      "id": "fc_mod_1765059017157",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#dd3f3c",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765057849289:triggered",
+          "label": "DockOk - triggered"
+        }
+      },
+      "groupId": "fc_group_1765057905814",
+      "name": "DockOkRes",
+      "customScriptCode": "if(input[0]){\nreturn \"Ready\";\n}else{\nreturn \"Wait\";\n}",
+      "customScriptContinuousRun": true,
+      "customScriptLastResult": "Wait",
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "dashboardConfig": {
+        "x": 1,
+        "y": 4,
+        "showTitle": false
+      }
+    },
+    {
+      "id": "fc_mod_1765062553458",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#ddbc3c",
+      "inputs": {
+        "input_0": {
+          "type": "body",
+          "value": "rocket_1764400993240",
+          "label": "Explorer 1"
+        },
+        "input_1": {
+          "type": "body",
+          "value": "rocket_17644009932498",
+          "label": "Explorer 2"
+        },
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765062585656:state",
+          "label": "UnDock - state"
+        }
+      },
+      "groupId": "fc_group_1765057951308_0",
+      "customScriptCode": "game.actions.updateRocket(input[0].id,{\"landedOnBodyId\":undefined});",
+      "name": "UndockScript"
+    },
+    {
+      "id": "fc_mod_1765062585656",
+      "type": "button",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#7fdd3c",
+      "inputs": {},
+      "groupId": "fc_group_1765057951308_0",
+      "name": "UnDock",
+      "dashboardConfig": {
+        "x": 0,
+        "y": 5,
+        "showTitle": false,
+        "customLabel": "UnDock"
+      }
+    },
+    {
+      "id": "fc_mod_1765097143104",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3cdd77",
+      "inputs": {
+        "input_0": {
+          "type": "body",
+          "value": "rocket_1764400993240",
+          "label": "Explorer 1"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_mod_1765097161268:value",
+          "label": "Angle - value"
+        },
+        "input_2": {
+          "type": "module_output",
+          "value": "fc_mod_1765097185900:state",
+          "label": "Fire - state"
+        }
+      },
+      "groupId": "fc_group_1765097545375",
+      "name": "LaserScript",
+      "customScriptInputsCount": 3,
+      "customScriptCode": "\nconsole.log(\"hasLaser:\"+input[0].id+\":\"+input[1]+\":\"+input[2])\nreturn \"hasLaser:\"+input[0].id+\":\"+input[1]+\":\"+input[2];",
+      "customScriptManualTrigger": 1765097273062,
+      "customScriptLastResult": "hasLaser:rocket_1764400993240:1.66:false",
+      "customScriptLogs": [
+        "hasLaser:rocket_1764400993240:1.66:false"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_mod_1765097161268",
+      "type": "slider",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3cc4dd",
+      "inputs": {},
+      "groupId": "fc_group_1765097545375",
+      "sliderMin": -3.14,
+      "sliderMax": 3.14,
+      "sliderStep": 0.1,
+      "name": "Angle",
+      "sliderValue": 1.66,
+      "dashboardConfig": {
+        "x": 0,
+        "y": 6,
+        "showTitle": true
+      }
+    },
+    {
+      "id": "fc_mod_1765097185900",
+      "type": "button",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400480186",
+      "referenceBodyId": "manual_1764400480186",
+      "color": "#3c47dd",
+      "inputs": {},
+      "groupId": "fc_group_1765097545375",
+      "name": "Fire",
+      "dashboardConfig": {
+        "x": 1,
+        "y": 6,
+        "showTitle": true
+      },
+      "buttonState": false
+    }
+  ],
+  "moduleGroups": [
+    {
+      "id": "fc_group_1765057685542_0",
+      "name": "RoboticArm",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1765057685542_0",
+        "outputKey": "result"
+      }
+    },
+    {
+      "id": "fc_group_1765057689919_0",
+      "name": "RoboticArm",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1765057689919_0",
+        "outputKey": "result"
+      }
+    },
+    {
+      "id": "fc_group_1765057905814",
+      "name": "DockClawTrigger",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1765057951308_0",
+      "name": "New Docking",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1765097545375",
+      "name": "Laser",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    }
+  ]
+}

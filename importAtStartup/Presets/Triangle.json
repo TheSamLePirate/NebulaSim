@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "timestamp": 1765714238471,
+  "bodies": [
+    {
+      "id": "eq_0",
+      "name": "Star 1",
+      "mass": 400,
+      "radius": 20,
+      "color": "#FF6B6B",
+      "position": {
+        "x": -70.20277584509903,
+        "y": 132.55427358112314
+      },
+      "velocity": {
+        "x": -0.7753851930255599,
+        "y": -0.4106216590622098
+      },
+      "trail": [],
+      "description": "One of three equal stars in a Lagrange Equilateral configuration.",
+      "realMass": "400 units",
+      "realDiameter": "40 units",
+      "orbitPeriod": "N/A",
+      "isStar": true
+    },
+    {
+      "id": "eq_1",
+      "name": "Star 2",
+      "mass": 400,
+      "radius": 20,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -79.69398037849558,
+        "y": -127.07452408862981
+      },
+      "velocity": {
+        "x": 0.7433013846064566,
+        "y": -0.4661924453474388
+      },
+      "trail": [],
+      "description": "One of three equal stars in a Lagrange Equilateral configuration.",
+      "realMass": "400 units",
+      "realDiameter": "40 units",
+      "orbitPeriod": "N/A",
+      "isStar": true
+    },
+    {
+      "id": "eq_2",
+      "name": "Star 3",
+      "mass": 400,
+      "radius": 20,
+      "color": "#FFE66D",
+      "position": {
+        "x": 149.89675622358277,
+        "y": -5.47974949250287
+      },
+      "velocity": {
+        "x": 0.0320838084190905,
+        "y": 0.8768141044096417
+      },
+      "trail": [],
+      "description": "One of three equal stars in a Lagrange Equilateral configuration.",
+      "realMass": "400 units",
+      "realDiameter": "40 units",
+      "orbitPeriod": "N/A",
+      "isStar": true
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 500,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 1.6592503184604739,
+    "offset": {
+      "x": 6.4789807771288006e-12,
+      "y": 5.337110717805635e-12
+    }
+  },
+  "flightComputerModules": [],
+  "moduleGroups": [],
+  "followBodyId": null,
+  "followCenterOfMass": true,
+  "speed": 100.0
+}

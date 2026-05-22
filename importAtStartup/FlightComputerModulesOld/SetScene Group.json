@@ -1,0 +1,91 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-11T13:41:29.967Z",
+  "rootGroup": {
+    "id": "fc_group_1765460431325",
+    "name": "SetScene",
+    "color": "#10b981",
+    "isCollapsed": true,
+    "parentGroupId": null,
+    "displayOutput": {
+      "moduleId": "fc_mod_1765460141248",
+      "outputKey": "result"
+    }
+  },
+  "groups": [
+    {
+      "id": "fc_group_1765460431325",
+      "name": "SetScene",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_mod_1765460141248",
+        "outputKey": "result"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "fc_mod_1765460141248",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#593cdd",
+      "inputs": {},
+      "groupId": "fc_group_1765460431325",
+      "customScriptCode": "//async\nconst payload={valueName:\"Scene\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "customScriptOutputType": "string",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765460221975,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": "2Ships",
+      "customScriptLogs": [],
+      "customScriptContinuousRun": true,
+      "name": "GetScene"
+    },
+    {
+      "id": "fc_mod_1765460246248",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#d73cdd",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765460141248:result",
+          "label": "GetScene - result"
+        }
+      },
+      "groupId": "fc_group_1765460431325",
+      "changeLastValue": "2Ships",
+      "changeTriggered": false,
+      "name": "LaunchScene"
+    },
+    {
+      "id": "fc_mod_1765460266031",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#dd3c64",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765460246248:triggered",
+          "label": "LaunchScene - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765460141248:result",
+          "label": "GetScene - result"
+        }
+      },
+      "groupId": "fc_group_1765460431325",
+      "name": "SetScene",
+      "customScriptCode": "game.actions.handlePresetChange(\"imported_preset_\"+input[0])"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+    "version": 1,
+    "timestamp": 1768046400000,
+    "bodies": [
+        {
+            "id": "clock_sun",
+            "name": "Soleil",
+            "mass": 175459.63379714414,
+            "radius": 90,
+            "color": "#FFFF00",
+            "position": {
+                "x": 0,
+                "y": 0.031078172617246252
+            },
+            "velocity": {
+                "x": -0.000022030101052342347,
+                "y": 0
+            },
+            "trail": [],
+            "description": "Soleil (centre de masse = 0, impulsion totale = 0).",
+            "realMass": "175459.63379714414 units",
+            "realDiameter": "180 units",
+            "orbitPeriod": "Not orbiting",
+            "isStar": true
+        },
+        {
+            "id": "clock_seconds",
+            "name": "Secondes",
+            "mass": 0.1,
+            "radius": 5,
+            "color": "#A9A9A9",
+            "position": {
+                "x": 0,
+                "y": -200
+            },
+            "velocity": {
+                "x": 20.94395102393195,
+                "y": 0
+            },
+            "trail": [],
+            "description": "Période exacte = 60 s (départ à 00s).",
+            "realMass": "0.1 units",
+            "realDiameter": "10 units",
+            "orbitPeriod": "60 s",
+            "isStar": false
+        },
+        {
+            "id": "clock_minutes",
+            "name": "Minutes",
+            "mass": 0.2,
+            "radius": 7,
+            "color": "#1E90FF",
+            "position": {
+                "x": 0,
+                "y": -3065.237729574211
+            },
+            "velocity": {
+                "x": 5.349849073742554,
+                "y": 0
+            },
+            "trail": [],
+            "description": "Période exacte = 3600 s (départ à 00min).",
+            "realMass": "0.2 units",
+            "realDiameter": "14 units",
+            "orbitPeriod": "3600 s",
+            "isStar": false
+        },
+        {
+            "id": "clock_hours",
+            "name": "Heures",
+            "mass": 0.3,
+            "radius": 9,
+            "color": "#FF4500",
+            "position": {
+                "x": 0,
+                "y": -16066.39080197206
+            },
+            "velocity": {
+                "x": 2.3367618200545395,
+                "y": 0
+            },
+            "trail": [],
+            "description": "Période exacte = 43200 s (12 h) (départ à 00h).",
+            "realMass": "0.3 units",
+            "realDiameter": "18 units",
+            "orbitPeriod": "43200 s",
+            "isStar": false
+        }
+    ],
+    "visualConfig": {
+        "showGrid": false,
+        "gridSpacing": 100,
+        "gridOpacity": 0.25,
+        "showWaves": true,
+        "waveSpeedMultiplier": 0.1,
+        "showGlow": true,
+        "glowIntensity": 1,
+        "showTrails": true,
+        "trailLength": 20000,
+        "centerOfMassThreshold": 50000,
+        "showStars": true,
+        "showNebula": true,
+        "starDensity": 800,
+        "starTwinkleSpeed": 2,
+        "nebulaCloudCount": 40,
+        "nebulaOpacity": 0.9,
+        "showCenterOfMass": false,
+        "showEclipses": false
+    },
+    "physicsConfig": {
+        "gravitationalConstant": 0.5,
+        "collisions": false,
+        "timeStep": 0.001
+    },
+    "camera": {
+        "scale": 0.015,
+        "offset": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "followBodyId": null,
+    "followCenterOfMass": true,
+    "speed": 1.0
+}

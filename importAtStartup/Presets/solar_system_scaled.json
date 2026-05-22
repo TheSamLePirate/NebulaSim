@@ -1,0 +1,356 @@
+{
+    "version": 1,
+    "timestamp": 1768003200000,
+    "bodies": [
+        {
+            "id": "nasa_1768003200000_00",
+            "name": "Soleil",
+            "mass": 99999.99999999999,
+            "radius": 45.0,
+            "color": "#FFFF00",
+            "position": {
+                "x": -300.10281318593144,
+                "y": -512.635916466033
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "1.99e+30 kg",
+            "realDiameter": "1391400 km",
+            "orbitPeriod": "Not orbiting",
+            "isStar": true
+        },
+        {
+            "id": "nasa_1768003200000_01",
+            "name": "Mercure",
+            "mass": 0.016600955494091022,
+            "radius": 3.0,
+            "color": "#A9A9A9",
+            "position": {
+                "x": -2673.848789283167,
+                "y": -41571.487869359196
+            },
+            "velocity": {
+                "x": 0.9229765074990828,
+                "y": 0.0336059984695764
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "3.30e+23 kg",
+            "realDiameter": "4879 km",
+            "orbitPeriod": "87.969 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_02",
+            "name": "Vénus",
+            "mass": 0.24478249937138546,
+            "radius": 4.045378434654418,
+            "color": "#F5DEB3",
+            "position": {
+                "x": 26073.248269893098,
+                "y": -61745.27434357915
+            },
+            "velocity": {
+                "x": 0.769226626500107,
+                "y": 0.28995840136375073
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "4.87e+24 kg",
+            "realDiameter": "12104 km",
+            "orbitPeriod": "224.701 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_03",
+            "name": "Terre",
+            "mass": 0.3003454865476489,
+            "radius": 4.258750455597227,
+            "color": "#1E90FF",
+            "position": {
+                "x": -32934.66260448272,
+                "y": 84604.65375508541
+            },
+            "velocity": {
+                "x": -0.6786025058155385,
+                "y": -0.2177553235424736
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "5.97e+24 kg",
+            "realDiameter": "12742 km",
+            "orbitPeriod": "365.256 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_04",
+            "name": "Lune",
+            "mass": 0.003692230324365099,
+            "radius": 3.0,
+            "color": "#CCCCCC",
+            "position": {
+                "x": -33190.4275438896,
+                "y": 84559.67620113325
+            },
+            "velocity": {
+                "x": -0.6749445131037107,
+                "y": -0.23792853519221033
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "7.34e+22 kg",
+            "realDiameter": "3475 km",
+            "orbitPeriod": "27.3 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_05",
+            "name": "Mars",
+            "mass": 0.032271058586874526,
+            "radius": 3.0,
+            "color": "#FF4500",
+            "position": {
+                "x": 46308.10304131976,
+                "y": -121925.38237308388
+            },
+            "velocity": {
+                "x": 0.5650718094330633,
+                "y": 0.2222041813779866
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "6.42e+23 kg",
+            "realDiameter": "6779 km",
+            "orbitPeriod": "686.980 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_06",
+            "name": "Jupiterre",
+            "mass": 95.45888860950465,
+            "radius": 18.0,
+            "color": "#D2691E",
+            "position": {
+                "x": -176194.01002076382,
+                "y": 449175.63548466016
+            },
+            "velocity": {
+                "x": -0.2958788615651857,
+                "y": -0.08552774676788852
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "1.90e+27 kg",
+            "realDiameter": "139822 km",
+            "orbitPeriod": "11.862 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_07",
+            "name": "Io",
+            "mass": 0.004491777721900929,
+            "radius": 3.0,
+            "color": "#FFFF00",
+            "position": {
+                "x": -175912.12098181774,
+                "y": 449175.63548466016
+            },
+            "velocity": {
+                "x": -0.2958788615651857,
+                "y": 0.32595733490263906
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "8.93e+22 kg",
+            "realDiameter": "3643 km",
+            "orbitPeriod": "1.769 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_08",
+            "name": "Europa",
+            "mass": 0.0024137792305758106,
+            "radius": 3.0,
+            "color": "#F5F5DC",
+            "position": {
+                "x": -176194.01002076382,
+                "y": 449624.1940081606
+            },
+            "velocity": {
+                "x": -0.622078617877674,
+                "y": -0.08552774676788852
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "4.80e+22 kg",
+            "realDiameter": "3122 km",
+            "orbitPeriod": "3.551 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_09",
+            "name": "Ganymede",
+            "mass": 0.007452351018355544,
+            "radius": 3.0,
+            "color": "#4B0082",
+            "position": {
+                "x": -176909.53624783596,
+                "y": 449175.63548466016
+            },
+            "velocity": {
+                "x": -0.2958788615651857,
+                "y": -0.34380158131217564
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "1.48e+23 kg",
+            "realDiameter": "5268 km",
+            "orbitPeriod": "7.154 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_10",
+            "name": "Callisto",
+            "mass": 0.005410611013326627,
+            "radius": 3.0,
+            "color": "#696969",
+            "position": {
+                "x": -176194.01002076382,
+                "y": 447917.1222510223
+            },
+            "velocity": {
+                "x": -0.10113476756017091,
+                "y": -0.08552774676788856
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "1.08e+23 kg",
+            "realDiameter": "4821 km",
+            "orbitPeriod": "16.689 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_11",
+            "name": "Saturne",
+            "mass": 28.5813427206437,
+            "radius": 18.0,
+            "color": "#F4A460",
+            "position": {
+                "x": 950004.2072251148,
+                "y": 42989.561031911144
+            },
+            "velocity": {
+                "x": -0.020241996707940132,
+                "y": 0.21108874866199895
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "5.68e+26 kg",
+            "realDiameter": "116464 km",
+            "orbitPeriod": "29.457 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_12",
+            "name": "Uranus",
+            "mass": 4.365602212723158,
+            "radius": 16.953449859497233,
+            "color": "#AFEEEE",
+            "position": {
+                "x": 984646.0683580606,
+                "y": 1544946.9951074396
+            },
+            "velocity": {
+                "x": -0.14098717072989791,
+                "y": 0.06720646915920363
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "8.68e+25 kg",
+            "realDiameter": "50724 km",
+            "orbitPeriod": "84.016 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_13",
+            "name": "Neptune",
+            "mass": 5.150264018104099,
+            "radius": 16.458790412449368,
+            "color": "#4169E1",
+            "position": {
+                "x": 2986836.9435860664,
+                "y": 77536.13274483332
+            },
+            "velocity": {
+                "x": -0.0034840866193676582,
+                "y": 0.12009055098369738
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "1.02e+26 kg",
+            "realDiameter": "49244 km",
+            "orbitPeriod": "164.79 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_14",
+            "name": "Pluton",
+            "mass": 0.0006582851395524264,
+            "radius": 3.0,
+            "color": "#DEB887",
+            "position": {
+                "x": 1924934.2835931892,
+                "y": -2624940.718408906
+            },
+            "velocity": {
+                "x": 0.11152104802476703,
+                "y": 0.05274498172119705
+            },
+            "trail": [],
+            "description": "Scaled Solar System",
+            "realMass": "1.31e+22 kg",
+            "realDiameter": "2377 km",
+            "orbitPeriod": "247.94 ans",
+            "isStar": false
+        }
+    ],
+    "visualConfig": {
+        "showGrid": false,
+        "gridSpacing": 100,
+        "gridOpacity": 0.25,
+        "showWaves": true,
+        "waveSpeedMultiplier": 0.1,
+        "showGlow": true,
+        "glowIntensity": 1,
+        "showTrails": true,
+        "trailLength": 12000,
+        "centerOfMassThreshold": 2000,
+        "showStars": true,
+        "showNebula": true,
+        "starDensity": 800,
+        "starTwinkleSpeed": 2,
+        "nebulaCloudCount": 40,
+        "nebulaOpacity": 0.9,
+        "showCenterOfMass": false,
+        "showEclipses": false
+    },
+    "physicsConfig": {
+        "gravitationalConstant": 0.5,
+        "collisions": false,
+        "timeStep": 0.008
+    },
+    "camera": {
+        "scale": 0.00025,
+        "offset": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "followBodyId": null,
+    "followCenterOfMass": true,
+    "speed": 1.0
+}

@@ -1,0 +1,1504 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Provoxys × Nebula Orbit — Artemis II en direct</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #ede4cf;
+    --ink-dim: #98a1b8;
+    --ink-faint: #5b6378;
+    --bg: #0a0d18;
+    --bg-2: #0f1424;
+    --surface: #141a2c;
+    --line: #1f2740;
+    --core: #f06e1f;
+    --icps: #c6c7cc;
+    --orion: #6aa4d8;
+    --red: #d63333;
+    --mint: #7fc8b3;
+    --warn: #f5c451;
+    --sam: #7fc8b3;
+    --provoxy: #ede4cf;
+    --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    --body: "Newsreader", Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--body);
+    font-optical-sizing: auto; font-size: 17px; line-height: 1.7;
+    overflow-x: hidden; min-height: 100vh;
+  }
+  body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  body::before {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(240,110,31,0.08), transparent 60%),
+      radial-gradient(900px 500px at -10% 90%, rgba(127,200,179,0.08), transparent 60%),
+      radial-gradient(1.5px 1.5px at 11% 16%, rgba(255,255,255,0.55), transparent 50%),
+      radial-gradient(1px 1px at 78% 22%, rgba(255,255,255,0.4), transparent 50%),
+      radial-gradient(1.5px 1.5px at 47% 84%, rgba(255,255,255,0.6), transparent 50%),
+      radial-gradient(1px 1px at 65% 48%, rgba(255,255,255,0.35), transparent 50%),
+      radial-gradient(1px 1px at 88% 55%, rgba(255,255,255,0.4), transparent 50%);
+  }
+  body::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='6'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay; opacity: 0.55;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* Nav with live indicator */
+  nav.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 32px; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+    background: rgba(10,13,24,0.75);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  nav.top .left { color: var(--ink-dim); display: flex; align-items: center; gap: 14px; }
+  nav.top .live {
+    display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px;
+    border: 1px solid var(--red); color: var(--red); border-radius: 0;
+    font-weight: 700; letter-spacing: 0.22em;
+  }
+  nav.top .live .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: blink 1.4s ease-in-out infinite; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  nav.top .left strong { color: var(--core); font-weight: 700; }
+  nav.top .right { color: var(--ink-faint); }
+
+  /* Hero */
+  .hero { padding: 80px 0 60px; }
+  .hero .stamp {
+    display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.3em;
+    color: var(--core); margin-bottom: 24px; padding: 6px 12px; border: 1px solid var(--core); text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    font-size: clamp(44px, 7vw, 96px); line-height: 0.92; letter-spacing: -0.04em;
+    margin-bottom: 28px; color: var(--ink);
+  }
+  .hero h1 em {
+    font-family: var(--body); font-style: italic; font-weight: 500;
+    color: var(--core);
+  }
+  .hero .subtitle {
+    font-family: var(--body); font-size: 22px; line-height: 1.5;
+    color: var(--ink-dim); max-width: 56ch; margin-bottom: 36px;
+  }
+  .hero .subtitle em { color: var(--sam); font-style: italic; }
+  .hero .credits {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    padding-top: 32px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  @media (max-width: 720px) { .hero .credits { grid-template-columns: 1fr; gap: 16px; } }
+  .hero .credits .row { display: flex; flex-direction: column; gap: 4px; }
+  .hero .credits .row .lbl { color: var(--ink-faint); }
+  .hero .credits .row .val { color: var(--ink); font-size: 16px; font-family: var(--display); font-weight: 700; letter-spacing: -0.01em; text-transform: none; }
+  .hero .credits .row .val.sam { color: var(--sam); }
+
+  /* Show timing badges */
+  .show-timing {
+    margin: 32px 0; padding: 24px 28px; border: 1px solid var(--line); background: var(--bg-2);
+  }
+  .show-timing h3 {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--core); margin-bottom: 14px;
+  }
+  .show-timing p {
+    font-family: var(--body); font-size: 15px; color: var(--ink-dim); line-height: 1.6;
+  }
+  .show-timing p strong { color: var(--ink); font-weight: 600; }
+  .show-timing p em { color: var(--sam); font-style: italic; }
+
+  /* Chapter */
+  .chapter {
+    margin-top: 80px; padding-top: 60px; border-top: 2px solid var(--core);
+  }
+  .chapter > .chap-head { margin-bottom: 48px; }
+  .chapter > .chap-head .num {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--core); margin-bottom: 14px;
+  }
+  .chapter > .chap-head h2 {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 72;
+    font-size: clamp(32px, 5vw, 56px); line-height: 0.96; letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .chapter > .chap-head h2 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+
+  /* Part */
+  .part {
+    margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line);
+  }
+  .part:first-of-type { border-top: none; padding-top: 0; }
+  .part .part-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--core); margin-bottom: 18px;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  .part .part-label::before {
+    content: ""; width: 28px; height: 1px; background: var(--core);
+  }
+  .part h3 {
+    font-family: var(--display); font-weight: 700;
+    font-variation-settings: "opsz" 48;
+    font-size: clamp(24px, 3.5vw, 36px); line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 24px;
+  }
+
+  /* Provoxys speech */
+  .provoxy {
+    margin: 24px 0; padding-left: 24px; border-left: 2px solid var(--line);
+    position: relative;
+  }
+  .provoxy .who {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-dim); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .provoxy .who::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--provoxy);
+  }
+  .provoxy .who b { color: var(--ink); font-weight: 700; letter-spacing: 0.18em; }
+  .provoxy .who .ts {
+    margin-left: auto; color: var(--ink-faint); font-size: 10px; letter-spacing: 0.15em;
+  }
+  .provoxy p {
+    font-family: var(--body); font-size: 17px; line-height: 1.75;
+    color: var(--ink); margin-bottom: 18px;
+  }
+  .provoxy p:last-child { margin-bottom: 0; }
+
+  /* Sam intervention */
+  .sam-cut {
+    margin: 32px 0; padding: 28px 32px;
+    background: linear-gradient(135deg, rgba(127,200,179,0.07), rgba(127,200,179,0.02));
+    border: 1px solid rgba(127,200,179,0.25); border-left: 4px solid var(--sam);
+    position: relative;
+  }
+  .sam-cut::before {
+    content: "EN DIRECT DE L'APP"; position: absolute; top: -10px; left: 24px;
+    background: var(--bg); padding: 2px 10px;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em;
+    color: var(--sam); text-transform: uppercase; font-weight: 700;
+  }
+  .sam-cut .who {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--sam); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sam-cut .who::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--sam); box-shadow: 0 0 12px var(--sam);
+  }
+  .sam-cut .who b { font-weight: 700; letter-spacing: 0.18em; }
+  .sam-cut .who .ts {
+    margin-left: auto; font-family: var(--mono); color: var(--core); font-size: 10px;
+    letter-spacing: 0.15em; padding: 2px 8px; border: 1px solid rgba(240,110,31,0.4);
+  }
+  .sam-cut p {
+    font-family: var(--body); font-size: 17px; line-height: 1.7;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .sam-cut p:last-child { margin-bottom: 0; }
+  .sam-cut p em { color: var(--sam); font-style: italic; }
+  .sam-cut p strong { color: var(--core); font-weight: 600; }
+  .sam-cut .screen {
+    margin-top: 18px; padding: 12px 16px; background: var(--bg-2); border: 1px dashed rgba(127,200,179,0.3);
+    font-family: var(--mono); font-size: 12px; color: var(--ink-dim);
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .sam-cut .screen b { color: var(--sam); font-weight: 500; }
+  .sam-cut .screen .badge {
+    color: var(--core); font-weight: 700; letter-spacing: 0.15em;
+  }
+
+  /* Final Sam timeline */
+  .sam-chapter {
+    margin-top: 100px; padding-top: 80px;
+    border-top: 2px solid var(--sam);
+    background: linear-gradient(180deg, rgba(127,200,179,0.04), transparent 800px);
+  }
+  .sam-chapter .head-num {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--sam); margin-bottom: 14px;
+  }
+  .sam-chapter h2 {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 72;
+    font-size: clamp(36px, 5.5vw, 68px); line-height: 0.94; letter-spacing: -0.03em;
+    color: var(--ink); margin-bottom: 28px;
+  }
+  .sam-chapter h2 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--sam); }
+  .sam-chapter .intro {
+    font-family: var(--body); font-size: 19px; line-height: 1.6; color: var(--ink);
+    max-width: 64ch; margin-bottom: 32px;
+  }
+  .sam-chapter .intro em { font-style: italic; color: var(--sam); }
+  .sam-chapter .intro strong { color: var(--core); font-weight: 600; }
+
+  .sim-act {
+    margin: 64px 0 32px;
+    display: grid; grid-template-columns: 120px 1fr; gap: 32px; align-items: baseline;
+    padding-top: 32px; border-top: 1px dashed var(--line);
+  }
+  @media (max-width: 720px) { .sim-act { grid-template-columns: 1fr; gap: 14px; } }
+  .sim-act .roman {
+    font-family: var(--display); font-weight: 800; font-size: 84px; line-height: 0.85;
+    letter-spacing: -0.05em; color: var(--sam); opacity: 0.85;
+  }
+  .sim-act h3 {
+    font-family: var(--display); font-weight: 700;
+    font-variation-settings: "opsz" 48;
+    font-size: clamp(24px, 3.2vw, 36px); line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .sim-act h3 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+  .sim-act .timing {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .sim-timeline {
+    margin: 28px 0 0; position: relative; padding-left: 96px;
+  }
+  @media (max-width: 720px) { .sim-timeline { padding-left: 0; } }
+  .sim-timeline::before {
+    content: ""; position: absolute; top: 8px; bottom: 8px; left: 76px; width: 1px;
+    background: linear-gradient(180deg, var(--sam) 0%, var(--sam) 70%, transparent);
+  }
+  @media (max-width: 720px) { .sim-timeline::before { display: none; } }
+
+  .moment {
+    position: relative; padding: 16px 0 18px;
+    display: grid; grid-template-columns: 100px 1fr; gap: 28px; align-items: baseline;
+  }
+  @media (max-width: 720px) {
+    .moment { grid-template-columns: 1fr; gap: 6px; padding: 12px 0;
+      border-left: 2px solid var(--sam); padding-left: 16px; margin-left: 0; }
+  }
+  .moment .ts-pill {
+    font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--core); white-space: nowrap;
+    position: relative;
+  }
+  .moment .ts-pill::after {
+    content: ""; position: absolute; top: 7px; right: -23px; width: 9px; height: 9px;
+    background: var(--sam); border-radius: 50%; box-shadow: 0 0 12px rgba(127,200,179,0.6);
+  }
+  @media (max-width: 720px) { .moment .ts-pill::after { display: none; } }
+  .moment .body p {
+    font-family: var(--body); font-size: 16px; line-height: 1.65; color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .moment .body p em { font-style: italic; color: var(--sam); }
+  .moment .body p strong { color: var(--core); font-weight: 600; }
+  .moment .body .what {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint);
+    letter-spacing: 0.05em; margin-top: 4px;
+  }
+  .moment .body .what b { color: var(--sam); font-weight: 500; }
+  .moment.key .ts-pill { color: var(--red); }
+  .moment.key .ts-pill::after { background: var(--red); box-shadow: 0 0 14px rgba(214,51,51,0.7); }
+  .moment.key .body p strong { color: var(--red); }
+
+  /* Show timestamp (from transcript) */
+  .show-ts {
+    display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    color: var(--ink-faint); padding: 2px 8px; margin: 18px 0;
+    border: 1px solid var(--line);
+  }
+
+  /* Footer */
+  footer.foot {
+    margin-top: 120px; padding: 80px 0 56px;
+    border-top: 1px solid var(--line);
+    background: linear-gradient(180deg, transparent, rgba(15,20,36,0.6));
+  }
+  footer.foot h3 {
+    font-family: var(--display); font-weight: 800; font-size: clamp(32px, 4.5vw, 64px);
+    line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); margin-bottom: 24px;
+  }
+  footer.foot h3 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+  footer.foot p {
+    font-family: var(--body); font-size: 17px; line-height: 1.65; color: var(--ink-dim);
+    max-width: 60ch; margin-bottom: 12px;
+  }
+  footer.foot .signature {
+    margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; justify-content: space-between; gap: 24px; align-items: baseline; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  ::selection { background: var(--core); color: var(--bg); }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="left">
+    <span class="live"><span class="dot"></span>EN DIRECT</span>
+    <span>Provoxys · <strong>Artemis II</strong> · Émission spéciale</span>
+  </div>
+  <div class="right">Avec une démo Nebula Orbit par Sam</div>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<section class="hero">
+  <span class="stamp">Live · Émission scientifique exhaustive</span>
+  <h1>Artemis II<br>— <em>l'Odyssée Lunaire</em>,<br>de la genèse à Mars.</h1>
+  <p class="subtitle">L'intégralité de l'émission Provoxys, mot pour mot — ponctuée par les interventions de <em>Sam, le développeur de Nebula Orbit</em>, qui fait tourner en parallèle la simulation multi-étages de la mission. Le voyage simulé dure exactement <em>20 minutes</em>.</p>
+
+  <div class="credits">
+    <div class="row">
+      <span class="lbl">Présentation</span>
+      <span class="val">Provoxys</span>
+    </div>
+    <div class="row">
+      <span class="lbl">Invité &amp; démo live</span>
+      <span class="val sam">Sam — Nebula Orbit</span>
+    </div>
+    <div class="row">
+      <span class="lbl">Sources</span>
+      <span class="val">NASA · OIG · GAO · Équipage A2</span>
+    </div>
+    <div class="row">
+      <span class="lbl">Preset utilisé</span>
+      <span class="val">1ArtemisMultiStage.json</span>
+    </div>
+  </div>
+</section>
+
+<div class="show-timing">
+  <h3>Comment lire ce transcript</h3>
+  <p>Le texte de <strong>Provoxys</strong> est repris intégralement, mot pour mot, du déroulé original — six chapitres et soixante-dix parties, sans rien retirer. À la <em>toute fin du document</em>, Sam prend l'antenne et déroule l'intégralité du <strong>voyage en simulation de vingt minutes</strong>, étape par étape, du chargement du preset au touchdown final.</p>
+</div>
+
+<!-- ─── INTRO ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Ouverture · Bienvenue</div>
+    <h2>Introduction <em>au Live</em>.</h2>
+  </div>
+
+  <div class="provoxy">
+    <div class="who"><b>Provoxys</b><span class="ts">00:00:00</span></div>
+    <p>Bonjour à tous et bienvenue dans ce live ultra-exhaustif sur toutes les informations existantes du programme Artemis de la NASA.</p>
+    <p>Nous nous appuyons sur les sources officielles primaires : NASA.gov, l'OIG (Office of Inspector General, soit le Bureau de l'inspecteur général de la NASA), le GAO (Government Accountability Office, soit le Bureau de la responsabilité gouvernementale) et les interviews de l'équipage post-Artemis II. Nous couvrons absolument tout : la genèse complète, l'histoire depuis Apollo jusqu'à aujourd'hui, les financements détaillés (93 milliards de dollars cumulés de 2012 à fin 2025, potentiellement plus de 100 milliards en 2026, environ 4,1 à 4,2 milliards par lancement du SLS – Space Launch System, soit le système de lancement spatial –, d'Orion et du HLS – Human Landing System, soit le système d'alunissage habité –, avec 6,9 milliards déjà obligés plus 18,3 milliards estimés d'ici 2030 et des dépassements signalés par le GAO de 6,8 à 7 milliards sur seulement trois projets Artemis), les technologies exhaustives (le SLS Block 1 standardisé, l'évolution des versions 1B et 2 annulée pour privilégier la cadence, Orion avec son module de service fourni par l'ESA – European Space Agency, soit l'Agence spatiale européenne –, les landers HLS Starship pathfinder et Blue Moon Mk2, ainsi que les combinaisons AxEMU), les missions de I à V+ (Artemis II lancé le 1er avril 2026 à 18:35 EDT pour une mission d'environ 10 jours, avec splashdown le 10 avril, record de distance de 406 773 km de la Terre et un total parcouru d'environ 1 117 000 km ; Artemis III avec test de rendez-vous et d'amarrage en orbite basse terrestre ou LEO – Low Earth Orbit en 2027 ; Artemis IV pour le premier alunissage au pôle sud début 2028, puis une cadence annuelle), les expériences scientifiques précises (mesures de la radiation GCR – Galactic Cosmic Rays, soit les rayons cosmiques galactiques – avec les capteurs ARCHER, les CubeSats TACHELES, K-RadCube, SHMS, ATENEA et BioSentinel, l'expérience AVATAR organ-on-a-chip pour la moelle osseuse et le système immunitaire, les Standard Measures, les prélèvements de salive, les vêtements orthostatiques et les données de santé sur les os, la vision et l'équipage), les partenariats (67 signataires des Accords Artemis, dont le Paraguay le 7 mai 2026), les défis (dépassements budgétaires du GAO d'environ 6,8 à 7 milliards, retards liés aux fuites d'hydrogène et d'hélium, à la poussière régolithe et à la radiation, analyses post-mission root cause d'Artemis II) et les témoignages directs de l'équipage d'Artemis II : Reid Wiseman sur la surprise du détecteur de fumée à 402 000 km de la Terre, Victor Glover sur la Terre vue comme un « impossibly small mirror » et la rentrée « like diving off skyscraper backwards 10x wild » à environ 40 000 km/h, Christina Koch sur ses rêves de flottement et le « teamwork 100 % », Jeremy Hansen sur la face cachée comme une « otherworldly eclipse » et la phrase poétique « we are a mirror reflecting you ».</p>
+    <p>Nous intégrons également des anecdotes, des analogies accessibles pour un public novice (la Lune comme un camp de base permanent équipé d'un puits d'eau grâce à l'ISRU – In-Situ Resource Utilization, soit l'utilisation des ressources in situ – pour préparer le voyage vers Mars).</p>
+    <p>Actualités clés: Artemis II a réussi le premier vol habité au-delà de l'orbite basse terrestre depuis Apollo 17, avec un record de distance de 406 773 km et un total parcouru d'environ 1 117 000 km, un splashdown précis à 4,7 km du site cible. Succès total malgré les analyses post-vol sur le bouclier thermique et la rentrée. Budget cumulé Artemis supérieur à 93 milliards de dollars à fin 2025 selon l'OIG, avec environ 4,1 à 4,2 milliards par mission SLS/Orion. Accords Artemis comptent désormais 67 pays, dont le Paraguay ajouté en mai 2026.</p>
+  </div>
+
+  <div class="show-ts">Repère original · 04:55</div>
+</section>
+
+<!-- ─── CHAPITRE 1 ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Chapitre 1 · 4 000 h de récit</div>
+    <h2>Genèse <em>et</em> histoire,<br>d'Apollo à Artemis.</h2>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 1</div>
+    <h3>Contexte historique complet.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.1</span></div>
+      <p>Imaginez la scène en décembre 1972 : Gene Cernan pose le dernier pas de l'homme sur la Lune lors d'Apollo 17, marquant la fin d'une ère héroïque où six missions ont permis six alunissages rapides entre 1969 et 1972. Ensuite, un long silence s'installe. Pendant près de quarante ans, la Navette spatiale et la Station spatiale internationale occupent le devant de la scène, mais la Lune reste un souvenir lointain. C'est en décembre 2017 que tout change avec la Space Policy Directive 1 signée par le président Trump, qui relance officiellement le retour durable vers la Lune comme première étape concrète vers Mars. Le plan Artemis de 2020 vient formaliser cette vision : non plus des visites express comme à l'époque d'Apollo (où les astronautes restaient trois jours au maximum), mais une présence permanente, un véritable village lunaire. Cette évolution s'inscrit dans un contexte de rivalité internationale, notamment avec la Chine qui prépare sa propre base lunaire pour les années 2030 et qui n'a pas signé les Accords Artemis. Pour mieux comprendre, pensez à Apollo comme un sprint touristique sur une plage lointaine : on y va vite, on prend quelques photos et on rentre. Artemis, c'est la construction d'un camp de base permanent équipé d'un puits d'eau grâce à l'ISRU (In-Situ Resource Utilization, c'est-à-dire l'utilisation des ressources in situ) – pour produire carburant et oxygène, et préparer un long trek de six à neuf mois vers Mars. Toutes les leçons d'Apollo sont intégrées avec soin : la gestion de la radiation (rayons cosmiques galactiques ou GCR et particules solaires), la poussière lunaire abrasive qui abîme les visières et les poumons, et surtout la durabilité, car Artemis vise des séjours de plusieurs semaines, voire des mois, avec des systèmes de support de vie validés dès Artemis II. Ce cheminement historique passe par les reports successifs dus à la COVID, aux problèmes techniques et à la standardisation du SLS (Space Launch System, soit le système de lancement spatial) en mars 2026, transformant peu à peu une simple idée politique en un programme concret et ambitieux, avec des préparatifs détaillés pour chaque mission, y compris les répétitions générales humides (Wet Dress Rehearsals) pour Artemis II qui ont permis de valider le remplissage des réservoirs et les procédures de compte à rebours. Pourquoi ces répétitions ? Parce qu'elles simulent exactement les conditions réelles de lancement pour détecter les fuites d'hydrogène ou d'hélium avant le jour J, évitant ainsi des retards coûteux et des risques pour les équipages futurs, et préparant le terrain pour les défis futurs comme les fuites cryogéniques lors des missions longues vers la base lunaire, où le ravitaillement en orbite deviendra essentiel pour les landers HLS (Human Landing System). Historiquement, Apollo avait déjà démontré que pour s'extraire de l'attraction terrestre, il fallait atteindre une vitesse orbitale de 7,8 km/s en orbite basse terrestre (LEO – Low Earth Orbit), puis ajouter un delta-v de 3,1 km/s pour l'injection translunaire, une trajectoire choisie pour minimiser la consommation de carburant tout en respectant les lois de la mécanique orbitale (équation de vis-viva), car une trajectoire directe vers la Lune exigerait une vitesse d'échappement de 11,2 km/s, ce qui serait bien trop coûteux en énergie et en masse de propergol. Ce cheminement s'enrichit aujourd'hui des avancées en ravitaillement orbital, qui permettent de surmonter les limites d'Apollo en autorisant des charges utiles bien plus importantes pour les futures missions. Le poste de lancement principal, le Launch Complex 39B (LC-39B, soit le complexe de lancement 39B situé au Kennedy Space Center en Floride), a été entièrement modernisé pour accueillir le SLS : une tour de lancement mobile de 122 mètres de haut, une tranchée à flammes géante pour évacuer les gaz d'échappement et un système de déluge d'eau massif qui projette 1,1 million de litres d'eau par minute pour atténuer le</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>bruit et les vibrations lors du décollage. Ces infrastructures ont été conçues pour supporter la puissance colossale des moteurs, comme nous le verrons dans le chapitre dédié au pas de tir.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 2</div>
+    <h3>Objectifs scientifiques et stratégiques exhaustifs.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.2</span></div>
+      <p>Au cœur de ce retour se trouvent des objectifs scientifiques et stratégiques d'une richesse fascinante. Prenons d'abord l'eau sous forme de glace aux pôles sud, concentrée notamment dans le cratère Shackleton : les estimations, basées sur les données précises de la sonde LRO (Lunar Reconnaissance Orbiter, soit orbiteur de reconnaissance lunaire), du LEND et du Diviner, parlent d'environ 600 millions de tonnes, avec des cartes détaillées de l'hydrogène (WEH) et une stabilité de la glace maintenue à des températures inférieures à 110 kelvins dans les régions perpétuellement ombragées (permanently shadowed regions ou PSR). Cette glace n'est pas seulement une curiosité : elle permet l'ISRU (In-Situ Resource Utilization, c'est-à-dire l'utilisation des ressources in situ), c'est-à-dire l'électrolyse de H₂O pour obtenir de l'hydrogène et de l'oxygène liquides (LH2/LOX) qui serviront de propergol, réduisant ainsi considérablement la masse que nous devons lancer depuis la Terre (pourquoi ? Parce que chaque kilogramme lancé depuis la Terre coûte des millions de dollars et limite la charge utile, permettant à long terme des missions plus autonomes et durables, et résolvant le défi futur de la logistique pour une base lunaire permanente, avec un rendement mathématique précis de 1 kg d'eau produisant 0,11 kg d'hydrogène et 0,89 kg d'oxygène par électrolyse, calculé selon la loi de Faraday). Sur le plan géologique, les échantillons lunaires âgés de 4,5 milliards d'années nous racontent l'histoire complète du système solaire et de notre Soleil. La radiation, avec les capteurs ARCHER, prépare directement les futures missions vers Mars en mesurant les rayons cosmiques galactiques (GCR) et les particules solaires. L'astrobiologie, l'économie spatiale (mines de volatiles et tourisme lunaire) et la diversité complètent le tableau : pour la première fois, une femme et une personne de couleur fouleront le sol lunaire. Stratégiquement, tout cela renforce le leadership américain grâce aux 67 signataires des Accords Artemis (dont le Paraguay le 7 mai 2026), qui reposent sur les principes du traité de l'espace de 1967 : paix, transparence, durabilité et règles claires pour l'ISRU (In-Situ Resource Utilization). Ce cheminement des objectifs remonte à 2017, s'enrichit des données LRO depuis 2009 et priorise le pôle sud grâce aux confirmations de glace par Diviner en 2009-2010, transformant une simple exploration en une véritable stratégie à long terme pour l'humanité, avec des tests techniques exhaustifs sur chaque système comme le bouclier thermique d'Orion ou les parachutes validés lors d'Artemis I en novembre 2022 qui ont duré 25,5 jours et parcouru 2 250 000 km, préparant les défis futurs comme la construction d'une base lunaire avec habitats gonflables et systèmes ISRU à grande échelle, et des trajectoires choisies pour échapper à l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v nécessaire pour atteindre la Lune. Le ravitaillement orbital, grâce aux tankers Starship, permettra d'ajouter des tonnes de propergol en orbite, rendant ces objectifs réalisables à grande échelle pour des missions durables. Le poste de lancement LC-39B joue un rôle central dans ces objectifs, car il est conçu pour supporter les vibrations extrêmes du SLS lors du décollage, avec une infrastructure qui permet des lancements cadencés et une évacuation rapide des gaz d'échappement pour protéger les systèmes électroniques du véhicule. Ces éléments techniques s'inscrivent dans une vision globale où chaque lancement depuis LC-39B devient une étape concrète vers une présence humaine permanente sur la Lune.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 3</div>
+    <h3>Anecdotes et témoignages.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.3</span></div>
+      <p>Les récits humains donnent vie à ce programme. Bill Nelson, administrateur de la NASA, l'a résumé avec force : « La Chine construit une base ? Nous y serons avec partenaires. » Mais les voix les plus touchantes viennent de l'équipage d'Artemis II, dans leurs interviews CBS, NPR et BBC juste après le splashdown d'avril 2026. Reid Wiseman raconte avec humour la « surprise » du détecteur de fumée qui s'est déclenché à 402 000 km de la Terre, lançant un « I'm telling you right now » mémorable. Victor Glover décrit la Terre vue de loin comme un « impossibly small mirror », tandis que Christina Koch évoque ses rêves de flottement et la camaraderie « teamwork 100 % », se surnommant même « space plumber » pour avoir géré les toilettes. Jeremy Hansen, de l'Agence spatiale canadienne (CSA), parle de la face cachée de la Lune comme une « otherworldly eclipse » et conclut avec poésie : « We are a mirror reflecting you » pour toute l'équipe. L'éclipse solaire vue depuis la Lune leur a paru « otherworldly ». Ces anecdotes s'inscrivent dans la lignée des retours d'Apollo, mais avec une dimension internationale et émotionnelle plus moderne, soulignant la fragilité de notre planète et la profondeur de la galaxie, tout en rappelant que chaque membre d'équipage a vécu un moment de grâce collective qui unit à jamais Wiseman, Glover, Koch et Hansen, avec des vidéos et photos prises pendant le vol qui montrent la Terre minuscule et la Lune majestueuse. Pourquoi ces témoignages ? Parce qu'ils permettent de comprendre l'impact psychologique du voyage spatial profond et d'améliorer les protocoles pour les futures missions longues, apportant à l'humanité une meilleure connaissance des effets de l'isolement et de la microgravité sur le corps et l'esprit, particulièrement critique pour les séjours de plusieurs mois dans la future base lunaire, où les astronautes devront gérer des effets similaires pendant des mois, avec des données physiologiques précises comme une augmentation de 15 % des marqueurs de stress oxydatif. Ces retours humains soulignent aussi l'importance du ravitaillement orbital pour permettre des missions plus longues sans risquer la vie des équipages. Lors du décollage d'Artemis II depuis le poste de lancement LC-39B, l'équipage a ressenti la puissance colossale des moteurs, une expérience qu'ils ont décrite comme un tremblement de terre contrôlé qui se propage bien au-delà du site.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 4</div>
+    <h3>Financements initiaux et évolutions.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.4</span></div>
+      <p>Derrière ces rêves se cache une réalité budgétaire rigoureuse. Le programme a déjà coûté plus de 93 milliards de dollars cumulés de 2012 à fin 2025 selon le rapport OIG (Office of Inspector General) de mai 2026, avec un potentiel dépassement des 100 milliards en 2026. Chaque lancement SLS (Space Launch System) / Orion représente environ 4,1 à 4,2 milliards de dollars (développement et opérations). Le budget NASA pour l'exercice 2026 s'élève à 18,8 milliards de dollars au total, dont environ 8,3 milliards pour l'exploration. Les dépassements signalés par le GAO (Government Accountability Office) atteignent 6,8 à 7 milliards sur trois projets Artemis seulement, soit presque 50 % des 53 projets de la NASA. Le volet HLS (Human Landing System) pèse 6,9 milliards obligés (avec +253 millions pour SpaceX et +13 millions pour Blue Origin) plus 18,3 milliards estimés d'ici 2030. Les partenaires commerciaux comme SpaceX et Blue Origin permettent de réduire les coûts à long terme, contrairement à Apollo qui avait coûté environ 280 milliards de dollars ajustés à l'inflation. Les audits OIG ont notamment critiqué le suivi « sloppy tracking » de Boeing sur le SLS (Space Launch System). Ce cheminement financier commence en 2012 avec les premiers développements du SLS (Space Launch System) et se poursuit avec les rapports annuels GAO de 2025-2026 et les ajustements budgétaires réguliers, illustrant à la fois les défis et les efforts constants d'optimisation, y compris les investissements dans les préparatifs de lancement comme les Wet Dress Rehearsals pour Artemis II.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>Pourquoi ces répétitions ? Parce qu'elles évitent des échecs coûteux en simulant exactement les conditions réelles, permettant à l'humanité de bénéficier d'un programme plus efficace et accessible, et finançant les futurs défis comme la construction d'une base lunaire avec habitats gonflables et systèmes de production d'énergie solaire, avec des calculs mathématiques de retour sur investissement montrant que chaque dollar dépensé génère plusieurs dollars en spin-offs technologiques. Le ravitaillement orbital, en réduisant la masse lancée depuis la Terre, contribuera à maîtriser ces coûts à long terme pour les futures missions. Le poste de lancement LC-39B représente un investissement majeur dans cette infrastructure, avec des coûts de modernisation qui ont été intégrés aux budgets pour supporter les puissances de décollage du SLS.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 5</div>
+    <h3>Perspectives globales.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.5</span></div>
+      <p>À l'horizon, Artemis n'est pas une fin en soi : c'est le tremplin indispensable vers Mars, avec des habitats, une propulsion nucléaire et une mise à l'échelle de l'ISRU (In-Situ Resource Utilization). Le leadership américain s'appuie sur les 67 Accords Artemis qui incarnent les principes du traité de l'espace de 1967 : paix, transparence et durabilité. Cette aventure inspire toute une « Artemis Generation ». Sources : NASA Artemis Plan 2020, SPD-1, OIG/GAO mai 2026, interviews équipage, Planetary Society. Ce développement ouvre la voie à une présence durable d'ici 2030, en intégrant progressivement tous les partenaires internationaux et en transformant la Lune en un véritable hub pour l'exploration humaine au-delà de notre planète, apportant à l'humanité des ressources nouvelles (eau, minéraux) pour résoudre des problèmes terrestres comme l'énergie et le climat, tout en favorisant une économie spatiale mondiale, avec des défis futurs comme la gestion de la poussière lunaire abrasive lors des sorties extravéhiculaires (EVA) avec les combinaisons AxEMU, et des trajectoires choisies pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v nécessaire pour atteindre la Lune. Le ravitaillement orbital permettra d'emporter plus de matériel pour ces perspectives, rendant les bases permanentes viables. Le poste de lancement LC-39B, avec sa capacité à gérer les décollages répétés, est essentiel à ces perspectives à long terme.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 6</div>
+    <h3>Détails techniques initiaux et pourquoi.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.6</span></div>
+      <p>Les premiers détails techniques du programme incluent le choix du SLS (Space Launch System) Block 1 avec 39 000 kN de poussée totale grâce à quatre moteurs RS-25 (hérités des navettes spatiales) et deux boosters à propergol solide. Les moteurs RS-25 sont les versions modernisées des moteurs principaux de la navette spatiale (SSME), chacun fournissant 2 280 kN de poussée au niveau de la mer (jusqu'à environ 2 670 kN dans le vide), avec une impulsion spécifique de 452 secondes dans le vide, utilisant un mélange cryogénique d'hydrogène liquide et d'oxygène liquide, refroidis par régénération, et capables de throttler entre 67 % et 109 % de leur poussée nominale pour une flexibilité optimale pendant l'ascension. Pourquoi cette configuration ? Parce qu'elle permet de placer 95 tonnes en orbite basse terrestre (LEO – Low Earth Orbit), bien plus que le Saturn V d'Apollo, tout en réutilisant des technologies éprouvées pour réduire les risques et les coûts de développement, favorisant ainsi une exploration durable accessible à l'ensemble de l'humanité, et préparant les défis futurs des missions d'alunissage avec les landers HLS où la précision du descente doit être millimétrique pour éviter les pentes du pôle sud, avec des calculs de delta-v précis de 3,1 km/s pour chaque injection translunaire afin d'optimiser la consommation de propergol et de garantir une fenêtre de tir de seulement 2 minutes tous les 28 jours pour s'extraire de l'attraction terrestre sans gaspiller d'énergie. Ces détails techniques s'étendent désormais au ravitaillement orbital, qui sera crucial pour les futures missions.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>La puissance dégagée par les moteurs du SLS est colossale : les quatre moteurs RS-25 produisent chacun environ 2 280 kN au niveau de la mer, et les deux boosters à propergol solide ajoutent le reste pour atteindre 39 000 kN au total, soit l'équivalent d'une force capable de propulser une masse de 4 000 tonnes à une accélération de près de 10 m/s². Mathématiquement, la puissance cinétique de l'échappement se calcule par P = (1/2) * m_dot * v_e² où m_dot est le débit massique (environ 1 500 kg/s pour le SLS) et v_e la vitesse d'échappement (environ 2 650 m/s pour les RS-25), donnant une puissance instantanée de l'ordre de plusieurs dizaines de gigawatts au décollage. Cette puissance se ressent jusqu'à plus de 100 km à la ronde sous forme de vibrations et de bruit intense (plus de 140 décibels près du pad), avec une propagation du son qui suit la loi de l'inverse du carré pour l'intensité acoustique (I ∝ 1/r²), expliquant pourquoi les habitants de Titusville ou Cocoa Beach ressentent un grondement sourd pendant plusieurs minutes. Le poste de lancement LC-39B est conçu précisément pour absorber et dissiper cette énergie grâce à sa tranchée à flammes et son système de déluge d'eau.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 7</div>
+    <h3>Exemples concrets de leçons appliquées.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.7</span></div>
+      <p>Un exemple concret est l'intégration des données d'Artemis I sur le bouclier thermique Avcoat d'Orion, qui a subi des températures de près de 2 760 °C lors de la rentrée à plus de 40 000 km/h. Pourquoi tester cela ? Parce que la rentrée à vitesse lunaire est bien plus chaude et rapide que celle d'Apollo, et ces données ont permis d'optimiser l'épaisseur et la composition du bouclier pour Artemis II et au-delà, protégeant les vies humaines et ouvrant la voie à des voyages plus sûrs vers Mars, tout en anticipant les défis futurs de la base lunaire comme la protection thermique des habitats contre les variations extrêmes de température (-173 °C la nuit à +127 °C le jour), avec des modèles mathématiques de transfert de chaleur basés sur l'équation de Fourier. Le ravitaillement orbital ajoutera une couche supplémentaire de sécurité en permettant des missions avec plus de redondance. Ces leçons s'appliquent directement au poste de lancement LC-39B, dont les infrastructures ont été renforcées pour supporter les vibrations du SLS lors du décollage d'Artemis II.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 8</div>
+    <h3>Impacts géopolitiques détaillés.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.8</span></div>
+      <p>Sur le plan géopolitique, les Accords Artemis (67 signataires) créent un cadre légal pour l'exploration pacifique. Pourquoi ? Parce que sans règles claires sur l'ISRU (In-Situ Resource Utilization), la rivalité avec la Chine pourrait mener à des conflits sur les ressources lunaires comme la glace aux pôles, renforçant au contraire une coopération internationale qui bénéficie à l'humanité entière en évitant une course aux armements dans l'espace, et préparant une gouvernance partagée pour la future base lunaire. Le programme chinois (ILRS – International Lunar Research Station, soit Station internationale de recherche lunaire) prévoit une base lunaire internationale avec la Russie dès 2030, avec des missions Chang'e-4 sur la face cachée et Chang'e-5 pour le retour d'échantillons, une concurrence directe au pôle sud qui pousse Artemis à accélérer pour maintenir le leadership. Le poste de lancement LC-39B symbolise cette suprématie technologique américaine.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 9</div>
+    <h3>Explications scientifiques approfondies.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.9</span></div>
+      <p>Scientifiquement, les capteurs ARCHER mesurent en temps réel les GCR (Galactic Cosmic Rays). Pourquoi ? Parce que ces rayonnements ionisants endommagent l'ADN et augmentent le risque de cancer lors des voyages longs vers Mars, et les données d'Artemis II serviront de référence pour concevoir des habitats blindés, apportant à l'humanité des avancées médicales contre les radiations terrestres (cancer, vieillissement), particulièrement utiles pour les futurs séjours de plusieurs mois dans la base lunaire où la protection contre les GCR sera critique. Le ravitaillement permettra d'emporter plus d'instruments scientifiques pour ces mesures.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>La puissance des moteurs du SLS, ressentie jusqu'à des dizaines de kilomètres, illustre aussi les défis scientifiques de la propagation des ondes de choc lors du décollage depuis LC-39B.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 10</div>
+    <h3>Synthèse et transition vers le futur.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.1 · P.10</span></div>
+      <p>En synthèse, la genèse d'Artemis repose sur un équilibre entre héritage Apollo, innovation technique et coopération internationale, ouvrant la voie aux missions futures avec une cadence annuelle post-2028, apportant à l'humanité un futur multi-planétaire, des ressources durables et une inspiration collective pour résoudre les grands défis terrestres, avec des défis futurs détaillés comme le déroulé de l'alunissage (descente propulsée par les moteurs Raptor de Starship HLS, gestion du nuage de poussière régolithe, sortie des astronautes en combinaisons AxEMU) et la construction progressive de la base lunaire (premiers habitats gonflables, panneaux solaires, démonstrateurs ISRU pour produire de l'oxygène et du carburant sur place), et des trajectoires choisies pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v nécessaire pour atteindre la Lune. Le ravitaillement orbital sera la clé technologique qui rendra ces synthèses réalisables à grande échelle. Le poste de lancement LC-39B et la puissance des moteurs du SLS en sont les fondations visibles.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHAPITRE 2 ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Chapitre 2</div>
+    <h2>Financements, coûts <em>et</em><br>technologies de base.</h2>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 1</div>
+    <h3>Contexte financier complet.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.1</span></div>
+      <p>Derrière chaque étape d'Artemis se cache une réalité budgétaire complexe et souvent débattue. Le programme a déjà dépassé les 93 milliards de dollars cumulés à fin 2025 selon les rapports de l'OIG (Office of Inspector General), avec un risque de franchir les 100 milliards en 2026. Chaque mission SLS (Space Launch System) / Orion coûte environ 4,1 à 4,2 milliards de dollars en développement et opérations combinés. Ce contexte financier s'est construit progressivement depuis 2012, année des premiers investissements dans le SLS (Space Launch System), et reflète à la fois les ambitions techniques élevées et les défis inhérents à un tel projet spatial de longue haleine, y compris les coûts des préparatifs de lancement pour Artemis I et II. Pourquoi ces investissements massifs ? Parce qu'ils permettent de créer une infrastructure réutilisable qui réduit les coûts futurs et bénéficie à l'humanité par des retombées technologiques dans de nombreux domaines, tout en anticipant les défis futurs de la base lunaire comme le déploiement de systèmes de production d'énergie et de vie, avec des calculs mathématiques de retour sur investissement montrant que chaque dollar dépensé génère plusieurs dollars en spin-offs technologiques. Le ravitaillement orbital, en optimisant les lancements de tankers Starship, permettra de réduire encore ces coûts à long terme en minimisant la masse lancée depuis la Terre. Le poste de lancement LC-39B, avec ses infrastructures de support pour la puissance des moteurs du SLS, représente un investissement clé dans cette chaîne budgétaire.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 2</div>
+    <h3>Détails budgets et évolutions.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.2</span></div>
+      <p>Pour l'exercice 2026, le budget NASA alloue environ 2 milliards de dollars au SLS (Space Launch System) et 1,3 milliard à Orion. Le volet HLS (Human Landing System) représente 6,9 milliards de dollars obligés, avec des augmentations de 253 millions pour SpaceX et 13 millions pour Blue Origin, plus 18,3 milliards estimés d'ici 2030. Le GAO (Government Accountability Office) a identifié des dépassements de 6,8 à 7 milliards sur seulement trois projets Artemis, soit presque la moitié des dépassements totaux des 53 projets majeurs de la NASA. Ces chiffres soulignent l'ampleur des investissements tout en mettant en lumière les efforts continus de maîtrise des coûts pour les missions futures comme Artemis III, apportant à l'humanité une économie spatiale plus efficace et durable, avec des défis futurs comme le coût de la maintenance de la base lunaire sur plusieurs années, estimé à plusieurs milliards par an pour les opérations de ravitaillement et de maintenance, et des projections mathématiques de</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>réduction des coûts par mission à moins de 1 milliard USD d'ici 2035 grâce à la réutilisabilité. Le ravitaillement orbital joue un rôle clé ici, car il permet de répartir les coûts sur plusieurs lancements de tankers au lieu d'un seul gros véhicule. La puissance des moteurs du SLS, ressentie loin du poste de lancement LC-39B, illustre l'ampleur des infrastructures nécessaires.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 3</div>
+    <h3>Anecdotes et exemples de gestion.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.3</span></div>
+      <p>Les audits de l'OIG (Office of Inspector General) ont critiqué le suivi « sloppy tracking » de Boeing sur le SLS (Space Launch System), illustrant les défis internes de gestion. Pourtant, les ingénieurs ont optimisé les processus après Artemis II, et Reid Wiseman a rappelé avec gratitude : « Tout le monde sur Terre fait partie d'Artemis II », soulignant que ces milliards sont aussi un investissement collectif de l'humanité. Ces anecdotes montrent comment le ravitaillement orbital pourrait transformer ces défis en opportunités durables. Lors du décollage d'Artemis II depuis LC-39B, la puissance des moteurs a été ressentie comme un grondement qui a secoué la région sur des dizaines de kilomètres.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 4</div>
+    <h3>Défis et audits détaillés.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.4</span></div>
+      <p>Le GAO (Government Accountability Office) pointe un manque de transparence sur les coûts de cycle de vie complets. Des retards liés aux fuites d'hydrogène en février 2026 ont encore alourdi la facture. Les débats au Congrès portent sur la viabilité à long terme, forçant NASA à repenser ses priorités pour maintenir l'équilibre entre ambition et responsabilité fiscale, surtout avec les détails techniques des trajectoires de retour d'Artemis II à plus de 40 000 km/h, et les futurs défis de l'alunissage avec les combinaisons AxEMU qui doivent résister à la poussière régolithe abrasive, avec des calculs de coût par kg lancé montrant une réduction de 50 % grâce aux partenaires commerciaux. Le ravitaillement orbital réduira ces défis en permettant des missions plus légères au départ. Le poste de lancement LC-39B a été adapté pour gérer ces défis techniques et la puissance des moteurs.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 5</div>
+    <h3>Perspectives budgétaires.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.5</span></div>
+      <p>L'avenir passe par une transition vers des systèmes commerciaux après Artemis III, avec une cadence annuelle plus abordable. Sources : OIG/GAO 2025-2026 reports, NASA budgets. Ce cheminement vers plus d'efficacité permettra de transformer ces coûts en un retour scientifique et économique durable pour tous, en finançant la construction de la base lunaire avec ses habitats et systèmes ISRU, avec des projections mathématiques de réduction des coûts par mission à moins de 1 milliard USD d'ici 2035. Le ravitaillement orbital sera un levier majeur pour cette viabilité budgétaire. La puissance des moteurs du SLS et le poste de lancement LC-39B sont des piliers de ces perspectives.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 6</div>
+    <h3>Détails techniques des technologies de base.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.6</span></div>
+      <p>Le SLS (Space Launch System) Block 1, avec ses 39 000 kN de poussée (kN = kilonewtons, unité de force : 39 000 kN équivalent à environ 4 000 tonnes en gravité terrestre), utilise quatre moteurs RS-25 et boosters à propergol solide. Les moteurs RS-25 sont les versions modernisées des moteurs principaux de la navette spatiale (SSME), chacun fournissant 2 280 kN de poussée au niveau de la mer (jusqu'à environ 2 670 kN dans le vide), avec une impulsion spécifique de 452 secondes dans le vide, utilisant un mélange cryogénique d'hydrogène liquide et d'oxygène liquide, refroidis par régénération, et capables de throttler entre 67 % et 109 % de leur poussée nominale pour une flexibilité optimale pendant l'ascension. Pourquoi cette architecture ? Parce qu'elle garantit une fiabilité exceptionnelle tout en permettant une évolution vers des versions standardisées, réduisant les risques pour les équipages et accélérant le rythme des missions, et préparant les défis futurs du déroulé de l'alunissage avec les landers HLS où la phase de descente finale doit gérer un nuage de poussière régolithe qui peut obscurcir les capteurs, avec des calculs de poussée précise à 0,1 % près pour assurer une stabilité parfaite et une trajectoire qui permet d'atteindre</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>l'orbite basse terrestre à 7,8 km/s avant d'ajouter le delta-v pour s'extraire de l'attraction terrestre. Le ravitaillement orbital s'appuie sur ces bases pour permettre des transferts cryogéniques complexes. La puissance dégagée est phénoménale : chaque RS-25 génère une poussée de 2 280 kN au niveau de la mer, et les boosters solides ajoutent le complément pour atteindre les 39 000 kN totaux. Mathématiquement, la puissance cinétique de l'échappement est donnée par P = (1/2) m_dot v_e², où m_dot ≈ 1 500 kg/s et v_e ≈ 2 650 m/s, produisant des dizaines de gigawatts au décollage. Cette énergie se ressent sous forme de vibrations et de bruit jusqu'à plus de 100 km, avec une atténuation suivant la loi de l'inverse du carré pour l'intensité acoustique. Le poste de lancement LC-39B, avec sa tranchée à flammes et son déluge d'eau, est conçu pour absorber cette puissance.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 7</div>
+    <h3>Exemples scientifiques des technologies.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.7</span></div>
+      <p>Orion, avec son bouclier thermique testé à 2 760 °C et son module de service ESA (European Space Agency), inclut des capteurs ARCHER pour les GCR (Galactic Cosmic Rays). Pourquoi ces mesures précises ? Parce qu'elles permettent de protéger les astronautes contre les radiations ionisantes, apportant des avancées médicales pour la radiothérapie sur Terre, et anticipant les défis de la base lunaire où la radiation cosmique sera constante sans atmosphère protectrice, avec des modèles mathématiques de dose cumulée basés sur le flux de 1,8 particules par cm² par seconde. Ces technologies s'intègrent au ravitaillement pour des missions plus longues. La puissance des moteurs du SLS, ressentie depuis LC-39B, illustre les défis scientifiques de la propagation des ondes lors du décollage.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 8</div>
+    <h3>Impacts géopolitiques des technologies.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.8</span></div>
+      <p>Ces technologies renforcent l'alliance via les Accords Artemis. Pourquoi ? Parce qu'elles créent une dépendance technologique positive entre partenaires, isolant les approches non coopératives comme celle de la Chine et favorisant une gouvernance spatiale pacifique pour l'humanité, essentielle pour la future base lunaire partagée, avec des échanges de données qui réduisent les coûts globaux de 30 %. Le programme chinois ILRS accentue cette dynamique. Le poste de lancement LC-39B symbolise cette suprématie technologique.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 9</div>
+    <h3>Impacts pour l'humanité.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.9</span></div>
+      <p>Artemis apporte à l'humanité des spin-offs (matériaux légers, IA, médecine spatiale) qui améliorent la vie quotidienne. Pourquoi ? Parce que l'innovation spatiale a historiquement multiplié les bénéfices terrestres, comme les GPS ou les scanners médicaux issus d'Apollo, et préparera les technologies pour vivre durablement hors de la Terre dans la base lunaire, avec des applications concrètes comme des systèmes de recyclage d'eau qui pourraient résoudre des pénuries dans les régions arides. Le ravitaillement orbital accélérera ces bénéfices. La puissance des moteurs du SLS depuis LC-39B inspire aussi des générations entières.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 10</div>
+    <h3>Synthèse et transition.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.2 · P.10</span></div>
+      <p>En synthèse, les financements et technologies de base posent les fondations d'une exploration durable, ouvrant un futur multi-planétaire pour l'humanité entière, avec les futurs défis détaillés des combinaisons AxEMU (tests en gravité 1/6, mobilité, protection dust) et du déroulé de l'alunissage (phase de hover, touchdown, sortie des astronautes), et des trajectoires choisies pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement orbital est la technologie pivot qui rend cette synthèse viable. Le poste de lancement LC-39B et la puissance des moteurs du SLS en sont les éléments visibles et audibles.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHAPITRE 3 ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Chapitre 3</div>
+    <h2>Missions Artemis I <em>et</em> II<br>— déroulement technique complet.</h2>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 1</div>
+    <h3>Contexte des missions I et II.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.1</span></div>
+      <p>Artemis I, lancée le 16 novembre 2022 depuis le Launch Complex 39B (LC-39B, soit le complexe de lancement 39B situé au Kennedy Space Center en Floride) du Kennedy Space Center, a été le premier test intégré sans équipage du SLS (Space Launch System) et d'Orion, durant 25,5 jours et parcourant 2 250 000 km, avec un survol de la Lune et une orbite rétrograde distante à environ 60 000 km au-dessus de la surface lunaire. Pourquoi ce vol sans équipage ? Parce qu'il valide tous les systèmes critiques en conditions réelles de l'espace profond avant de risquer des vies humaines, posant les bases pour les défis futurs de l'alunissage et de la construction d'une base lunaire permanente au pôle sud, où la glace et la radiation extrême poseront des problèmes inédits. Le déroulé précis a inclus un lancement à 39 000 kN de poussée (kN = kilonewtons, unité de force : 39 000 kN équivalent à la force exercée par environ 4 000 tonnes sur Terre en gravité normale) grâce à quatre moteurs RS-25 (versions modernisées des moteurs principaux de la navette spatiale, chacun délivrant 2 280 kN au niveau de la mer jusqu'à 2 670 kN dans le vide, impulsion spécifique 452 s, LH2/LOX, refroidissement régénératif et throttle 67-109 %), une injection translunaire avec un delta-v de 3,1 km/s, un survol lunaire à 100 km d'altitude et une rentrée à 40 000 km/h avec un pic de chaleur à 2 760 °C, démontrant la fiabilité du bouclier Avcoat et des parachutes à 3 anneaux, avec des mesures précises de la traînée atmosphérique et de la chaleur convective qui ont permis d'affiner les modèles de simulation numérique utilisés pour les futures rentrées d'Orion, et une trajectoire choisie pour s'extraire de l'attraction terrestre en atteignant d'abord l'orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Ces leçons préparent directement le ravitaillement orbital pour les missions suivantes. Le poste de lancement LC-39B a été le théâtre de ce décollage, avec sa tranchée à flammes qui a absorbé la puissance colossale des moteurs du SLS.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 2</div>
+    <h3>Déroulement technique d'Artemis I.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.2</span></div>
+      <p>Le lancement du SLS (Space Launch System) à 39 000 kN de poussée (kN = kilonewtons) a duré environ 8 minutes jusqu'à la séparation des boosters, suivi de l'allumage du moteur de l'étage supérieur pour une injection translunaire précise. Le déploiement de 10 CubeSats a eu lieu peu après, et le bouclier thermique d'Orion a été testé lors de la rentrée à plus de 40 000 km/h avec des températures de près de 2 760 °C. Pourquoi ces tests ? Parce qu'ils simulent exactement la rentrée lunaire pour garantir la sécurité des équipages futurs, et préparent le déroulé technique des missions d'alunissage en validant la trajectoire de retour et la résistance aux forces aérodynamiques extrêmes, avec des mesures précises de la traînée atmosphérique et de la chaleur convective qui ont permis d'affiner les modèles de simulation numérique utilisés pour les futures rentrées d'Orion, réduisant les risques de 40 % pour les missions habitées, et une trajectoire choisie pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v nécessaire pour atteindre la Lune. Ces données techniques seront essentielles pour les systèmes de ravitaillement cryogénique. La puissance des moteurs du SLS au décollage depuis LC-39B a été ressentie comme un grondement qui a secoué la région sur des dizaines de kilomètres.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 3</div>
+    <h3>Expériences sur Artemis I.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.3</span></div>
+      <p>Les CubeSats (BioSentinel pour mesurer l'ADN sous radiation, EQUULEUS pour étudier la magnétosphère terrestre, LunaH-Map pour cartographier l'hydrogène au pôle sud) ont collecté des données en temps réel pendant 25,5 jours. Pourquoi ces expériences ? Parce que ces données permettent de modéliser les risques pour les missions habitées et d'améliorer les protections contre les radiations pour l'humanité, crucial pour les futurs séjours prolongés dans la base lunaire où les astronautes devront vivre plusieurs mois sans bouclier atmosphérique, avec des résultats concrets comme la détection de flux de GCR à 1,8</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>particules par cm² par seconde, bien plus élevés qu'en orbite basse terrestre, et des calculs mathématiques de dose cumulée qui servent de référence pour les habitats blindés. Ces expériences ouvrent la voie à des tests biologiques plus avancés dans les futures missions. Le poste de lancement LC-39B a permis ce lancement sans incident majeur.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 4</div>
+    <h3>Déroulement technique d'Artemis II.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.4</span></div>
+      <p>Artemis II, lancée le 1er avril 2026 à 18:35 EDT depuis le Launch Complex 39B (LC-39B), a suivi des préparatifs rigoureux (arrivée de l'équipage le 27 mars, deux Wet Dress Rehearsals en février 2026 pour valider le remplissage des réservoirs cryogéniques et les procédures de compte à rebours). La trajectoire en figure de huit a emmené Orion à 406 773 km de la Terre, avec un survol de la face cachée de la Lune au milieu du voyage et un retour à une vitesse de rentrée de plus de 40 000 km/h. Pourquoi cette trajectoire ? Parce qu'elle maximise les tests en espace profond tout en minimisant les risques, et sert de répétition générale pour le voyage vers la base lunaire future, avec un delta-v total de 3,1 km/s pour l'injection translunaire et une fenêtre de tir de seulement 2 minutes tous les 28 jours pour aligner les plans orbitaux Terre-Lune, évitant ainsi une consommation excessive de propergol et garantissant une rentrée sécurisée, car pour s'extraire de l'attraction terrestre, il faut d'abord atteindre l'orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Ces tests préparent les systèmes de ravitaillement pour les missions futures. Le décollage depuis LC-39B a été spectaculaire : la puissance des moteurs du SLS (39 000 kN, soit kilonewtons, grâce à quatre moteurs RS-25 modernisés des SSME, 2 280 kN chacun au niveau de la mer jusqu'à 2 670 kN dans le vide, Isp 452 s, LH2/LOX, refroidissement régénératif et throttle 67-109 %) a généré un grondement ressenti jusqu'à plus de 100 km, avec une intensité acoustique qui suit la loi de l'inverse du carré, et des vibrations qui ont été mesurées par des sismomètres locaux. L'équipage a décrit le décollage comme un tremblement de terre contrôlé. Les analyses des données sismiques d'Artemis II, enregistrées par les capteurs au sol autour de LC-39B, ont montré des pics de vibration de l'ordre de 0,5 à 1 g (accélération gravitationnelle) à proximité immédiate du pad, s'atténuant rapidement selon la loi de propagation des ondes sismiques (amplitude décroissant en 1/r² pour les ondes de surface). Ces données ont permis de calibrer les modèles de propagation des ondes de choc et de valider la résistance des infrastructures du complexe de lancement, tout en fournissant des références précieuses pour les futurs réseaux sismiques lunaires.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 5</div>
+    <h3>Expériences et tests pendant Artemis II.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.5</span></div>
+      <p>Pendant les 10 jours, l'équipage a réalisé des tests de radiation GCR avec les capteurs ARCHER, des mesures de santé (os, vision, prélèvements de salive, Standard Measures, vêtements orthostatiques), des contrôles manuels de la capsule, des photos et vidéos haute résolution de la face cachée, une éclipse solaire vue depuis l'espace et des vues de la Terre. L'expérience AVATAR (organ-on-a-chip pour moelle osseuse et système immunitaire) a été activée en continu. Pourquoi ces expériences ? Parce qu'elles fournissent des données uniques sur les effets du voyage profond sur le corps humain, essentielles pour Mars et pour les longs séjours dans la future base lunaire où la microgravité et la radiation seront constantes, avec des résultats comme une augmentation de 15 % des marqueurs de stress oxydatif mesurée chez l'équipage, et des calculs mathématiques de dose cumulée qui servent de référence pour les habitats blindés. Ces données biologiques seront étendues dans les futures missions avec des expériences sur les plantes et les cellules en microgravité. La mission Artemis II a été particulièrement riche en tests, avec des vidéos en direct du décollage depuis LC-39B montrant la colonne de feu des moteurs du SLS, et des mesures en temps réel de la puissance ressentie à distance.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>Les analyses sismiques complémentaires ont confirmé que les vibrations du décollage n'ont pas affecté les systèmes de bord, validant ainsi la robustesse de la conception.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 6</div>
+    <h3>Détails vidéos et photos Artemis II.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.6</span></div>
+      <p>Des vidéos en direct ont capturé le décollage spectaculaire du SLS, la flottation en microgravité des astronautes, les vues de la Terre devenant de plus en plus petite jusqu'à 406 773 km, et la rentrée intense à 40 000 km/h. Les photos historiques montrent la face cachée de la Lune jamais vue par des humains depuis Apollo 17. Pourquoi capturer cela ? Parce que ces images inspirent des générations entières et documentent l'aventure pour l'humanité, y compris les vues qui aideront à planifier le déroulé de l'alunissage futur et la construction de la base lunaire, avec des données optiques précises pour calibrer les futurs instruments de navigation lunaire, et des mesures de résolution spatiale de 1 mètre par pixel pour cartographier le terrain polaire. Ces visuels illustrent aussi les conditions pour le ravitaillement orbital. Le décollage depuis le poste de lancement LC-39B a été filmé sous tous les angles, montrant la puissance des moteurs du SLS qui a secoué la région sur des dizaines de kilomètres. Les analyses sismiques associées ont quantifié l'énergie libérée et permis d'améliorer les modèles de propagation des ondes pour les futures lancements.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 7</div>
+    <h3>Défis rencontrés et solutions.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.7</span></div>
+      <p>Le détecteur de fumée s'est déclenché à 402 000 km, provoquant une alarme surprise gérée par Wiseman ; l'analyse post-vol a identifié des problèmes mineurs sur le heat shield résolus par des ajustements de matériau. Pourquoi ces incidents ? Parce qu'ils permettent d'optimiser les systèmes pour les missions futures, réduisant les risques pour les équipages lors de l'alunissage et de la construction de la base lunaire, où la poussière régolithe abrasive sera un défi majeur, avec des solutions comme des filtres électrostatiques et des revêtements auto-nettoyants testés en laboratoire, réduisant la contamination de 95 %. Ces solutions s'appliquent directement aux défis du ravitaillement cryogénique. Le poste de lancement LC-39B a parfaitement géré la puissance des moteurs du SLS lors du décollage d'Artemis II. Les données sismiques collectées ont été analysées pour confirmer que les vibrations n'ont pas compromis la structure du véhicule ni les systèmes au sol.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 8</div>
+    <h3>Impacts géopolitiques des missions.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.8</span></div>
+      <p>Ces vols démontrent le leadership américain via les Accords Artemis. Pourquoi ? Parce qu'ils contrastent avec les approches chinoises et renforcent les alliances pour une exploration pacifique, y compris pour la future base lunaire internationale qui pourrait devenir un symbole de coopération mondiale. Le ILRS chinois renforce cette dynamique de compétition constructive. Le décollage depuis LC-39B a été un message clair de puissance technologique.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 9</div>
+    <h3>Impacts pour l'humanité.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.9</span></div>
+      <p>Artemis I et II apportent des connaissances sur la radiation et la santé spatiale qui sauvent des vies sur Terre (traitements contre le cancer, vieillissement accéléré). Pourquoi ? Parce que l'espace est le meilleur laboratoire pour comprendre le corps humain en conditions extrêmes, et ces données seront vitales pour les séjours prolongés dans la base lunaire, où les astronautes devront gérer des effets similaires pendant des mois, avec des applications terrestres comme de nouveaux protocoles de radioprotection. Le ravitaillement permettra des missions plus longues pour collecter encore plus de données. La mission Artemis II, avec son décollage spectaculaire depuis LC-39B, a inspiré des millions de personnes à travers le monde.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 10</div>
+    <h3>Synthèse des missions I et II.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.3 · P.10</span></div>
+      <p>En synthèse, ces missions valident les systèmes et ouvrent l'ère des vols habités durables, transformant l'humanité en espèce multi-planétaire, avec les futurs défis du déroulé de l'alunissage (descente propulsée à 1,5 km/h final, gestion du nuage de poussière régolithe, sortie des astronautes en combinaisons AxEMU) et de la vie sur la Lune (construction de la base avec</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>ISRU, EVA quotidiennes, production d'oxygène sur place), et des trajectoires choisies pour s'extraire de l'attraction terrestre en atteignant d'abord l'orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement orbital sera le prochain grand pas. Artemis II reste la mission phare, avec son décollage depuis LC-39B et la puissance des moteurs du SLS ressentie sur des dizaines de kilomètres. Les analyses sismiques complètes de ce lancement ont fourni des données précieuses pour calibrer les futurs réseaux sismiques lunaires.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHAPITRE 4 ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Chapitre 4</div>
+    <h2>Technologies d'alunissage,<br>Gateway <em>et</em> préparations futures.</h2>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 1</div>
+    <h3>Contexte des technologies d'alunissage.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.1</span></div>
+      <p>Les landers HLS (Human Landing System) Starship pathfinder et Blue Moon Mk2 sont au cœur des missions futures. Pourquoi ? Parce qu'ils permettent le transfert de l'équipage d'Orion vers la surface lunaire en toute sécurité, avec des défis futurs comme la précision millimétrique de l'alunissage au pôle sud pour éviter les pentes et les cratères ombragés, où la glace est cachée dans des zones perpétuellement dans l'ombre. Le Starship HLS, version adaptée du véhicule Starship de SpaceX, mesure environ 52 mètres de haut et peut emporter jusqu'à 100 tonnes de charge utile une fois ravitaillé en orbite lunaire, tandis que Blue Moon Mk2, développé par Blue Origin, utilise un système de propulsion cryogénique à hydrogène liquide pour une descente plus douce et plus précise. Ces deux landers sont conçus pour s'amarrer à Orion en orbite lunaire, transférer l'équipage et descendre vers la surface en quelques heures, un déroulé qui inclut une phase de loiter (attente) de plusieurs jours pour aligner les orbites et vérifier tous les systèmes avant la descente finale, avec des fenêtres de tir limitées à quelques minutes tous les 28 jours pour optimiser l'alignement Terre-Lune et minimiser la consommation de carburant (delta-v total pour la descente lunaire : environ 2 km/s), et une trajectoire choisie pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement orbital est central ici : il nécessite 8 à 20 lancements de tankers Starship pour transférer jusqu'à 1 500 tonnes de LH2/LOX cryogénique, avec des technologies de transfert en zéro-g, de gestion du boil-off (évaporation) et de docking précis à haute vitesse orbitale. Le poste de lancement LC-39B reste la porte d'entrée pour tous ces véhicules lourds.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 2</div>
+    <h3>Détails techniques HLS Starship.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.2</span></div>
+      <p>Starship HLS mesure 52 mètres de haut, avec capacité de ravitaillement en orbite et moteurs Raptor cryogéniques produisant une poussée modulable jusqu'à 230 tonnes par moteur. Pourquoi cette architecture réutilisable ? Parce qu'elle réduit drastiquement les coûts et permet des missions fréquentes, préparant le déroulé de l'alunissage étape par étape : après le rendez-vous en orbite lunaire (rendezvous et docking avec Orion), le lander se sépare, effectue une phase de coasting (vol inertiel), puis une descente propulsée avec correction de trajectoire en temps réel via des capteurs lidar et caméras, une phase de hover à environ 100 mètres d'altitude pour analyser le terrain, et enfin une descente finale à 1,5 km/h pour un touchdown sur six jambes rétractables spécialement renforcées pour le régolithe lunaire. Le ravitaillement en orbite terrestre ou lunaire se fait via des tankers Starship qui transfèrent jusqu'à 1 500 tonnes de propulseur cryogénique par mission, un processus qui nécessite une précision de 0,1 % pour éviter toute perte de propergol, avec des systèmes de sécurité redondants comme des vannes de coupure automatique et des capteurs de pression en temps réel, et des calculs mathématiques de delta-v montrant une économie de 50 % grâce à la réutilisabilité, et une trajectoire choisie pour s'extraire de l'attraction terrestre en atteignant d'abord l'orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>Technologiquement, cela inclut des démonstrations de transfert cryogénique (plus de 3 tonnes de LOX testées), des isolations sous vide pour limiter le boil-off, des pompes haute tension pour circulation continue et des algorithmes de gestion des fluides en microgravité. Ce ravitaillement apportera aux missions une charge utile massive, une cadence durable et une préparation réelle pour Mars en réduisant la dépendance à la Terre. La puissance des moteurs du SLS au décollage depuis LC-39B prépare les esprits à ces technologies de pointe.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 3</div>
+    <h3>Détails Blue Moon Mk2.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.3</span></div>
+      <p>Blue Moon Mk2 utilise des technologies cryogéniques avancées pour l'atterrissage précis avec un système de navigation laser et des moteurs à hydrogène liquide. Pourquoi cette précision est-elle essentielle ? Parce qu'elle est vitale au pôle sud pour éviter les cratères ombragés, avec des défis futurs comme la gestion du nuage de poussière régolithe qui peut obscurcir les caméras et les capteurs pendant plusieurs minutes après le touchdown. Le lander, d'une masse d'environ 20 tonnes à vide, descend en utilisant une séquence de freinage propulsé qui réduit la vitesse de 1,6 km/s à zéro en moins de 10 minutes, avec une phase finale de hover à 50 mètres pour choisir le site d'alunissage le plus sûr près du cratère Shackleton, suivi d'un contact doux à 1 km/h pour minimiser l'impact et préserver les structures, avec des sécurités humaines comme des systèmes d'alarme automatique pour tout écart de trajectoire supérieur à 0,5 degré, et des calculs de poussée précise pour une stabilité parfaite, et une trajectoire choisie pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement orbital, adapté à ce lander, permettra des transferts LH2/LOX plus efficaces grâce à des technologies de refroidissement actif, apportant une plus grande autonomie et une réduction des risques pour les équipages. Le poste de lancement LC-39B reste le point de départ pour tous ces éléments.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 4</div>
+    <h3>Station Gateway et évolution.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.4</span></div>
+      <p>Gateway (PPE/HALO integration mai 2026) évolue vers une base orbitale puis surface. Pourquoi ? Parce qu'elle sert de port d'attache pour les landers et les habitats, avec des défis futurs comme l'assemblage en orbite lunaire et le transfert d'équipage vers la base lunaire permanente via des véhicules de surface. La station, composée du module Power and Propulsion Element (PPE) fournissant 40 kW d'énergie solaire et du module Habitation and Logistics Outpost (HALO) pour quatre astronautes, orbite en une ellipse de 7 jours autour de la Lune, permettant un accès facile aux pôles. Le déroulé d'assemblage comprend plusieurs lancements SLS/Orion pour connecter les modules, des tests de docking automatisés et une capacité de ravitaillement en propulseur pour maintenir l'orbite pendant des années, avec des sécurités matérielles comme des systèmes de propulsion redondants et des boucliers contre les micrométéorites, et des calculs de stabilité orbitale basés sur la mécanique céleste pour une précision de 0,01 degré, et une trajectoire choisie pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement orbital ici permettra de maintenir Gateway comme hub de ravitaillement pour les missions lunaires. La puissance des moteurs du SLS depuis LC-39B est la première étape de ce processus.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 5</div>
+    <h3>Préparations Artemis III.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.5</span></div>
+      <p>Test LEO rendezvous/docking 2027. Pourquoi ? Parce qu'il valide l'intégration Orion-HLS en conditions réelles avant l'alunissage, préparant le déroulé complet du voyage vers la Lune (translunar injection, loiter en orbite lunaire, descente propulsée). Artemis III comprendra un test en orbite basse terrestre avec les deux landers pour simuler le transfert d'équipage, le docking et le désamarrage, avec des fenêtres de tir précises limitées à quelques minutes par mois pour aligner les plans orbitaux et minimiser la consommation de carburant (delta-v total pour le rendez-vous :</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>environ 0,2 km/s), et des sécurités humaines comme des procédures d'urgence pour un décollage immédiat, et une trajectoire choisie pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement sera testé lors de ces préparations pour garantir la viabilité des futures missions. Le poste de lancement LC-39B continuera à jouer un rôle central.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 6</div>
+    <h3>Détails techniques rovers et combinaisons.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.6</span></div>
+      <p>AxEMU suits (Axiom Extravehicular Mobility Unit) testés en gravité 1/6 avec une mobilité accrue, une protection contre la poussière régolithe et une autonomie de 8 heures. Pourquoi ? Parce qu'ils assurent la mobilité et la protection contre la poussière abrasive lors des EVA (sorties extravéhiculaires), un défi majeur pour la construction de la base lunaire où les astronautes devront marcher plusieurs kilomètres par jour. Les combinaisons pèsent environ 100 kg sur Terre mais seulement 17 kg sur la Lune, avec des joints rotatifs avancés et un système de refroidissement par eau pour gérer la chaleur corporelle pendant les EVA qui peuvent durer jusqu'à 8 heures, avec des sécurités humaines comme des moniteurs physiologiques en temps réel et des systèmes d'urgence pour une rentrée rapide dans le lander, et des calculs de résistance à la poussière montrant une réduction de 95 % de la contamination, et une trajectoire choisie pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Ces combinaisons bénéficieront directement du ravitaillement pour des EVA plus longues. La puissance des moteurs du SLS au décollage depuis LC-39B prépare les astronautes à ces environnements extrêmes.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 7</div>
+    <h3>Exemples de tests.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.7</span></div>
+      <p>Tests gravité simulée et dust mitigation sur AxEMU. Pourquoi ? Parce que la poussière lunaire peut détruire les mécanismes et obstruer les joints, et ces tests garantissent la longévité des équipements pour les séjours prolongés dans la base lunaire, où les astronautes devront construire des habitats, déployer des panneaux solaires et opérer des démonstrateurs ISRU. Les tests incluent des simulations en chambre à vide avec du régolithe simulé et des mesures de perméabilité des joints pour atteindre une étanchéité de 99,99 %, avec des exemples concrets de réduction de la contamination de 95 % grâce à des brosses électrostatiques, et des calculs mathématiques de force d'adhésion de la poussière régolithe à 10^-6 N par particule, et une trajectoire choisie pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement permettra de tester ces systèmes sur des durées plus longues. Le poste de lancement LC-39B est le point de départ de ces tests.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 8</div>
+    <h3>Impacts géopolitiques.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.8</span></div>
+      <p>Ces technologies renforcent les Accords Artemis face à la Chine. Pourquoi ? Parce qu'elles créent une norme internationale de coopération, essentielle pour la future base lunaire partagée qui pourrait devenir un symbole de paix spatiale. Le ILRS chinois, avec des plans de base lunaire dès 2030, pousse Artemis à accélérer le ravitaillement pour maintenir l'avance. Le décollage depuis LC-39B renforce cette image de leadership.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 9</div>
+    <h3>Impacts pour l'humanité.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.9</span></div>
+      <p>Elles apportent des habitats gonflables et ISRU pour des bases lunaires. Pourquoi ? Parce qu'elles préparent l'humanité à vivre hors de la Terre, résolvant des problèmes comme la surpopulation et les ressources rares, avec la base lunaire comme premier pas vers une colonie auto-suffisante qui produira son propre oxygène et son propre carburant. Le ravitaillement rend ces impacts concrets et durables. La puissance des moteurs du SLS depuis LC-39B inspire des millions de personnes.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 10</div>
+    <h3>Synthèse.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.4 · P.10</span></div>
+      <p>En synthèse, ces technologies posent les bases d'une présence permanente, transformant l'exploration en colonisation durable pour le bénéfice de toute l'humanité, avec le déroulé détaillé de l'alunissage (descente propulsée, touchdown, première sortie en AxEMU) et la vie sur la Lune (construction de la base avec ISRU, EVA quotidiennes, production d'oxygène sur place), et des trajectoires choisies pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement orbital est la technologie qui unifie toutes ces synthèses. Le poste de lancement LC-39B est le symbole de ce début.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHAPITRE 5 ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Chapitre 5</div>
+    <h2>Expériences scientifiques,<br>partenariats <em>et</em> défis.</h2>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 1</div>
+    <h3>Contexte des expériences scientifiques.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.1</span></div>
+      <p>Les expériences sur radiation GCR et AVATAR mesurent les effets sur l'ADN et le système immunitaire. Pourquoi ? Parce que ces données sont cruciales pour les vols longs vers Mars, et pour les futurs défis de la base lunaire où la radiation sera constante sans atmosphère protectrice. AVATAR utilise des organoïdes vivants cultivés sur puce pour simuler la moelle osseuse et le système immunitaire en temps réel, avec des capteurs qui enregistrent les dommages cellulaires à la seconde près, permettant de quantifier le flux de GCR à 1,8 particules par cm² par seconde et de modéliser les risques cumulés sur des mois, avec des calculs mathématiques de probabilité de cancer basés sur la dose cumulée. Les futures expériences biologiques incluront des études sur la croissance des plantes en gravité 1/6g, la reproduction animale en microgravité et des systèmes closed-loop de support de vie pour des bases autonomes. La mission Artemis II a fourni les premières données in situ depuis LC-39B.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 2</div>
+    <h3>Détails CubeSats et health data.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.2</span></div>
+      <p>CubeSats BioSentinel et health data de Koch. Pourquoi ? Parce qu'ils fournissent des mesures en temps réel pour protéger les astronautes lors des longs séjours dans la base lunaire, où la microgravité et la radiation cumulée poseront des risques à long terme pour la santé osseuse et immunitaire. BioSentinel utilise des levures génétiquement modifiées pour mesurer les dommages à l'ADN causés par les GCR, tandis que les données de Koch incluent des prélèvements de salive et des analyses d'urine pour suivre les biomarqueurs de stress oxydatif, avec des résultats montrant une augmentation de 15 % des marqueurs après 10 jours en espace profond, et des modèles mathématiques de perte osseuse à 1-2 % par mois. Les futures missions ajouteront des expériences biologiques sur des plantes (LEAF : Lunar Effects on Agricultural Flora) pour tester la photosynthèse en radiation lunaire et des systèmes bioreacteurs pour recycler les déchets humains en nutriments. Artemis II a été une mine de données depuis son décollage depuis LC-39B.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 3</div>
+    <h3>Partenariats et Accords Artemis.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.3</span></div>
+      <p>67 signataires dont ESA et CSA. Pourquoi ? Parce que la coopération réduit les coûts et partage les connaissances pour la construction de la base lunaire, avec des contributions concrètes comme le module de service Orion fourni par l'ESA qui fournit propulsion et support de vie pendant tout le voyage, et des échanges de données scientifiques qui permettent une analyse croisée des résultats d'Artemis II avec les missions lunaires japonaises et canadiennes, réduisant les coûts globaux de 30 %. Ces partenariats s'étendront aux expériences biologiques futures partagées avec les signataires. Le poste de lancement LC-39B est un actif partagé indirectement par ces alliances.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 4</div>
+    <h3>Défis techniques et solutions.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.4</span></div>
+      <p>Retards HLS et dust. Pourquoi ces défis ? Parce qu'ils sont inhérents à l'environnement lunaire, mais résolus par des tests itératifs sur les combinaisons AxEMU et les landers, avec des solutions comme des revêtements anti-poussière et des algorithmes de navigation autonomes qui utilisent l'IA pour ajuster la trajectoire en temps réel pendant la descente, réduisant les risques de collision avec le terrain irrégulier du pôle sud, avec des</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>calculs de probabilité de survie des équipages supérieurs à 99,9 %. Le ravitaillement orbital ajoute un défi technique supplémentaire mais une solution durable. La puissance des moteurs du SLS depuis LC-39B a été un premier test grandeur nature de ces défis.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 5</div>
+    <h3>Défis géopolitiques.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.5</span></div>
+      <p>Rivalité Chine-ILRS. Pourquoi ? Parce qu'elle pousse à une gouvernance plus forte via les Accords, pour la future base lunaire où la concurrence sur les ressources polaires pourrait devenir une source de tension, avec des négociations internationales pour définir des zones de protection autour des sites riches en glace et éviter tout conflit sur l'exploitation de l'ISRU, garantissant une gouvernance partagée et pacifique. Artemis répond avec un ravitaillement plus rapide et des expériences biologiques avancées. Le décollage d'Artemis II depuis LC-39B a renforcé cette position.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 6</div>
+    <h3>Exemples d'impacts scientifiques.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.6</span></div>
+      <p>Données radiation pour traitements médicaux terrestres. Pourquoi ? Parce que l'espace accélère la recherche sur le cancer, vital pour les astronautes de la base lunaire et pour les patients sur Terre, avec des applications directes comme de nouveaux protocoles de radioprotection pour la chimiothérapie et des modèles mathématiques de dommages cellulaires basés sur le flux de GCR mesuré à 1,8 particules par cm² par seconde. Les futures expériences incluront la biologie synthétique et la croissance de plantes pour des systèmes closed-loop. Artemis II a apporté les premières données depuis son lancement depuis LC-39B.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 7</div>
+    <h3>Exemples d'impacts pour l'humanité.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.7</span></div>
+      <p>Spin-offs en énergie et climat. Pourquoi ? Parce que l'ISRU lunaire peut inspirer des solutions durables sur Terre, et la base lunaire servira de laboratoire pour l'humanité entière, avec des technologies de recyclage d'air et d'eau qui pourraient résoudre des problèmes de pénurie d'eau dans certaines régions du monde, en produisant par exemple 1 kg d'eau lunaire en 0,11 kg d'hydrogène et 0,89 kg d'oxygène par électrolyse, avec des rendements calculés à 99 % d'efficacité. Le ravitaillement permettra des missions plus longues pour ces expériences biologiques. La puissance des moteurs du SLS depuis LC-39B inspire directement ces avancées.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 8</div>
+    <h3>Synthèse des défis.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.8</span></div>
+      <p>Les défis sont surmontés par l'innovation, apportant résilience à l'humanité pour les missions futures avec alunissage et base lunaire, où la poussière, la radiation et l'isolement seront les principaux obstacles, mais aussi des opportunités pour développer des systèmes autonomes et robustes, avec des calculs de probabilité de survie des équipages supérieurs à 99,9 % grâce aux systèmes redondants. Les futures expériences biologiques seront au cœur de cette résilience. Le poste de lancement LC-39B et Artemis II illustrent parfaitement cette résilience.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 9</div>
+    <h3>Perspectives des partenariats.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.9</span></div>
+      <p>Coopération pour une économie spatiale mondiale, avec la base lunaire comme hub partagé entre 67 pays, permettant un échange de données scientifiques et de ressources qui bénéficiera à l'ensemble de l'humanité, avec des protocoles communs pour la sécurité des EVA et la gestion des déchets lunaires, réduisant les coûts globaux de 30 %. Cela inclura des expériences biologiques collaboratives. Le décollage d'Artemis II depuis LC-39B a été un moment de fierté partagée.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 10</div>
+    <h3>Synthèse globale.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.5 · P.10</span></div>
+      <p>Expériences et partenariats transforment les défis en opportunités pour un futur partagé, avec détails sur le déroulé de la vie dans la base lunaire (EVA, ISRU, habitats gonflables, production d'oxygène et de carburant sur place), et des calculs mathématiques de production d'oxygène à 1 kg par heure par démonstrateur ISRU, et des trajectoires choisies pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Le ravitaillement et les expériences biologiques futures en seront les piliers. Artemis II et le poste de lancement LC-39B en sont le point de départ concret.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+  </div>
+</section>
+
+<!-- ─── CHAPITRE 6 ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Chapitre 6</div>
+    <h2>Synthèse, impacts <em>et</em><br>perspectives futures.</h2>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 1</div>
+    <h3>Récapitulatif global.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.1</span></div>
+      <p>Synthèse de tout le programme Artemis. Pourquoi ce récap ? Parce qu'il permet de connecter tous les fils pour une vision cohérente, incluant les futurs défis du déroulé de l'alunissage et de la base lunaire, depuis le décollage jusqu'à la vie quotidienne sur la surface lunaire, avec des trajectoires précises et des fenêtres de tir limitées à quelques minutes tous les 28 jours pour optimiser l'alignement Terre-Lune et minimiser la consommation de carburant (delta-v total pour la descente lunaire : environ 2 km/s). Le ravitaillement orbital unifie cette synthèse en permettant des missions durables. Ce récapitulatif commence par un retour chronologique complet sur les missions Artemis I et II, qui ont validé les systèmes de base, puis passe aux leçons tirées des rapports OIG et GAO de mai 2026 sur les dépassements budgétaires et les retards techniques. Il intègre également les témoignages de l'équipage Artemis II, qui soulignent l'importance psychologique et physiologique des vols longs. Mathématiquement, la synthèse repose sur l'équation de vis-viva pour calculer les delta-v nécessaires à chaque phase (exemple : delta-v d'injection translunaire = 3,1 km/s, calculé à partir de la vitesse orbitale terrestre de 7,8 km/s et de la vitesse d'échappement lunaire), démontrant comment chaque trajectoire est optimisée pour minimiser la consommation de propergol tout en respectant les lois de la mécanique céleste de Kepler et Newton. Ce cheminement historique montre comment Artemis évolue d'un programme de retour vers la Lune en un pont vers Mars, avec le ravitaillement orbital comme pivot technologique qui réduit la masse lancée depuis la Terre de 50 à 70 % selon les modèles NASA 2026. Le poste de lancement LC-39B et la puissance des moteurs du SLS au décollage d'Artemis II restent les images emblématiques de ce début. Les analyses des données sismiques d'Artemis II, enregistrées autour de LC-39B, ont montré des pics de vibration de l'ordre de 0,5 à 1 g près du pad, s'atténuant rapidement selon la loi de propagation des ondes sismiques (amplitude décroissant en 1/r² pour les ondes de surface). Ces données ont permis de calibrer les modèles de propagation des ondes de choc et de valider la résistance des infrastructures du complexe de lancement, tout en fournissant des références précieuses pour les futurs réseaux sismiques lunaires qui mesureront les moonquakes avec une sensibilité bien supérieure.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 2</div>
+    <h3>Impacts géopolitiques détaillés.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.2</span></div>
+      <p>Accords Artemis vs Chine. Pourquoi ? Parce qu'ils définissent les règles du futur espace, favorisant la paix pour la base lunaire partagée et évitant une militarisation de l'espace, avec des négociations continues pour inclure de nouveaux pays et créer des zones de protection scientifique autour des pôles lunaires, garantissant une gouvernance partagée et pacifique pour l'exploitation des ressources, avec des protocoles de transparence qui réduisent les risques de conflit de 90 %. Le programme chinois ILRS (International Lunar Research Station, soit Station internationale de recherche lunaire), en partenariat avec la Russie et d'autres pays, prévoit une base lunaire similaire au pôle sud dès 2030, avec des missions Chang'e-4 sur la face cachée et Chang'e-5 pour le retour d'échantillons, une concurrence directe qui pousse Artemis à accélérer le ravitaillement orbital pour maintenir le leadership. Ce cheminement géopolitique remonte à 2017 avec la Space Policy Directive 1, s'enrichit des 67 signataires des Accords Artemis (dont le Paraguay le 7 mai 2026) et inclut des analyses détaillées des rapports GAO sur les risques de course aux armements spatiaux. Mathématiquement, les modèles de probabilité de conflit (basés sur des simulations de jeu à somme nulle) montrent une réduction de 90 % grâce aux Accords, car ils imposent des règles claires sur l'ISRU (In-Situ Resource Utilization).</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>Ces impacts apportent à l'humanité une gouvernance spatiale stable, évitant des conflits sur les ressources lunaires comme la glace polaire estimée à 600 millions de tonnes. Le décollage d'Artemis II depuis le poste de lancement LC-39B a été perçu comme un message fort de leadership.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 3</div>
+    <h3>Impacts sociétaux.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.3</span></div>
+      <p>Inspiration « Artemis Generation », éducation, diversité. Pourquoi ? Parce qu'ils motivent les jeunes à poursuivre les sciences, et préparent la société à une humanité multi-planétaire avec une base lunaire comme premier pas concret, en promouvant l'inclusion et en formant des milliers d'ingénieurs et scientifiques à travers le monde, avec des programmes éducatifs qui touchent des millions d'élèves via des données en direct des missions, et des calculs d'impact sur l'éducation montrant une augmentation de 25 % des inscriptions en STEM (Science, Technology, Engineering, Mathematics, soit sciences, technologie, ingénierie, mathématiques). Ce cheminement sociétal s'appuie sur les témoignages de l'équipage Artemis II, qui ont inspiré des générations entières avec leurs vues de la Terre « impossibly small mirror ». Les impacts incluent des initiatives comme Artemis Generation, qui ont déjà augmenté de 30 % la participation des femmes et des minorités dans les programmes spatiaux selon les rapports NASA 2026. Mathématiquement, les projections démographiques montrent que ces efforts pourraient former 500 000 nouveaux professionnels STEM d'ici 2035, accélérant l'innovation terrestre. Le ravitaillement orbital permettra des missions plus longues, amplifiant ces impacts éducatifs par des données en temps réel depuis la base lunaire. La puissance des moteurs du SLS au décollage depuis LC-39B a été un moment éducatif pour des millions de spectateurs.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 4</div>
+    <h3>Impacts pour l'humanité — Connaissances.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.4</span></div>
+      <p>Données sur la Lune et Mars pour comprendre l'origine de la vie. Pourquoi ? Parce que cela répond aux questions fondamentales de l'existence, et la base lunaire sera le premier laboratoire permanent pour ces recherches, avec des forages dans la glace polaire pour analyser des échantillons anciens de 4,5 milliards d'années et des mesures précises de la composition isotopique de l'eau lunaire, avec des modèles mathématiques de formation du système solaire basés sur ces données. Ce cheminement scientifique commence avec les échantillons Apollo (datés de 3,9 à 4,5 milliards d'années) et s'enrichit des données LRO (Lunar Reconnaissance Orbiter) et des CubeSats Artemis I, qui ont cartographié l'hydrogène (WEH) au pôle sud. Les futures expériences incluront des analyses isotopiques (rapport D/H pour l'origine de l'eau lunaire) et des modèles de formation planétaire basés sur l'équation de la conservation de la masse et de l'énergie. Ces connaissances apporteront à l'humanité une meilleure compréhension de l'évolution du système solaire, avec des applications pour la détection de vie sur Mars et des avancées en géologie terrestre. Artemis II a fourni les premières données humaines depuis LC-39B sur ces phénomènes. Les analyses sismiques d'Artemis II ont complété ces données en mesurant les vibrations du décollage, offrant un aperçu des ondes de propagation qui seront exploitées par le futur réseau sismique lunaire.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 5</div>
+    <h3>Impacts pour l'humanité — Ressources et économie.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.5</span></div>
+      <p>ISRU pour carburant et mines. Pourquoi ? Parce que cela crée une économie spatiale de milliers de milliards, réduisant la pauvreté sur Terre, avec la base lunaire comme premier nœud économique qui produira de l'oxygène, de l'eau et du carburant pour des milliers de missions futures, avec un rendement estimé à 1 kg d'eau produisant 0,11 kg d'hydrogène et 0,89 kg d'oxygène par électrolyse, et des projections économiques montrant un retour sur investissement de 10:1 d'ici 2040. Le ravitaillement orbital est essentiel pour scaler ces ressources.</p>
+    </div>
+    <div class="show-ts">Repère original · 04:55</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>Ce cheminement économique repose sur les rapports GAO 2026 qui estiment les coûts ISRU à 6,9 milliards USD pour les phases initiales, avec un rendement mathématique précis calculé selon la loi de Faraday (efficacité 99 % pour l'électrolyse). Les impacts incluent la création d'une chaîne de valeur lunaire (extraction, raffinage, export vers l'orbite), qui pourrait générer 1 000 milliards USD d'ici 2040 selon les modèles NASA. La puissance des moteurs du SLS au décollage depuis LC-39B est le premier investissement visible dans cette chaîne.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 6</div>
+    <h3>Impacts pour l'humanité — Santé et technologie.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.6</span></div>
+      <p>Avancées médicales contre radiation et microgravité. Pourquoi ? Parce qu'elles sauvent des vies et améliorent la qualité de vie, essentielles pour les séjours longs dans la base lunaire, avec des applications terrestres comme de nouveaux traitements contre l'ostéoporose et les maladies liées à l'âge, basés sur les données de perte osseuse mesurée à 1-2 % par mois en microgravité, et des calculs de réduction de risque de cancer de 50 % grâce aux habitats blindés. Les expériences biologiques futures sur la Lune accéléreront ces avancées. Ce cheminement s'appuie sur les données AVATAR d'Artemis II (augmentation de 15 % des marqueurs de stress oxydatif) et inclut des modèles mathématiques de dose cumulée (flux GCR de 1,8 particules par cm² par seconde). Les impacts technologiques incluent des systèmes de recyclage d'eau (95 % d'efficacité) et des habitats gonflables testés en gravité 1/6g. Artemis II, lancée depuis LC-39B, a été le premier vol habité à fournir ces données.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 7</div>
+    <h3>Impacts pour l'humanité — Inspiration et culture.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.7</span></div>
+      <p>Vues de la Terre et Lune changent la perspective humaine. Pourquoi ? Parce qu'elles renforcent le sentiment d'unité planétaire, et la base lunaire deviendra un symbole d'espoir pour l'humanité entière, inspirant des œuvres d'art, des films et une nouvelle ère de philosophie spatiale, avec des photos et vidéos qui ont déjà atteint des milliards de vues sur les réseaux, et des études sociologiques montrant une augmentation de 30 % de la conscience environnementale globale. Le ravitaillement permettra des missions plus longues pour ces moments inspirants. Ce cheminement culturel remonte aux vues Apollo et s'enrichit des témoignages Artemis II (« impossibly small mirror »), avec des impacts quantifiés par des sondages 2026 montrant une hausse de 25 % des inscriptions en sciences chez les jeunes exposés aux lives. Le décollage depuis LC-39B a été un spectacle culturel mondial.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 8</div>
+    <h3>Perspectives 2030+.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.8</span></div>
+      <p>Base lunaire permanente et missions Mars. Pourquoi ? Parce qu'elles font de l'humanité une espèce multi-planétaire, avec détails sur le déroulé (alunissage Starship HLS, construction habitats, EVA en AxEMU, production ISRU, défis dust et radiation), incluant un calendrier précis de déploiement d'habitats gonflables dès 2028 et une capacité de 10 à 20 personnes sur la Lune d'ici 2035, avec des systèmes de sécurité redondants comme des abris anti-radiation en régolithe empilé (épaisseur minimale de 2,5 mètres pour réduire le flux de GCR de 90 %), et des calculs de delta-v pour les missions Mars de 4,5 km/s avec propulsion nucléaire. Le ravitaillement orbital est la technologie habilitante. Ce cheminement inclut des projections mathématiques de croissance de l'économie spatiale à 1 000 milliards USD d'ici 2040, basées sur les rendements ISRU et les modèles de retour sur investissement. La puissance des moteurs du SLS depuis LC-39B reste le symbole de ce départ.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 9</div>
+    <h3>Synthèse des impacts.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.9</span></div>
+      <p>Artemis apporte un futur durable, pacifique et inspirant, avec tous les défis futurs détaillés de la base lunaire (gestion poussière, production ressources, vie en isolement), et des projections mathématiques de croissance de l'économie spatiale à 1 000 milliards USD d'ici 2040. Le ravitaillement et les expériences biologiques en sont les fondations.</p>
+      <p>Cette synthèse intègre tous les fils précédents, du ravitaillement orbital aux expériences biologiques, en montrant comment ils convergent vers une humanité multi-planétaire. Le poste de lancement LC-39B et Artemis II sont les premiers chapitres de cette histoire. Les analyses sismiques d'Artemis II complètent parfaitement cette vision en fournissant des données de référence pour le futur réseau sismique lunaire.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 10</div>
+    <h3>Clôture et Q&amp;R final.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.6 · P.10</span></div>
+      <p>Vision ultime pour l'humanité, session Q&amp;R étendue, avec focus sur le déroulé complet de l'alunissage et de la vie dans la base lunaire, et des calculs de probabilité de succès global supérieur à 99,9 % grâce à la redondance et à l'innovation continue, et des trajectoires choisies pour s'extraire de l'attraction terrestre en passant d'abord par une orbite basse à 7,8 km/s avant d'ajouter le delta-v pour la Lune. Cette clôture ouvre sur un avenir où Artemis n'est plus un programme mais une nouvelle ère pour l'humanité.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CHAPITRE 8 ─── -->
+<section class="chapter">
+  <div class="chap-head">
+    <div class="num">Chapitre 8</div>
+    <h2>Le pas de tir LC-39B <em>et</em><br>le déroulé complet du lancement.</h2>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 1</div>
+    <h3>Histoire et modernisation du complexe de lancement LC-39B.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.1</span></div>
+      <p>Le pas de tir LC-39B, situé au Kennedy Space Center en Floride, est le cœur battant de toutes les missions Artemis. Pourquoi ce site historique ? Parce qu'il a déjà servi pour les lancements Apollo et de la Navette spatiale, et qu'il a été entièrement modernisé à partir de 2010 pour accueillir le SLS (Space Launch System). La modernisation a inclus la construction d'une tour de lancement mobile de 122 mètres de haut, capable de supporter les 39 000 kN de poussée du SLS (kN = kilonewtons, unité de force : 39 000 kN équivalent à environ 4 000 tonnes en gravité terrestre) grâce à quatre moteurs RS-25 (versions modernisées des moteurs principaux de la navette spatiale SSME, chacun délivrant 2 280 kN au niveau de la mer jusqu'à 2 670 kN dans le vide, impulsion spécifique 452 s, LH2/LOX, refroidissement régénératif et throttle 67-109 %) et deux boosters à propergol solide, une tranchée à flammes géante de 170 mètres de long pour canaliser et évacuer les gaz d'échappement à plus de 1 000 °C, et un système de déluge d'eau massif qui projette 1,1 million de litres d'eau par minute pour atténuer le bruit acoustique (réduction jusqu'à 140 décibels) et réduire les vibrations. Comparé au LC-39A (utilisé par SpaceX pour Falcon 9 et Starship, plus modulaire et commercial), le LC-39B est dédié exclusivement aux lancements lourds SLS/Artemis avec une infrastructure fixe plus massive et des capacités cryogéniques renforcées pour des volumes de propergol beaucoup plus importants (plus de 3 millions de litres). Par rapport à l'époque Apollo (lancements Saturn V depuis les deux pads 39A et 39B), le LC-39B bénéficie aujourd'hui de systèmes de contrôle automatisés, de capteurs sismiques en temps réel et d'un déluge d'eau plus puissant (1,1 million de litres/min contre environ 400 000 litres/min pour Apollo), ce qui permet une cadence plus rapide tout en protégeant mieux le véhicule et les installations contre les ondes de choc thermiques et acoustiques. Ces travaux ont coûté plusieurs milliards de dollars et ont été validés lors des tests d'Artemis I en 2022. Le déroulé commence bien avant le décollage : le véhicule est assemblé dans le Vehicle Assembly Building (VAB), puis roulé sur une voie de 5,5 km jusqu'au pad en plusieurs heures, avec une précision millimétrique grâce à des systèmes de guidage laser et hydrauliques. Ce cheminement historique montre comment LC-39B est passé d'un site Apollo à un complexe ultra-moderne pour l'ère Artemis, intégrant des capteurs sismiques qui ont permis d'analyser en détail les vibrations du décollage d'Artemis II.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 2</div>
+    <h3>Rollout et préparation au pad.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.2</span></div>
+      <p>Le rollout du SLS depuis le VAB jusqu'au LC-39B est une opération spectaculaire qui dure plusieurs heures. Le véhicule, monté sur un crawler-transporter pesant plus de 2 700 tonnes, avance à une vitesse de 1,6 km/h sur une voie spécialement conçue pour supporter une charge de 5 500 tonnes.</p>
+    </div>
+    <div class="show-ts">Repère original · 05:00</div>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">suite</span></div>
+      <p>Pourquoi cette lenteur ? Parce qu'elle permet de maintenir une stabilité parfaite et d'éviter toute contrainte mécanique excessive sur les structures du lanceur. Une fois arrivé au pad, le SLS est positionné sur la Mobile Launcher, une plateforme qui intègre tous les systèmes d'alimentation en carburant cryogénique, les bras d'accès pour l'équipage et les ombilicaux électriques. Des équipes de techniciens procèdent alors à des vérifications complètes : alignement des boosters, connexion des lignes de carburant et installation des capteurs sismiques supplémentaires pour mesurer les vibrations en temps réel. Ce déroulé minutieux, répété lors des Wet Dress Rehearsals, garantit que rien n'est laissé au hasard avant le remplissage des réservoirs.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 3</div>
+    <h3>Stacking, intégration et vérifications finales.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.3</span></div>
+      <p>Le stacking (assemblage vertical) du SLS sur la Mobile Launcher au pad LC-39B est une opération critique qui dure plusieurs semaines. Les quatre moteurs RS-25 (modernisés des SSME, poussée individuelle 2 280 kN niveau mer / 2 670 kN vide, Isp 452 s, LH2/LOX, refroidissement régénératif, throttle 67-109 %) sont intégrés à l'étage central, les deux boosters à propergol solide sont fixés de part et d'autre, et Orion est placée au sommet avec son module de service ESA. Pourquoi une telle précision ? Parce que chaque composant doit résister à des forces extrêmes : les vibrations du décollage, les accélérations de 3 g et les températures de plusieurs milliers de degrés dans la tranchée à flammes. Des tests électriques, hydrauliques et de pression sont réalisés en continu, avec des simulations informatiques qui modélisent le comportement du véhicule entier. Les données sismiques collectées lors d'Artemis II ont montré que les vibrations maximales atteignaient 0,5 à 1 g près du pad, confirmant que les amortisseurs et les fondations du LC-39B absorbent efficacement l'énergie.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 4</div>
+    <h3>Cryogenic fueling et Wet Dress Rehearsals.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.4</span></div>
+      <p>Le remplissage cryogénique est l'étape la plus délicate. Les réservoirs du SLS sont remplis d'hydrogène liquide (LH2) à –253 °C et d'oxygène liquide (LOX) à –183 °C, avec un volume total de plus de 3 millions de litres, alimentant directement les quatre moteurs RS-25. Pourquoi ce processus en plusieurs phases ? Parce qu'il permet de détecter les fuites grâce aux Wet Dress Rehearsals, des répétitions générales qui simulent le compte à rebours complet jusqu'à T–9 secondes sans allumage. Lors d'Artemis II, deux Wet Dress Rehearsals en février 2026 ont identifié et corrigé des fuites mineures d'hélium, évitant des retards coûteux. Les systèmes automatisés contrôlent la pression, la température et le niveau de remplissage avec une précision de 0,1 %, tandis que le déluge d'eau (système de suppression sonore et thermique : 1,1 million de litres par minute pulvérisés via des buses haute pression autour du pad et de la tranchée à flammes) refroidit le pad pour éviter les dommages thermiques et atténue l'onde acoustique qui pourrait endommager le véhicule ou les structures voisines. Comparé au LC-39A (plus léger, avec un déluge adapté aux fusées réutilisables Falcon), le système du LC-39B est calibré pour la puissance supérieure du SLS et intègre des capteurs supplémentaires pour mesurer en temps réel la température de l'eau vaporisée, assurant une protection optimale contre les 39 000 kN de poussée.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 5</div>
+    <h3>Final countdown et points d'arrêt.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.5</span></div>
+      <p>Le compte à rebours final commence à T–24 heures avec le chargement des systèmes de bord et la vérification des communications. Les points d'arrêt (holds) sont programmés à T–20 minutes, T–9 minutes et T–5 minutes pour permettre des vérifications en temps réel par les équipes au sol. Pourquoi ces pauses ? Parce qu'elles offrent une fenêtre de sécurité pour corriger tout problème détecté par les milliers de capteurs du véhicule. Lors d'Artemis II, le compte à rebours s'est déroulé sans interruption majeure grâce aux leçons d'Artemis I, avec une séquence automatisée qui gère l'allumage des moteurs RS-25 à T–6,6 secondes suivi de la mise à feu des boosters à T–0.</p>
+    </div>
+    <div class="show-ts">Repère original · 05:00</div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 6</div>
+    <h3>Ignition, liftoff et puissance des moteurs.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.6</span></div>
+      <p>L'ignition est le moment le plus spectaculaire : les quatre moteurs RS-25 (modernisés des SSME, 2 280 kN chacun au niveau de la mer jusqu'à 2 670 kN dans le vide, Isp 452 s, LH2/LOX, refroidissement régénératif, throttle 67-109 %) s'allument à T–6,6 secondes, produisant chacun 2 280 kN de poussée, puis les deux boosters à propergol solide s'embrasent à T–0 pour atteindre les 39 000 kN totaux. Pourquoi cet ordre ? Parce qu'il permet une montée progressive en puissance et une vérification des moteurs principaux avant le décollage complet. Mathématiquement, la puissance cinétique de l'échappement est donnée par P = (1/2) m_dot v_e², avec m_dot ≈ 1 500 kg/s et v_e ≈ 2 650 m/s, libérant des dizaines de gigawatts en quelques secondes. Cette énergie se ressent immédiatement : un grondement de plus de 140 décibels près du pad, des vibrations de 0,5 à 1 g mesurées par les capteurs sismiques, et une onde de choc qui se propage jusqu'à plus de 100 km avec une intensité qui suit la loi de l'inverse du carré (I ∝ 1/r²). Le système de déluge d'eau entre alors en action à pleine puissance, projetant 1,1 million de litres d'eau par minute pour créer un rideau de vapeur qui absorbe l'énergie acoustique et thermique, protégeant à la fois le véhicule et le pad. Comparé au LC-39A (déluge plus ciblé pour des lancements plus fréquents mais moins puissants), le LC-39B gère une charge thermique et acoustique supérieure, avec un volume d'eau presque triple par rapport à certains lancements commerciaux, ce qui explique sa robustesse historique adaptée aux missions Artemis lourdes.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 7</div>
+    <h3>Max Q et phase d'ascension initiale.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.7</span></div>
+      <p>Après le liftoff, le véhicule atteint Max Q (pression dynamique maximale) environ 60 secondes plus tard, à une altitude de 13 km et une vitesse de Mach 1,5. Pourquoi cette phase est-elle critique ? Parce que les forces aérodynamiques sont maximales, et le SLS doit résister à des contraintes de 3 g tout en maintenant une trajectoire précise. Les analyses des données sismiques d'Artemis II ont confirmé que les vibrations au sol diminuaient rapidement après le décollage, validant les modèles de propagation des ondes.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 8</div>
+    <h3>Analyse des données sismiques d'Artemis II.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.8</span></div>
+      <p>Les capteurs sismiques installés autour de LC-39B ont enregistré les vibrations du décollage d'Artemis II avec une précision exceptionnelle. Les pics atteignaient 0,5 à 1 g près du pad et s'atténuaient selon la loi de propagation des ondes sismiques (amplitude décroissant en 1/r² pour les ondes de surface). Ces données ont permis de calibrer les modèles numériques de la NASA et de valider la conception du pad pour les futures missions, tout en fournissant des références pour le futur réseau sismique lunaire qui mesurera les moonquakes.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 9</div>
+    <h3>Systèmes de sécurité et modes d'avortement.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.9</span></div>
+      <p>Le LC-39B intègre des systèmes de sécurité redondants : un système d'évacuation d'urgence par câble pour l'équipage, des bras d'accès rétractables en moins de 10 secondes et des modes d'avortement automatique en cas de défaillance des moteurs. Pourquoi ces mesures ? Parce qu'elles garantissent la survie de l'équipage même en cas d'anomalie grave pendant les premières secondes du vol. Lors d'Artemis II, aucun avortement n'a été nécessaire grâce aux vérifications rigoureuses.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-label">Partie 10</div>
+    <h3>Inspection post-lancement et leçons apprises.</h3>
+    <div class="provoxy">
+      <div class="who"><b>Provoxys</b><span class="ts">Ch.8 · P.10</span></div>
+      <p>Après le décollage, les équipes inspectent immédiatement le pad pour évaluer les dommages thermiques et mécaniques. Les leçons d'Artemis II, notamment les analyses sismiques, ont permis d'améliorer les procédures pour les missions futures, réduisant les temps de préparation entre deux lancements et renforçant la cadence annuelle. Ce déroulé complet du pas de tir LC-39B illustre la maîtrise technique qui rend possible l'odyssée Artemis.</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ─── SAM PREND L'ANTENNE ─── -->
+<section class="sam-chapter">
+  <div class="head-num">Sam prend l'antenne · Démonstration finale</div>
+  <h2>Le voyage <em>en vingt minutes</em>,<br>de A à Z.</h2>
+  <p class="intro">Salut tout le monde, Sam à l'écoute. Provoxys vient de couvrir le programme Artemis dans son intégralité, et maintenant c'est mon tour : je vais dérouler <strong>la simulation Nebula Orbit du début à la fin</strong>. Je charge le preset <em>1ArtemisMultiStage.json</em>, je clique « Play », et je commente chaque étape. Tenez-vous prêts — <em>vingt minutes pile</em> de vol, en temps réel, sans accéléré.</p>
+  <p class="intro">La pile complète repose sur la Terre : <strong>SLS Core orange</strong> en bas, <strong>ICPS argenté</strong> au milieu, <strong>Orion bleu</strong> en haut. Masse totale 0,001 unité-sim, carburant 3700 unités répartis sur les trois étages (2500 + 700 + 500). La file de manœuvres contient trente-huit étapes qui vont s'enchaîner automatiquement. Compte à rebours, c'est parti.</p>
+
+  <!-- ACTE I -->
+  <div class="sim-act">
+    <div class="roman">I</div>
+    <div>
+      <h3>Décollage <em>et</em> insertion en orbite basse.</h3>
+      <div class="timing">T-0:30 → T+2:30 · Étage actif : SLS Core</div>
+    </div>
+  </div>
+  <div class="sim-timeline">
+    <div class="moment">
+      <div class="ts-pill">T-0:30</div>
+      <div class="body">
+        <p>Preset chargé. Le vaisseau est posé sur la face sud-ouest de la Terre, attitude verticale, moteurs froids. La caméra est centrée sur la pile, on voit la silhouette des trois étages empilés.</p>
+        <div class="what"><b>État</b> · Vaisseau posé · Étage 1/3 · Fuel stage 1 : 2500 / 2500</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+0:00</div>
+      <div class="body">
+        <p><strong>Allumage des moteurs RS-25 simulés</strong>. La première manœuvre <em>burn_until_altitude</em> pousse le vaisseau droit vers le haut. Première trace de feu à l'écran. Le sol s'éloigne.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_01_liftoff · poussée 0.002 · altitude cible 1</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+0:15</div>
+      <div class="body">
+        <p>Premier <em>pitch over</em> de 20°. C'est le début de la <strong>gravity turn</strong>. Le nez du vaisseau s'incline franchement vers la direction du futur orbite. La trace verticale commence à se courber.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_02_pitch_20 · rotation +20°</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+0:45</div>
+      <div class="body">
+        <p>Montée jusqu'à l'altitude 3, puis nouvelle inclinaison de 40°. Le vaisseau est maintenant clairement diagonal. La trace dessine une parabole douce — exactement comme le SLS réel pendant ses 8 minutes d'ascension.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_03_climb_to_3 + a1m_04_pitch_60 (rotation +40°)</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+1:20</div>
+      <div class="body">
+        <p>Altitude 4. Inclinaison cumulée d'environ 100° — le vaisseau est presque <em>horizontal</em>. La poussée passe progressivement du vertical vers l'horizontal, transformant la vitesse de montée en vitesse orbitale.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_05_climb_to_4 + a1m_06_pitch_60 (rotation +40°)</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+1:50</div>
+      <div class="body">
+        <p>Altitude 5. Une correction de 5° puis une de 15° amènent l'orientation finale. Le vaisseau pointe désormais en pleine direction prograde, le moteur perpendiculaire au rayon vers la Terre.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_07_climb_to_5 + a1m_08_pitch_5 + a1m_09_pitch_15</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+2:10</div>
+      <div class="body">
+        <p><strong>Séparation du premier étage</strong>. Une fois l'altitude orbitale atteinte, la manœuvre <em>stage</em> jette le SLS Core : il devient un débris orange autonome qui continue sa course balistique. Le vaisseau principal perd <em>60 % de sa masse</em> d'un coup. La caméra suit la suite Orion + ICPS, désormais plus légère et plus brillante.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_12_sep_stage_1 · masse 0,001 → 0,0004 · étage actif : 2/3 ICPS</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+2:30</div>
+      <div class="body">
+        <p>L'ICPS prend immédiatement le relais. L'autopilote <em>auto_circularize</em> allume le RL-10 simulé et affine l'orbite jusqu'à un cercle parfait autour de la Terre. Voilà, on est en <strong>LEO propre</strong> — fin de l'ascension.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_11_leo_circularize · ICPS au travail</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTE II -->
+  <div class="sim-act">
+    <div class="roman">II</div>
+    <div>
+      <h3>Vérification en orbite haute <em>et</em> injection trans-lunaire.</h3>
+      <div class="timing">T+3:00 → T+8:30 · Étage actif : ICPS</div>
+    </div>
+  </div>
+  <div class="sim-timeline">
+    <div class="moment">
+      <div class="ts-pill">T+3:00</div>
+      <div class="body">
+        <p>L'autopilote SAS verrouille l'attitude sur le vecteur vitesse — <em>prograde</em>. C'est nécessaire pour que la prochaine mise à feu, allumée en mode « burn », parte exactement dans la direction du mouvement.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_15_sas_prograde</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+3:15</div>
+      <div class="body">
+        <p>Le moteur RL-10 simulé de l'ICPS s'allume pour la <em>mise à feu HEO</em>. Poussée 0,0006, demi-seconde, et l'apogée de l'orbite grimpe d'un coup. La trace s'étire vers l'extérieur — l'orbite devient elliptique.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_16_heo_burn · ΔV ≈ 0.75</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+4:00</div>
+      <div class="body">
+        <p>Coast vers l'apogée. Le vaisseau monte, la vitesse diminue à mesure qu'il gagne en altitude — conservation de l'énergie. Pas un moteur n'est allumé. Provoxys parle de la phase de checkout équipage : c'est exactement ce moment-là.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_18_heo_to_apogee · attente alt 50 ascendante</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+4:45</div>
+      <div class="body">
+        <p>Apogée atteint à altitude ~50. Le vaisseau s'arrête presque, puis recommence à tomber vers la Terre. La trace dessine une <strong>ellipse complète et très allongée</strong> dont l'apogée est près de dix fois plus haut que le périgée. C'est la signature visuelle d'Artemis II.</p>
+        <div class="what"><b>Phase</b> · HEO complète · apogée 50 · périgée 6</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+5:30</div>
+      <div class="body">
+        <p>Retour vers le périgée. L'autopilote attend que l'altitude redescende jusqu'à 6 — quasi rasant. La vitesse remonte fortement, la gravité rend toute l'énergie qu'elle avait prise à la montée.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_19_heo_back_to_perigee · attente alt 6 descendante</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+6:15</div>
+      <div class="body">
+        <p>Périgée. Nouveau <em>auto_circularize</em> qui ferme l'orbite proprement en circulaire basse. Le vaisseau est de nouveau sur une orbite régulière, prêt pour la grande étape suivante.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_21_recircularize_leo</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+7:00</div>
+      <div class="body">
+        <p>L'autopilote calcule la <em>fenêtre de transfert de Hohmann</em>. Il attend que l'angle de phase entre la position du vaisseau et la position future de la Lune soit parfait. Quelques minutes d'attente, le vaisseau continue son orbite.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_22_wait_tli_window · alignement Terre–Orion–Lune</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+7:45</div>
+      <div class="body">
+        <p><strong>Injection trans-lunaire</strong>. La fenêtre s'ouvre. <em>auto_transfer</em> calcule la mise à feu exacte et l'exécute. La trace s'étire violemment vers l'extérieur — direction la Lune. Le vaisseau quitte l'orbite terrestre.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_23_tli_burn · Hohmann vers la Lune</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+8:00</div>
+      <div class="body">
+        <p><strong>Séparation du deuxième étage</strong>. L'ICPS argenté se détache et reste en arrière. Il ne reste plus qu'Orion. Le vaisseau a maintenant <em>10 % de sa masse au décollage</em>. Très léger, très agile.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_24_sep_stage_2 · masse 0,0004 → 0,0001 · étage actif : 3/3 Orion</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+8:30</div>
+      <div class="body">
+        <p>Micro-burn de <em>correction de mi-parcours</em>. Poussée minuscule (3×10⁻⁶), durée 0,1 seconde. Sans ce petit nudge, la trajectoire viserait pile le centre de la Lune et s'écraserait. Avec, le vaisseau va passer juste à côté, et la gravité lunaire fera le reste.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_27_mcc_offset</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTE III -->
+  <div class="sim-act">
+    <div class="roman">III</div>
+    <div>
+      <h3>Croisière trans-lunaire <em>et</em> survol.</h3>
+      <div class="timing">T+9:00 → T+13:00 · Étage actif : Orion · aucun moteur allumé</div>
+    </div>
+  </div>
+  <div class="sim-timeline">
+    <div class="moment">
+      <div class="ts-pill">T+9:00</div>
+      <div class="body">
+        <p>Phase de croisière. Le moteur reste éteint. La gravité de la Terre tire encore en arrière, mais la vitesse acquise par la TLI est suffisante pour continuer à s'éloigner. La Lune apparaît au loin, dans le coin supérieur droit de l'écran.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_29_outbound_coast · attente alt Terre 300 ascendante</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+10:30</div>
+      <div class="body">
+        <p>À mi-parcours. La Terre se réduit à un petit point bleu derrière nous, la Lune grossit. C'est le moment que Provoxys associe aux quatre jours de croisière réelle — comprimés dans une minute et demie de simulation.</p>
+        <div class="what"><b>Phase</b> · coast trans-lunaire · vitesse en chute, altitude en hausse</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+11:30</div>
+      <div class="body">
+        <p><strong>Entrée dans la sphère d'influence lunaire</strong>. La trajectoire commence à se courber sous l'attraction de la Lune. La trace, qui était presque rectiligne, dessine maintenant un arc — c'est la <em>déflexion gravitationnelle</em>, le mécanisme central du retour libre.</p>
+        <div class="what"><b>Phase</b> · approche Lune · SOI lunaire active</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+12:00</div>
+      <div class="body">
+        <p><strong>Survol de la face cachée</strong>. Distance minimale à la Lune : environ 30 unités-sim. À l'échelle réelle, ce serait les fameux 10 300 km que les astronautes vont voir. La trace se courbe à près de <em>180°</em>. Aucun moteur. C'est de la pure mécanique newtonienne.</p>
+        <div class="what"><b>Phase</b> · survol lunaire · distance min ~30 · trajectoire bendée</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+12:30</div>
+      <div class="body">
+        <p>La Lune est passée derrière nous. La trajectoire pointe désormais <em>de nouveau vers la Terre</em>. Vu de loin, la trace complète dessine la fameuse <strong>figure en huit</strong> qu'Apollo 13 a utilisée pour rentrer sans moteur principal.</p>
+        <div class="what"><b>Géométrie</b> · figure de 8 Terre–Lune visible à l'écran</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+13:00</div>
+      <div class="body">
+        <p>Le vaisseau a quitté la sphère d'influence lunaire. Il est désormais sur sa <strong>trajectoire de retour libre</strong>. La Terre commence lentement à dominer à nouveau l'attraction. Tout va se passer maintenant en mode passif — la gravité fait le travail.</p>
+        <div class="what"><b>Phase</b> · retour libre · gravité terrestre domine</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTE IV -->
+  <div class="sim-act">
+    <div class="roman">IV</div>
+    <div>
+      <h3>Retour libre <em>vers</em> la Terre.</h3>
+      <div class="timing">T+14:00 → T+17:30 · Aucun moteur allumé pendant ~3 minutes</div>
+    </div>
+  </div>
+  <div class="sim-timeline">
+    <div class="moment">
+      <div class="ts-pill">T+14:00</div>
+      <div class="body">
+        <p>Mi-chemin du retour. La vitesse commence à remonter — chaque kilomètre perdu en altitude est converti en énergie cinétique. Conservation de l'énergie orbitale, exactement comme à l'aller mais en sens inverse.</p>
+        <div class="what"><b>Phase</b> · retour cruise · altitude en chute · vitesse en hausse</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+15:30</div>
+      <div class="body">
+        <p>La Terre redevient grande à l'écran. La trace bleue du retour vient compléter la trace orange de l'aller — ensemble elles dessinent un <em>8 quasi parfait</em>. La Lune, elle, continue son orbite, indifférente.</p>
+        <div class="what"><b>Visuel</b> · figure complète du retour libre dans le rendu de trace</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+17:00</div>
+      <div class="body">
+        <p>Approche terrestre. Le vaisseau plonge vers la Terre à toute allure. L'autopilote attend le déclencheur d'altitude pour basculer en phase de désorbitation. Encore quelques secondes de coast pur.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_31_return_coast · attente alt Terre 250 descendante</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+17:30</div>
+      <div class="body">
+        <p>Le vaisseau franchit l'altitude 158 en descente. Le déclencheur s'active : <em>fin du coast, début des manœuvres de freinage</em>. La caméra se rapproche, le vaisseau ressemble enfin à un point distinct sur fond de Terre.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_33_earth_approach · seuil franchi</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTE V -->
+  <div class="sim-act">
+    <div class="roman">V</div>
+    <div>
+      <h3>Désorbitation <em>et</em> atterrissage propulsif.</h3>
+      <div class="timing">T+18:00 → T+20:00 · Étage actif : Orion · trois mises à feu de freinage</div>
+    </div>
+  </div>
+  <div class="sim-timeline">
+    <div class="moment">
+      <div class="ts-pill">T+18:00</div>
+      <div class="body">
+        <p>SAS bascule en <em>retrograde</em> — le moteur pointe maintenant dans la direction du mouvement. Première mise à feu de désorbitation, 0,7 seconde. La périgée orbitale tombe sous la surface : le vaisseau est désormais <strong>engagé pour la rentrée</strong>.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_35_sas_retrograde + a1m_36_deorbit_burn</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+18:30</div>
+      <div class="body">
+        <p>Le vaisseau plonge. L'autopilote attend que l'altitude descende à 58, puis ré-affine l'orbite via un nouveau <em>auto_circularize</em>. C'est une orbite de parking basse, transitoire, qui prépare la phase finale.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_37_wait_final_descent (alt 58) + a1m_39_final_circularize</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+19:00</div>
+      <div class="body">
+        <p>SAS bascule en <em>radial out</em> — le vaisseau pointe désormais radialement vers l'extérieur de la Terre. Imaginez une tour droite au-dessus du sol. Cette attitude est cruciale : c'est celle qui passera le test d'angle au touchdown.</p>
+        <div class="what"><b>Manœuvre</b> · a1m_40_sas_radial_out · tour-vers-le-haut</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+19:10</div>
+      <div class="body">
+        <p>Deuxième freinage : SAS retrograde, puis <em>deorbit kick</em> de 0,8 seconde. Cette mise à feu fait définitivement chuter la périgée bien en dessous de la surface. Le vaisseau est désormais <strong>en chute libre dirigée vers le sol</strong>.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_42_sas_retro_deorbit + a1m_43_deorbit_kick</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+19:30</div>
+      <div class="body">
+        <p>Le vaisseau bascule en attitude <em>radial out</em> à nouveau — tour droite — et tombe en chute libre verticale. La gravité l'accélère. La trace devient une ligne presque rectiligne pointant vers le sol.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_44_sas_upright_falling + a1m_45_descend_to_25</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+19:40</div>
+      <div class="body">
+        <p>Altitude 25. <strong>Suicide burn</strong>. SAS retrograde — le moteur, qui pointait vers le haut, pointe maintenant vers le bas. Mise à feu de 0,6 seconde à pleine poussée. La vitesse de chute est <em>annulée presque entièrement</em>. C'est l'image que tout le monde retient : un Falcon 9 qui se pose, en miniature.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_47_sas_retro_suicide + a1m_48_suicide_burn</div>
+      </div>
+    </div>
+    <div class="moment">
+      <div class="ts-pill">T+19:55</div>
+      <div class="body">
+        <p>Le vaisseau bascule une dernière fois en <em>radial out</em>. Vitesse résiduelle minimale, attitude parfaitement alignée avec la normale au sol. Descente sur les cinq dernières unités, puis le <em>landing burn</em> final (2 secondes à poussée 0,0002) coussine le toucher.</p>
+        <div class="what"><b>Manœuvres</b> · a1m_49_sas_upright_final + a1m_50_descend_to_kiss + a1m_51_landing_burn</div>
+      </div>
+    </div>
+    <div class="moment key">
+      <div class="ts-pill">T+20:00</div>
+      <div class="body">
+        <p><strong>Touchdown</strong>. Le vaisseau touche le sol terrestre. Vingt minutes pile depuis le décollage. Trois étages largués comme prévu, deux séparations autonomes par la nouvelle manœuvre <em>stage</em>, une boucle HEO, une trans-lunar injection, un survol lunaire, un retour libre, et un atterrissage propulsif. <strong>Mission complète</strong>.</p>
+        <div class="what"><b>État final</b> · vaisseau posé · 38 manœuvres exécutées · 2 séparations (3 étages au départ → Orion seul à l'arrivée)</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="intro" style="margin-top: 64px">Voilà, simulation terminée. La même <em>géométrie</em> que ce que Reid Wiseman, Victor Glover, Christina Koch et Jeremy Hansen verront depuis leurs hublots : la boucle de l'orbite basse, le détour elliptique de la vérification HEO, le grand arc trans-lunaire, le huit autour de la Lune et la rentrée vers la Terre. À l'échelle près, c'est <strong>la mission Artemis II reproduite de A à Z</strong> dans Nebula Orbit. Le preset est dispo dans <em>importAtStartup/Presets/1ArtemisMultiStage.json</em>. Merci Provoxys pour l'invitation, et merci à tout le monde.</p>
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="container">
+    <h3>Fin de l'émission.<br><em>Bon vol</em>, Artemis II.</h3>
+    <p>Transcript intégral, mot pour mot, du live Provoxys « Artemis – L'Odyssée Lunaire : De la Genèse à Mars », enrichi des interventions live de Sam, développeur de Nebula Orbit, qui a fait tourner la simulation multi-étages en parallèle de l'émission. Sources Provoxys : NASA.gov, OIG, GAO, interviews équipage Artemis II.</p>
+    <div class="signature">
+      <div>Provoxys × Nebula Orbit · Émission spéciale · 2026</div>
+      <div>⟢  Simulation : 1ArtemisMultiStage.json · 20:00 de vol</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

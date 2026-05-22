@@ -1,0 +1,544 @@
+{
+  "version": 1,
+  "timestamp": 1764485016823,
+  "bodies": [
+    {
+      "id": "manual_1764400480186",
+      "name": "Earth",
+      "mass": 991.0014998582079,
+      "radius": 20.702367455283042,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -4.016784561372892,
+        "y": 89.37858619083268
+      },
+      "velocity": {
+        "x": 0.015329209408351283,
+        "y": 0.008188014351447292
+      },
+      "trail": [],
+      "description": "The Earth, where Artemis 2 launches from and returns to",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1764400494074",
+      "name": "Lune",
+      "mass": 20,
+      "radius": 8,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 314.32953667876524,
+        "y": 617.5223285095708
+      },
+      "velocity": {
+        "x": -0.761648763928086,
+        "y": 0.4698063942576191
+      },
+      "trail": [],
+      "description": "The Moon - Artemis 2 flies past, no orbit insertion (free-return)",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "rocket_1764400993240",
+      "name": "Artemis 2 (SLS + ICPS + Orion)",
+      "mass": 0.001,
+      "radius": 2,
+      "color": "#3c7eb6",
+      "position": {
+        "x": -6.987659013632689,
+        "y": 66.87136356488057
+      },
+      "velocity": {
+        "x": 0.015329101820740312,
+        "y": 0.0081878418751586
+      },
+      "trail": [],
+      "description": "Multi-stage Artemis 2 with autonomous staging. Stage 1 = SLS Core + SRBs (ascent to LEO). Stage 2 = ICPS (HEO + TLI). Stage 3 = Orion (MCC + return + landing). Stage separations are handled by the 'stage' maneuver type.",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false,
+      "isRocket": true,
+      "design": "multistage",
+      "shipStructure": {
+        "design": "multistage",
+        "currentStageIndex": 0,
+        "stages": [
+          {
+            "mass": 0.0006,
+            "fuel": 2500,
+            "maxFuel": 2500,
+            "thrust": 0.025,
+            "color": "#d2691e"
+          },
+          {
+            "mass": 0.0003,
+            "fuel": 700,
+            "maxFuel": 700,
+            "thrust": 0.005,
+            "color": "#c0c0c0"
+          },
+          {
+            "mass": 0.0001,
+            "fuel": 500,
+            "maxFuel": 500,
+            "thrust": 0.002,
+            "color": "#3c7eb6"
+          }
+        ]
+      },
+      "angle": -1.7020341402659223,
+      "thrust": {
+        "x": 0,
+        "y": 0
+      },
+      "maneuvers": [
+
+        {
+          "id": "a0m_sas_off",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "off",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_01_liftoff",
+          "type": "burn_until_altitude",
+          "thrust": 0.002,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 1,
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_02_pitch_20",
+          "type": "rotate",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 20
+        },
+        {
+          "id": "a1m_03_climb_to_3",
+          "type": "burn_until_altitude",
+          "thrust": 0.002,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 3,
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_04_pitch_60",
+          "type": "rotate",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 40
+        },
+        {
+          "id": "a1m_05_climb_to_4",
+          "type": "burn_until_altitude",
+          "thrust": 0.002,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 4,
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_06_pitch_60",
+          "type": "rotate",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 40
+        },
+        {
+          "id": "a1m_07_climb_to_5",
+          "type": "burn_until_altitude",
+          "thrust": 0.002,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 5,
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_08_pitch_5",
+          "type": "rotate",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 5
+        },
+        {
+          "id": "a1m_09_pitch_15",
+          "type": "rotate",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": 15
+        },
+        {
+          "id": "a1m_12_sep_stage_1",
+          "type": "stage",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "a1m_11_leo_circularize",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400480186",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_15_sas_prograde",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "prograde",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_16_heo_burn",
+          "type": "burn",
+          "thrust": 0.0006,
+          "duration": 0.7,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "a1m_18_heo_to_apogee",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "50:ascending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_19_heo_back_to_perigee",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "6:descending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_21_recircularize_leo",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400480186",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_22_wait_tli_window",
+          "type": "wait_for_transfer",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400480186",
+          "param": 0.0
+        },
+        {
+          "id": "a1m_23_tli_burn",
+          "type": "auto_transfer",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400494074",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_24_sep_stage_2",
+          "type": "stage",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "a1m_27_mcc_offset",
+          "type": "burn",
+          "thrust": 0.000003,
+          "duration": 0.1,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "a1m_29_outbound_coast",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "300:ascending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_31_return_coast",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "250:descending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_33_earth_approach",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "158:descending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_35_sas_retrograde",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "retrograde",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_36_deorbit_burn",
+          "type": "burn",
+          "thrust": 0.0001,
+          "duration": 0.7,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "a1m_37_wait_final_descent",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "58:descending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_39_final_circularize",
+          "type": "auto_circularize",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "targetBodyId": "manual_1764400480186",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_40_sas_radial_out",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "radial_out",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_42_sas_retro_deorbit",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "retrograde",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_43_deorbit_kick",
+          "type": "burn",
+          "thrust": 0.0002,
+          "duration": 0.6,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "a1m_44_sas_upright_falling",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "radial_out",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_45_descend_to_25",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "25:descending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_47_sas_retro_suicide",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "retrograde",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_48_suicide_burn",
+          "type": "burn",
+          "thrust": 0.0003,
+          "duration": 0.6,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        },
+        {
+          "id": "a1m_49_sas_upright_final",
+          "type": "sas",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "radial_out",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_50_descend_to_kiss",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "5:descending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_51_landing_burn",
+          "type": "burn",
+          "thrust": 0.0002,
+          "duration": 2,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending"
+        }
+      ],
+      "landedOnBodyId": "manual_1764400480186",
+      "fuel": 3700,
+      "maxFuel": 3700,
+      "dryMass": 0.001,
+      "sasMode": "radial_out",
+      "landingAngle": -1.7020291625262864
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": true,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 200,
+    "centerOfMassThreshold": 10000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 15,
+    "nebulaOpacity": 0.2,
+    "showCenterOfMass": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008
+  },
+  "camera": {
+    "scale": 7.5472555887129547,
+    "offset": {
+      "x": -0.5639527063283244,
+      "y": -24.682656446172025
+    }
+  },
+  "followBodyId": "rocket_1764400993240",
+  "followCenterOfMass": false,
+  "speed": 1.0
+}

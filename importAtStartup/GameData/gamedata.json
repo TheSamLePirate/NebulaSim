@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$comment": "Example response from GET /api/gameData endpoint",
+
+  "menu": [
+    {
+      "id": "flight",
+      "label": "VOL",
+      "type": "SUBMENU",
+      "icon": "rocket",
+      "children": [
+        { "id": "autopilot", "label": "AUTOPILOT", "type": "TOGGLE", "active": false },
+        { "id": "stability", "label": "STABILITY", "type": "TOGGLE", "active": true },
+        { "id": "thrust", "label": "THRUST", "type": "SLIDER", "value": 75, "min": 0, "max": 100 },
+        { "id": "altitude", "label": "ALTITUDE", "type": "DISPLAY", "displayValue": "12,450 M" },
+        { "id": "back_flight", "label": "BACK", "type": "BACK" }
+      ]
+    },
+    {
+      "id": "weapons",
+      "label": "ARMES",
+      "type": "SUBMENU",
+      "icon": "crosshair",
+      "children": [
+        { "id": "safety", "label": "SAFETY", "type": "TOGGLE", "active": true },
+        { "id": "autoaim", "label": "AUTO AIM", "type": "TOGGLE", "active": false },
+        {
+          "id": "loadout",
+          "label": "LOADOUT",
+          "type": "SUBMENU",
+          "children": [
+            { "id": "missiles", "label": "MISSILES", "type": "ACTION" },
+            { "id": "lasers", "label": "LASERS", "type": "ACTION" },
+            { "id": "emp", "label": "EMP BURST", "type": "ACTION" },
+            { "id": "back_loadout", "label": "BACK", "type": "BACK" }
+          ]
+        },
+        { "id": "back_weapons", "label": "BACK", "type": "BACK" }
+      ]
+    },
+    {
+      "id": "shields",
+      "label": "BOUCLIERS",
+      "type": "SUBMENU",
+      "icon": "shield",
+      "children": [
+        { "id": "shield_front", "label": "FRONT", "type": "TOGGLE", "active": true },
+        { "id": "bg_opacity", "label": "BG OPACITY", "type": "SLIDER", "value": 100, "min": 0, "max": 100 },
+        { "id": "brightness", "label": "BRIGHTNESS", "type": "SLIDER", "value": 100, "min": 0, "max": 100 },
+        { "id": "color", "label": "COLOR", "type": "SLIDER", "value": 180, "min": 0, "max": 360 },
+        { "id": "shield_status", "label": "STATUS", "type": "DISPLAY", "displayValue": "NOMINAL" },
+        { "id": "back_shields", "label": "BACK", "type": "BACK" }
+      ]
+    },
+    {
+      "id": "comms",
+      "label": "COMMS",
+      "type": "SUBMENU",
+      "icon": "radio",
+      "children": [
+        { "id": "tx_rot", "label": "TX ROTATION", "type": "TOGGLE", "active": false },
+        { "id": "tx_spat", "label": "TX SPATIAL", "type": "TOGGLE", "active": false },
+        { "id": "broadcast", "label": "BROADCAST", "type": "TOGGLE", "active": true },
+        { "id": "back_comms", "label": "BACK", "type": "BACK" }
+      ]
+    },
+    { "id": "scan", "label": "SCAN AREA", "type": "ACTION", "icon": "radar" },
+    { "id": "exit", "label": "EXIT", "type": "ACTION" }
+  ],
+
+  "menuState": {
+    "autopilot": false,
+    "stability": true,
+    "safety": true,
+    "autoaim": false,
+    "shield_front": true,
+    "shield_rear": true,
+    "tx_rot": false,
+    "tx_spat": false,
+    "broadcast": true
+  },
+
+  "theme": {
+    "primary": "#00f3ff",
+    "secondary": "#ff00ff",
+    "accent": "#ffd700",
+    "locked": "#ff3300",
+    "success": "#00ff00"
+  },
+
+  "displayData": [
+    { "label": "SPEED", "value": "Fast :)", "color": "#00f3ff" },
+    { "label": "FUEL", "value": "78%", "color": "#ffd700" },
+    { "label": "HULL", "value": "100%", "color": "#00ff00" },
+    { "label": "THREAT", "value": "LOW", "color": "#00ff00" }
+  ],
+
+  "status": "ALL SYSTEMS NOMINAL"
+}

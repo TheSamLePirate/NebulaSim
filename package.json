@@ -1,0 +1,42 @@
+{
+  "name": "nebula-orbit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@google/genai": "^1.30.0",
+    "@heyputer/puter.js": "^2.2.5",
+    "@j3lte/govee-lan-controller": "^1.0.5",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.0",
+    "@tailwindcss/vite": "^4.1.17",
+    "@types/three": "^0.181.0",
+    "cors": "^2.8.5",
+    "dgram": "^1.0.1",
+    "easy-speech": "^2.4.0",
+    "express": "^5.2.1",
+    "framer-motion": "^12.23.26",
+    "govee-lan-control": "^3.0.2",
+    "lucide-react": "^0.554.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "recharts": "^3.5.0",
+    "tailwindcss": "^4.1.17",
+    "three": "^0.181.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.4.2",
+    "vite-plugin-mkcert": "^1.17.9"
+  }
+}

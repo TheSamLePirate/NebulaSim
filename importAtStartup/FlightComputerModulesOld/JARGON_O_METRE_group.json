@@ -1,0 +1,63 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-16T21:35:21.662Z",
+  "rootGroup": {
+    "id": "fc_group_1765920902099",
+    "name": "JARGON-O-METRE",
+    "color": "#10b981",
+    "isCollapsed": true,
+    "parentGroupId": null,
+    "displayOutput": {
+      "moduleId": "fc_mod_1765920542831",
+      "outputKey": "result"
+    }
+  },
+  "groups": [
+    {
+      "id": "fc_group_1765920902099",
+      "name": "JARGON-O-METRE",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_mod_1765920542831",
+        "outputKey": "result"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "id": "fc_mod_1765920542831",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#da3cdd",
+      "inputs": {},
+      "groupId": "fc_group_1765920902099",
+      "customScriptCode": "//async\nconst payload={valueName:\"Jargon\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "name": "Jargon",
+      "customScriptManualTrigger": 1765920703469,
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0.03,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_mod_1765920665824",
+      "type": "horizontal_bar",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#dd3c61",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765920542831:result",
+          "label": "Module - result"
+        }
+      }
+    }
+  ]
+}

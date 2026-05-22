@@ -1,0 +1,356 @@
+{
+    "version": 1,
+    "timestamp": 1768003200000,
+    "bodies": [
+        {
+            "id": "nasa_1768003200000_00",
+            "name": "Soleil",
+            "mass": 79283.91340372464,
+            "radius": 65.0,
+            "color": "#FFFF00",
+            "position": {
+                "x": -3001.0281318593143,
+                "y": -5126.35916466033
+            },
+            "velocity": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "1.9885e+30 kg",
+            "realDiameter": "1391400.0 km",
+            "orbitPeriod": "Not orbiting",
+            "isStar": true
+        },
+        {
+            "id": "nasa_1768003200000_01",
+            "name": "Mercure",
+            "mass": 0.013161887178125997,
+            "radius": 16.308387202198325,
+            "color": "#A9A9A9",
+            "position": {
+                "x": -26738.487892831672,
+                "y": -415714.878693592
+            },
+            "velocity": {
+                "x": 0.2598861804482542,
+                "y": 0.009462575170058447
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "3.3011e+23 kg",
+            "realDiameter": "4879.4 km",
+            "orbitPeriod": "87.969 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_02",
+            "name": "Vénus",
+            "mass": 0.19407314482908208,
+            "radius": 18.0,
+            "color": "#F5DEB3",
+            "position": {
+                "x": 260732.48269893095,
+                "y": -617452.7434357915
+            },
+            "velocity": {
+                "x": 0.21659421256765554,
+                "y": 0.08164474480882918
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "4.8675e+24 kg",
+            "realDiameter": "12103.6 km",
+            "orbitPeriod": "224.701 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_03",
+            "name": "Terre",
+            "mass": 0.23812565546643347,
+            "radius": 18.0,
+            "color": "#1E90FF",
+            "position": {
+                "x": -329346.62604482716,
+                "y": 846046.5375508541
+            },
+            "velocity": {
+                "x": -0.19107681706534632,
+                "y": -0.06131423589650087
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "5.97237e+24 kg",
+            "realDiameter": "12742.0 km",
+            "orbitPeriod": "365.256 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_04",
+            "name": "Lune",
+            "mass": 0.0029273446930356867,
+            "radius": 11.613801666229197,
+            "color": "#CCCCCC",
+            "position": {
+                "x": -331904.275438896,
+                "y": 845596.7620113326
+            },
+            "velocity": {
+                "x": -0.19004682145195806,
+                "y": -0.0669944876476859
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "7.342e+22 kg",
+            "realDiameter": "3474.8 km",
+            "orbitPeriod": "27.3 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_05",
+            "name": "Mars",
+            "mass": 0.02558575814448285,
+            "radius": 18.0,
+            "color": "#FF4500",
+            "position": {
+                "x": 463081.03041319764,
+                "y": -1219253.8237308387
+            },
+            "velocity": {
+                "x": 0.15910952558311842,
+                "y": 0.0625669185605067
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "6.4171e+23 kg",
+            "realDiameter": "6779.0 km",
+            "orbitPeriod": "686.980 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_06",
+            "name": "Jupiter",
+            "mass": 75.68354258131764,
+            "radius": 18.0,
+            "color": "#D2691E",
+            "position": {
+                "x": -1761940.1002076382,
+                "y": 4491756.354846602
+            },
+            "velocity": {
+                "x": -0.0833117924267756,
+                "y": -0.02408238914994719
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "1.8982e+27 kg",
+            "realDiameter": "139822.0 km",
+            "orbitPeriod": "11.862 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_07",
+            "name": "Io",
+            "mass": 0.0035612571593197292,
+            "radius": 12.1766439019242,
+            "color": "#FFFF00",
+            "position": {
+                "x": -1759121.2098181776,
+                "y": 4491756.354846602
+            },
+            "velocity": {
+                "x": -0.0833117924267756,
+                "y": 0.0917811082607901
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "8.9319e+22 kg",
+            "realDiameter": "3643.2 km",
+            "orbitPeriod": "1.769 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_08",
+            "name": "Europa",
+            "mass": 0.0019137386349268167,
+            "radius": 10.43330358043659,
+            "color": "#F5F5DC",
+            "position": {
+                "x": -1761940.1002076382,
+                "y": 4496241.940081607
+            },
+            "velocity": {
+                "x": -0.17516116025186956,
+                "y": -0.024082389149947186
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "4.7998e+22 kg",
+            "realDiameter": "3121.6 km",
+            "orbitPeriod": "3.551 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_09",
+            "name": "Ganymede",
+            "mass": 0.005908515527934602,
+            "radius": 17.607870938767313,
+            "color": "#4B0082",
+            "position": {
+                "x": -1769095.3624783598,
+                "y": 4491756.354846602
+            },
+            "velocity": {
+                "x": -0.0833117924267756,
+                "y": -0.0968055839702724
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "1.4819e+23 kg",
+            "realDiameter": "5268.2 km",
+            "orbitPeriod": "7.154 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_10",
+            "name": "Callisto",
+            "mass": 0.004289744150418272,
+            "radius": 16.111860340803634,
+            "color": "#696969",
+            "position": {
+                "x": -1761940.1002076382,
+                "y": 4479171.222510223
+            },
+            "velocity": {
+                "x": -0.028476920309654728,
+                "y": -0.0240823891499472
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "1.0759e+23 kg",
+            "realDiameter": "4820.6 km",
+            "orbitPeriod": "16.689 jours",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_11",
+            "name": "Saturne",
+            "mass": 22.66040701225691,
+            "radius": 18.0,
+            "color": "#F4A460",
+            "position": {
+                "x": 9500042.072251147,
+                "y": 429895.61031911144
+            },
+            "velocity": {
+                "x": -0.0056996198346661855,
+                "y": 0.0594371017893139
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "5.6834e+26 kg",
+            "realDiameter": "116464.0 km",
+            "orbitPeriod": "29.457 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_12",
+            "name": "Uranus",
+            "mass": 3.461220277886516,
+            "radius": 18.0,
+            "color": "#AFEEEE",
+            "position": {
+                "x": 9846460.683580605,
+                "y": 15449469.951074395
+            },
+            "velocity": {
+                "x": -0.039698320591583944,
+                "y": 0.01892359386104546
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "8.681e+25 kg",
+            "realDiameter": "50724.0 km",
+            "orbitPeriod": "84.016 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_13",
+            "name": "Neptune",
+            "mass": 4.083330864176843,
+            "radius": 18.0,
+            "color": "#4169E1",
+            "position": {
+                "x": 29868369.43586067,
+                "y": 775361.3274483333
+            },
+            "velocity": {
+                "x": -0.0009810281805674571,
+                "y": 0.03381437593427637
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "1.02413e+26 kg",
+            "realDiameter": "49244.0 km",
+            "orbitPeriod": "164.79 ans",
+            "isStar": false
+        },
+        {
+            "id": "nasa_1768003200000_14",
+            "name": "Pluton",
+            "mass": 0.0005219142199923337,
+            "radius": 7.943294877391594,
+            "color": "#DEB887",
+            "position": {
+                "x": 19249342.835931893,
+                "y": -26249407.18408906
+            },
+            "velocity": {
+                "x": 0.031401426770086914,
+                "y": 0.01485161510175112
+            },
+            "trail": [],
+            "description": "NASA/JPL Horizons ephemeris via DE440/DE440s (Skyfield).",
+            "realMass": "1.309e+22 kg",
+            "realDiameter": "2376.6 km",
+            "orbitPeriod": "247.94 ans",
+            "isStar": false
+        }
+    ],
+    "visualConfig": {
+        "showGrid": false,
+        "gridSpacing": 100,
+        "gridOpacity": 0.25,
+        "showWaves": true,
+        "waveSpeedMultiplier": 0.1,
+        "showGlow": true,
+        "glowIntensity": 1,
+        "showTrails": true,
+        "trailLength": 12000,
+        "centerOfMassThreshold": 2000,
+        "showStars": true,
+        "showNebula": true,
+        "starDensity": 800,
+        "starTwinkleSpeed": 2,
+        "nebulaCloudCount": 40,
+        "nebulaOpacity": 0.9,
+        "showCenterOfMass": false,
+        "showEclipses": false
+    },
+    "physicsConfig": {
+        "gravitationalConstant": 0.5,
+        "collisions": true,
+        "timeStep": 0.008
+    },
+    "camera": {
+        "scale": 0.00025,
+        "offset": {
+            "x": 0,
+            "y": 0
+        }
+    },
+    "followBodyId": null,
+    "followCenterOfMass": true,
+    "speed": 1.0
+}

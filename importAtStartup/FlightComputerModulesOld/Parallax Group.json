@@ -1,0 +1,84 @@
+{
+  "version": "1.0",
+  "exportDate": "2025-12-17T10:49:47.225Z",
+  "rootGroup": {
+    "id": "fc_group_1765968558671",
+    "name": "Parallax",
+    "color": "#10b981",
+    "isCollapsed": true,
+    "parentGroupId": null
+  },
+  "groups": [
+    {
+      "id": "fc_group_1765968558671",
+      "name": "Parallax",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    }
+  ],
+  "modules": [
+    {
+      "id": "fc_mod_1765968187495",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#dd943c",
+      "inputs": {},
+      "groupId": "fc_group_1765968558671",
+      "name": "GetParalax",
+      "customScriptCode": "//async\nconst payload={valueName:\"Parallax\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\n\nreturn result==1?true:false;",
+      "customScriptOutputType": "boolean",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": false
+    },
+    {
+      "id": "fc_mod_1765968277415",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#a7dd3c",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765968187495:result",
+          "label": "GetParalax - result"
+        }
+      },
+      "groupId": "fc_group_1765968558671",
+      "name": "ParallaxChange",
+      "changeLastValue": false,
+      "changeTriggered": false
+    },
+    {
+      "id": "fc_mod_1765968282595",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdd4f",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765968277415:triggered",
+          "label": "ParallaxChange - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765968187495:result",
+          "label": "GetParalax - result"
+        }
+      },
+      "groupId": "fc_group_1765968558671",
+      "customScriptCode": "if(input[0]==true){\ngame.actions.setShowParralaxe(true);\n}else{\ngame.actions.setShowParralaxe(false);\n}",
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "name": "SetParallax"
+    }
+  ]
+}

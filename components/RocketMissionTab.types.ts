@@ -1,0 +1,41 @@
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { Body, Maneuver, PhysicsConfig } from '../types';
+
+export interface MissionTabProps {
+    isRecording: boolean;
+    toggleRecording: () => void;
+    handleLaunchPending: () => void;
+    selectedRocket: Body | null;
+    recordedManeuvers: Maneuver[];
+    handleExportFlightPlan: () => void;
+    handleImportFlightPlan: (event: ChangeEvent<HTMLInputElement>) => void;
+    loadRecordedToFlightPlan: () => void;
+    maneuverType: Maneuver['type'];
+    setManeuverType: Dispatch<SetStateAction<Maneuver['type']>>;
+    thrustPower: number;
+    setThrustPower: Dispatch<SetStateAction<number>>;
+    burstDuration: number;
+    setBurstDuration: Dispatch<SetStateAction<number>>;
+    burstAngle: number;
+    setBurstAngle: Dispatch<SetStateAction<number>>;
+    maneuverParam: string;
+    setManeuverParam: Dispatch<SetStateAction<string>>;
+    maneuverTargetId: string;
+    setManeuverTargetId: Dispatch<SetStateAction<string>>;
+    maneuverParentId: string;
+    setManeuverParentId: Dispatch<SetStateAction<string>>;
+    altitudeDirection: 'ascending' | 'descending';
+    setAltitudeDirection: Dispatch<SetStateAction<'ascending' | 'descending'>>;
+    nodeTime: number;
+    setNodeTime: Dispatch<SetStateAction<number>>;
+    dvPrograde: number;
+    setDvPrograde: Dispatch<SetStateAction<number>>;
+    dvRadial: number;
+    setDvRadial: Dispatch<SetStateAction<number>>;
+    handleAddManeuver: () => void;
+    handleRemoveManeuver: (id: string) => void;
+    editingManeuverId: string | null;
+    setEditingManeuverId: Dispatch<SetStateAction<string | null>>;
+    bodies: Body[];
+    physicsConfig: PhysicsConfig;
+}

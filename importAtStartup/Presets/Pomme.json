@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "timestamp": 1766084516596,
+  "bodies": [
+    {
+      "id": "manual_1765461747271",
+      "name": "FakeTerre",
+      "mass": 530.539,
+      "radius": 18.821680412709807,
+      "color": "#3742fa",
+      "position": {
+        "x": -47,
+        "y": 37.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765461787038",
+      "name": "Pomme_",
+      "mass": 1.01,
+      "radius": 0.029850992559504276,
+      "color": "#ff0000",
+      "position": {
+        "x": -47.0989488992227,
+        "y": 18.64872828058548
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false,
+      "landedOnBodyId": "manual_1765461747271",
+      "landingAngle": -1.5760452029444716
+    },
+    {
+      "id": "manual_1766083993613",
+      "name": "Lune",
+      "mass": 3.231,
+      "radius": 3.5183750605270836,
+      "color": "#4ECDC4",
+      "position": {
+        "x": -137.02957225421642,
+        "y": -205.24837782124584
+      },
+      "velocity": {
+        "x": -0.935986024222347,
+        "y": 0.3456329319959071
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1766084158761",
+      "name": "FakeSun",
+      "mass": 10000,
+      "radius": 27.63102111592855,
+      "color": "#FDB813",
+      "position": {
+        "x": -85.26587259958046,
+        "y": -782.1138595935104
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": true
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 500,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 767.0402914269948,
+    "offset": {
+      "x": 36118.83964278552,
+      "y": -14117.018766050222
+    }
+  },
+  "flightComputerModules": [],
+  "moduleGroups": [],
+  "followBodyId": null,
+  "followCenterOfMass": false
+}

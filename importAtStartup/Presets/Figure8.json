@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "timestamp": 1765713713815,
+  "bodies": [
+    {
+      "id": "f8_1",
+      "name": "Body A",
+      "mass": 500,
+      "radius": 15,
+      "color": "#FF6B6B",
+      "position": {
+        "x": -102.0005124278485,
+        "y": -17.914877814098606
+      },
+      "velocity": {
+        "x": -0.5043134167883272,
+        "y": 0.7268083557676911
+      },
+      "trail": [],
+      "description": "Part of a stable Figure-8 3-body system.",
+      "realMass": "500 units",
+      "realDiameter": "30 units",
+      "orbitPeriod": "N/A",
+      "isStar": true
+    },
+    {
+      "id": "f8_2",
+      "name": "Body B",
+      "mass": 500,
+      "radius": 15,
+      "color": "#4ECDC4",
+      "position": {
+        "x": 89.84946612682874,
+        "y": 28.96767627684451
+      },
+      "velocity": {
+        "x": -1.008142566670717,
+        "y": 0.5930699925676876
+      },
+      "trail": [],
+      "description": "Part of a stable Figure-8 3-body system.",
+      "realMass": "500 units",
+      "realDiameter": "30 units",
+      "orbitPeriod": "N/A",
+      "isStar": true
+    },
+    {
+      "id": "f8_3",
+      "name": "Body C",
+      "mass": 500,
+      "radius": 15,
+      "color": "#FFE66D",
+      "position": {
+        "x": 12.151046301005202,
+        "y": -11.052798462759164
+      },
+      "velocity": {
+        "x": 1.5124559834590274,
+        "y": -1.3198783483353935
+      },
+      "trail": [],
+      "description": "Part of a stable Figure-8 3-body system.",
+      "realMass": "500 units",
+      "realDiameter": "30 units",
+      "orbitPeriod": "N/A",
+      "isStar": true
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 500,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 4.218025009667163,
+    "offset": {
+      "x": 2.052405198057324e-11,
+      "y": 1.8628933909843675e-11
+    }
+  },
+  "flightComputerModules": [],
+  "moduleGroups": [],
+  "followBodyId": null,
+  "followCenterOfMass": true,
+  "speed": 50.0
+}

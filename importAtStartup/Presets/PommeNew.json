@@ -1,0 +1,1050 @@
+{
+  "version": 1,
+  "timestamp": 1766071531991,
+  "bodies": [
+    {
+      "id": "manual_1765461747271",
+      "name": "FakeTerre",
+      "mass": 530.539,
+      "radius": 18.821680412709807,
+      "color": "#3742fa",
+      "position": {
+        "x": -47,
+        "y": 37.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765461787038",
+      "name": "Pomme_",
+      "mass": 1.01,
+      "radius": 0.029850992559504276,
+      "color": "#ff0000",
+      "position": {
+        "x": -47.0989488992227,
+        "y": 18.64872828058548
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false,
+      "landedOnBodyId": "manual_1765461747271",
+      "landingAngle": -1.5760452029444716
+    },
+    {
+      "id": "manual_1766071436919",
+      "name": "Lune",
+      "mass": 4.182,
+      "radius": 4.292368803019325,
+      "color": "#ffffff",
+      "position": {
+        "x": -49.22826606086615,
+        "y": -246.98358763443446
+      },
+      "velocity": {
+        "x": -1,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 500,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 0.939268248068955,
+    "offset": {
+      "x": 44.238547218462145,
+      "y": -17.5161583408195
+    }
+  },
+  "flightComputerModules": [
+    {
+      "id": "fc_module_1766071208379_0_721777",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#57dd3c",
+      "inputs": {},
+      "groupId": "fc_group_1766071208379_0_424963",
+      "name": "getCamera",
+      "customScriptCode": "//async\nconst payload={valueName:\"Camera\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result==1?true:false;",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765458396969,
+      "customScriptAsyncState": false,
+      "customScriptLastResult": false,
+      "customScriptLogs": [],
+      "customScriptOutputType": "boolean",
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1766071208379_1_358956",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#3cdd9f",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208379_0_721777:result",
+          "label": "getCamera - result"
+        }
+      },
+      "groupId": "fc_group_1766071208379_0_424963",
+      "changeLastValue": false,
+      "changeTriggered": false,
+      "name": "ChangeCamera"
+    },
+    {
+      "id": "fc_module_1766071208379_2_492197",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#3c9cdd",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208379_0_721777:result",
+          "label": "getCamera - result"
+        },
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208379_1_358956:triggered",
+          "label": "ChangeCamera - triggered"
+        }
+      },
+      "groupId": "fc_group_1766071208379_0_424963",
+      "customScriptCode": "game.actions.setShowCameraViewer(input[0]);",
+      "name": "SetCamera"
+    },
+    {
+      "id": "fc_module_1766071208380_0_973471",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "f8_1",
+      "referenceBodyId": "f8_1",
+      "color": "#22d3ee",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_308870",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\";\nconst valueName = \"ShowImage\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.setShowImageSlideShow(true);\n}\nreturn got;",
+      "name": "Show",
+      "customScriptMode": "async",
+      "customScriptContinuousRun": true,
+      "customScriptAsyncState": false,
+      "customScriptLogs": [],
+      "customScriptLastResult": 0
+    },
+    {
+      "id": "fc_module_1766071208380_1_407271",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#a855f7",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_308870",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\";\nconst valueName = \"HideImage\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.setShowImageSlideShow(false);\n}\nreturn got;",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0,
+      "name": "Hide"
+    },
+    {
+      "id": "fc_module_1766071208380_2_354976",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#f97316",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_308870",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\";\nconst valueName = \"Prev\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.prevImage();\n}\nreturn got;",
+      "name": "Prev",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0
+    },
+    {
+      "id": "fc_module_1766071208380_3_142121",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#10b981",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_308870",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://MacBook-Pro-de-olivier.local:3009\";\nconst valueName = \"Next\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.nextImage();\n}\nreturn got;",
+      "name": "Next",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0
+    },
+    {
+      "id": "fc_module_1766071208380_0_300169",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#da3cdd",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_777885",
+      "customScriptCode": "//async\nconst payload={valueName:\"Jargon\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "name": "Jargon",
+      "customScriptManualTrigger": 1765920703469,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1766071208380_1_491458",
+      "type": "horizontal_bar",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#dd3c61",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_0_300169:result",
+          "label": "Module - result"
+        }
+      },
+      "groupId": null
+    },
+    {
+      "id": "fc_module_1766071208380_0_153151",
+      "type": "body_info",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#f43f5e",
+      "inputs": {
+        "target": {
+          "type": "body",
+          "value": "manual_1765461787038",
+          "label": "Pomme"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "targetBodyId": "manual_1765461787038"
+    },
+    {
+      "id": "fc_module_1766071208380_1_200489",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#facc15",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_6_217992:triggered",
+          "label": "LaunchPomme - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_5_946273:result",
+          "label": "GetPomme - result"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_7_77736:result",
+          "label": "GetVelocity - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "customScriptCode": "if (input[0]===false){return;}\nconst pommeName=\"Pomme_\"+new Date();\ngame.actions.createAndSpawnBody(pommeName,1.015,0.03,\"#ff0000\",{x:-47.10,y:18.23},input[1],\"La Pomme\");\nreturn pommeName;",
+      "customScriptManualTrigger": 1765463963675,
+      "name": "CreatePomme",
+      "customScriptOutputType": "string",
+      "customScriptLogs": [],
+      "customScriptAsyncState": true
+    },
+    {
+      "id": "fc_module_1766071208380_2_640597",
+      "type": "body_info",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#6366f1",
+      "inputs": {
+        "target": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_10_776477:body",
+          "label": "PommeId - body"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "targetBodyId": "manual_1765463545812"
+    },
+    {
+      "id": "fc_module_1766071208380_3_845436",
+      "type": "marker",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#00ff9d",
+      "inputs": {
+        "primary": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_4_900839:result",
+          "label": "Module - result"
+        },
+        "marker_visible": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_19_913047:result",
+          "label": "CheckPommeScene - result"
+        },
+        "marker_pulse": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_19_913047:result",
+          "label": "CheckPommeScene - result"
+        },
+        "activate": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_19_913047:result",
+          "label": "CheckPommeScene - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "markerShape": "triangle",
+      "markerTitle": "Pommier",
+      "markerDescription": "",
+      "markerColor": "#00ff9d",
+      "markerVisible": true,
+      "markerPulse": false
+    },
+    {
+      "id": "fc_module_1766071208380_4_900839",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#aadd3c",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_602716",
+      "customScriptCode": "return {x:-47.10,y:18.23};",
+      "customScriptOutputType": "vector",
+      "customScriptManualTrigger": 1765462374346,
+      "customScriptLastResult": {
+        "x": -47.1,
+        "y": 18.23
+      },
+      "customScriptLogs": [],
+      "customScriptAsyncState": true
+    },
+    {
+      "id": "fc_module_1766071208380_5_946273",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdd4c",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_602716",
+      "customScriptCode": "//async\nconst payload={valueName:\"Pomme\",sleepTime:500}\nconst result=await game.actions.getApiValueAndReset(payload);\nreturn result==1?true:false;",
+      "customScriptManualTrigger": 1765462599097,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": false,
+      "customScriptContinuousRun": true,
+      "name": "GetPomme",
+      "customScriptOutputType": "boolean"
+    },
+    {
+      "id": "fc_module_1766071208380_6_217992",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cddca",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_5_946273:result",
+          "label": "GetPomme - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "changeLastValue": false,
+      "changeTriggered": false,
+      "name": "LaunchPomme"
+    },
+    {
+      "id": "fc_module_1766071208380_7_77736",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3c71dd",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_602716",
+      "name": "GetVelocity",
+      "customScriptCode": "//async\nconst payload={valueName:\"VelocityX\",sleepTime:500}\nconst resultX=await game.actions.getApiValue(payload);\nconst payloadY={valueName:\"VelocityY\",sleepTime:200}\nconst resultY=await game.actions.getApiValue(payloadY);\nreturn {x:resultX,y:resultY};",
+      "customScriptOutputType": "vector",
+      "customScriptManualTrigger": 1765463002935,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": {
+        "x": 3.9,
+        "y": -0.12767520546235556
+      },
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1766071208380_8_411250",
+      "type": "selector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#843cdd",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_602716",
+      "selectorBodyId": "manual_1765463545812"
+    },
+    {
+      "id": "fc_module_1766071208380_9_604722",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#dd3cb7",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_10_776477:body",
+          "label": "PommeId - body"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_8_411250:body",
+          "label": "Module - body"
+        },
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_13_188397:triggered",
+          "label": "Module - triggered"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "name": "Folow Pomme",
+      "customScriptCode": "console.log(new Date());\nif(input[0]==null){return \"none\";}\nconsole.log(input[0].id)\ngame.actions.setFollowingBody(input[0].id);\nreturn input[0].id;",
+      "customScriptManualTrigger": 1765464400253,
+      "customScriptLastResult": "none",
+      "customScriptLogs": [
+        "Thu Dec 18 2025 16:22:49 GMT+0100 (heure normale d’Europe centrale)"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptContinuousRun": false
+    },
+    {
+      "id": "fc_module_1766071208380_10_776477",
+      "type": "body_by",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#dd3f3c",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_11_235778:result",
+          "label": "PommeName - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "bodyByMode": "name",
+      "name": "PommeId"
+    },
+    {
+      "id": "fc_module_1766071208380_11_235778",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#ddbc3c",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_1_200489:result",
+          "label": "CreatePomme - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "customScriptCode": "console.log(input[0]);\nif(input[0]!=undefined){\nreturn input[0];\n}else{\n return \"\"\n}",
+      "customScriptManualTrigger": 1765464299938,
+      "customScriptLastResult": "",
+      "customScriptLogs": [
+        "null"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptContinuousRun": true,
+      "customScriptOutputType": "string",
+      "name": "PommeName"
+    },
+    {
+      "id": "fc_module_1766071208380_12_918005",
+      "type": "body_info",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#7fdd3c",
+      "inputs": {
+        "target": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_10_776477:body",
+          "label": "PommeId - body"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716"
+    },
+    {
+      "id": "fc_module_1766071208380_13_188397",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdd77",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_11_235778:result",
+          "label": "PommeName - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "changeLastValue": "",
+      "changeTriggered": false
+    },
+    {
+      "id": "fc_module_1766071208380_14_197313",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cc4dd",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_13_188397:triggered",
+          "label": "Module - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_10_776477:body",
+          "label": "PommeId - body"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "name": "SavePomme",
+      "customScriptCode": "//async\nconsole.log(new Date());\nif(input[0]===null || input[0]==undefined){return \"no\"}\nconsole.log(input[0].id);\nif(input[0].id==0){return \"0\"}\nconst payload={valueName:\"Pomme\",sleepTime:500,value:input[0].id}\nconst result=await game.actions.postApiValue(payload);\nconsole.log(\"post\"+input[0].id)\nreturn result;",
+      "customScriptMode": "async",
+      "customScriptAsyncState": true,
+      "customScriptLastResult": "manual_1766071368877",
+      "customScriptLogs": [
+        "Thu Dec 18 2025 16:22:48 GMT+0100 (heure normale d’Europe centrale)",
+        "manual_1766071368877",
+        "postmanual_1766071368877"
+      ],
+      "customScriptManualTrigger": 1765569680323
+    },
+    {
+      "id": "fc_module_1766071208380_15_61596",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3c47dd",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_13_188397:triggered",
+          "label": "Module - triggered"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "name": "GetPomme",
+      "customScriptCode": "//async\nconst payload={valueName:\"Pomme\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "customScriptOutputType": "string",
+      "customScriptContinuousRun": false,
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "customScriptMode": "async",
+      "customScriptLastResult": "manual_1766071368877"
+    },
+    {
+      "id": "fc_module_1766071208380_16_268397",
+      "type": "body_by",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#af3cdd",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_15_61596:result",
+          "label": "GetPomme - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "name": "PommeBody"
+    },
+    {
+      "id": "fc_module_1766071208380_17_692376",
+      "type": "orbit_info",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1764400494074",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#ffffff",
+      "inputs": {
+        "primary": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_16_268397:body",
+          "label": "PommeBody - body"
+        },
+        "reference": {
+          "type": "body",
+          "value": "manual_1765461747271",
+          "label": "FakeTerre"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716"
+    },
+    {
+      "id": "fc_module_1766071208380_18_786122",
+      "type": "marker",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#dd693c",
+      "inputs": {
+        "primary": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_16_268397:body",
+          "label": "PommeBody - body"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "markerShape": "ring",
+      "markerTitle": "Pomme",
+      "markerDescription": "",
+      "markerColor": "#dd693c",
+      "markerVisible": true,
+      "markerPulse": false
+    },
+    {
+      "id": "fc_module_1766071208380_19_913047",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#5c3cdd",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765711975296_0_372879:result",
+          "label": "GetScene - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_602716",
+      "name": "CheckPommeScene",
+      "customScriptCode": "console.log(input[0]);\nif(input[0]==\"Pomme\"){\nreturn true;\n}else{\nreturn false;\n}",
+      "customScriptManualTrigger": 1765712140823,
+      "customScriptLastResult": false,
+      "customScriptLogs": [
+        "null"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptContinuousRun": true,
+      "customScriptOutputType": "boolean"
+    },
+    {
+      "id": "fc_module_1766071208380_0_924021",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#dd943c",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_419812",
+      "name": "GetParalax",
+      "customScriptCode": "//async\nconst payload={valueName:\"Parallax\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\n\nreturn result==1?true:false;",
+      "customScriptOutputType": "boolean",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "customScriptMode": "async",
+      "customScriptLastResult": false
+    },
+    {
+      "id": "fc_module_1766071208380_1_466169",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#a7dd3c",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_0_924021:result",
+          "label": "GetParalax - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_419812",
+      "name": "ParallaxChange",
+      "changeLastValue": false,
+      "changeTriggered": false
+    },
+    {
+      "id": "fc_module_1766071208380_2_119239",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdd4f",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_1_466169:triggered",
+          "label": "ParallaxChange - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_0_924021:result",
+          "label": "GetParalax - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_419812",
+      "customScriptCode": "if(input[0]==true){\ngame.actions.setShowParralaxe(true);\n}else{\ngame.actions.setShowParralaxe(false);\n}",
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "name": "SetParallax"
+    },
+    {
+      "id": "fc_module_1766071208380_0_355930",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdda2",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_923187",
+      "customScriptMode": "async",
+      "customScriptCode": "//async\nconst payload={valueName:\"pageControl\",sleepTime:200,value:0}\nconst result=await game.actions.postApiValue(payload);\n\nreturn result;",
+      "customScriptManualTrigger": 1765628854120,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": 0,
+      "customScriptLogs": [],
+      "name": "ControlPhone"
+    },
+    {
+      "id": "fc_module_1766071208380_1_731292",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3c9add",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_923187",
+      "customScriptCode": "//async\nconst payload={valueName:\"pageNumber\",sleepTime:200,value:1}\nconst result=await game.actions.postApiValue(payload);\n\nreturn result;",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765628706525,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": 1,
+      "customScriptLogs": [],
+      "name": "PhonePage"
+    },
+    {
+      "id": "fc_module_1766071208380_0_404389",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#593cdd",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_586443",
+      "customScriptCode": "//async\nconst payload={valueName:\"Scene\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "customScriptOutputType": "string",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765460221975,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": "Pomme",
+      "customScriptLogs": [],
+      "customScriptContinuousRun": true,
+      "name": "GetScene"
+    },
+    {
+      "id": "fc_module_1766071208380_1_524005",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#d73cdd",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_0_404389:result",
+          "label": "GetScene - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_586443",
+      "changeLastValue": "Pomme",
+      "changeTriggered": false,
+      "name": "LaunchScene"
+    },
+    {
+      "id": "fc_module_1766071208380_2_646768",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#dd3c64",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_1_524005:triggered",
+          "label": "LaunchScene - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_0_404389:result",
+          "label": "GetScene - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_586443",
+      "name": "SetScene",
+      "customScriptCode": "game.actions.handlePresetChange(\"imported_preset_\"+input[0])"
+    },
+    {
+      "id": "fc_module_1766071208380_0_446911",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#ef4444",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_820634",
+      "customScriptCode": "//async\nconst payload={valueName:\"Speed\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "customScriptManualTrigger": 1765396299888,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0,
+      "name": "GetSpeed",
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1766071208380_1_802056",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#06b6d4",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_0_446911:result",
+          "label": "GetSpeed - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_820634",
+      "changeLastValue": 0,
+      "changeTriggered": false
+    },
+    {
+      "id": "fc_module_1766071208380_2_772850",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#fb923c",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_1_802056:triggered",
+          "label": "Module - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1766071208380_0_446911:result",
+          "label": "GetSpeed - result"
+        }
+      },
+      "groupId": "fc_group_1766071208380_0_820634",
+      "customScriptCode": "game.actions.setSpeed(input[0])"
+    },
+    {
+      "id": "fc_module_1766071208380_0_433215",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#d2dd3c",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_729709",
+      "name": "ZoomP",
+      "customScriptCode": "//async\nconst payload={valueName:\"ZoomP\",sleepTime:200}\nconst result=await game.actions.getApiValueAndReset(payload);\nif (result===1){\ngame.actions.onZoom(1.5);\n}\nreturn result;",
+      "customScriptManualTrigger": 1765626281471,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0,
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1766071208380_1_46693",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#54dd3c",
+      "inputs": {},
+      "groupId": "fc_group_1766071208380_0_729709",
+      "name": "ZoomM",
+      "customScriptCode": "//async\nconst payload={valueName:\"ZoomM\",sleepTime:200}\nconst result=await game.actions.getApiValueAndReset(payload);\nif (result===1){\ngame.actions.onZoom(0.5);\n}\nreturn result;",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0
+    }
+  ],
+  "moduleGroups": [
+    {
+      "id": "fc_group_1766071208379_0_424963",
+      "name": "Camera",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1766071208380_0_308870",
+      "name": "ImageControl",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1766071208380_0_777885",
+      "name": "JARGON-O-METRE",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1766071208380_0_300169",
+        "outputKey": "result"
+      }
+    },
+    {
+      "id": "fc_group_1766071208380_0_602716",
+      "name": "LaunchPomme",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1766071208380_0_419812",
+      "name": "Parallax",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1766071208380_0_923187",
+      "name": "Phone Page Control",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1766071208380_1_731292",
+        "outputKey": "result"
+      }
+    },
+    {
+      "id": "fc_group_1766071208380_0_586443",
+      "name": "SetScene",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1766071208380_0_404389",
+        "outputKey": "result"
+      }
+    },
+    {
+      "id": "fc_group_1766071208380_0_820634",
+      "name": "speedControl",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1766071208380_0_446911",
+        "outputKey": "result"
+      }
+    },
+    {
+      "id": "fc_group_1766071208380_0_729709",
+      "name": "ZoomControl",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    }
+  ],
+  "followBodyId": "manual_1765461787038",
+  "followCenterOfMass": false
+}

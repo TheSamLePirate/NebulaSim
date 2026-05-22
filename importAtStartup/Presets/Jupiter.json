@@ -1,0 +1,83 @@
+{
+    "version": 1,
+    "timestamp": 1764310833414,
+    "bodies": [
+        {
+            "id": "custom_1764310701531",
+            "name": "Soleil",
+            "mass": 50000,
+            "radius": 32.45933485323085,
+            "color": "#FFFF00",
+            "position": {
+                "x": 38.43782006406778,
+                "y": 454.45112376969814
+            },
+            "velocity": {
+                "x": -0.005232440713577637,
+                "y": 0.060038278814359795
+            },
+            "trail": [],
+            "description": "L'étoile du systeme.",
+            "realMass": "50000 units",
+            "realDiameter": "64.9186697064617 units",
+            "orbitPeriod": "Not orbiting",
+            "isStar": true
+        },
+        {
+            "id": "custom_1764310701536",
+            "name": "Jupiterre",
+            "mass": 200,
+            "radius": 15.894952099644108,
+            "color": "#D2691E",
+            "position": {
+                "x": -1713.311393623854,
+                "y": 227.4519078832301
+            },
+            "velocity": {
+                "x": 0.4620825466930128,
+                "y": -3.6742427479463244
+            },
+            "trail": [],
+            "description": "A user-created celestial object.",
+            "realMass": "200 units",
+            "realDiameter": "31.789904199288216 units",
+            "orbitPeriod": "Unknown",
+            "isStar": false
+        }
+    ],
+    "visualConfig": {
+        "showGrid": false,
+        "gridSpacing": 100,
+        "gridOpacity": 0.25,
+        "showWaves": true,
+        "waveSpeedMultiplier": 0.1,
+        "showGlow": true,
+        "glowIntensity": 1,
+        "showTrails": true,
+        "trailLength": 4000,
+        "centerOfMassThreshold": 2000,
+        "showStars": true,
+        "showNebula": true,
+        "starDensity": 800,
+        "starTwinkleSpeed": 2,
+        "nebulaCloudCount": 40,
+        "nebulaOpacity": 0.9,
+        "showCenterOfMass": false,
+        "showEclipses": false
+    },
+    "physicsConfig": {
+        "gravitationalConstant": 0.5,
+        "collisions": true,
+        "timeStep": 0.008
+    },
+    "camera": {
+        "scale": 0.062330966133000494,
+        "offset": {
+            "x": 15.856425784786197,
+            "y": -27.2620422146044
+        }
+    },
+    "followBodyId": null,
+    "followCenterOfMass": true,
+    "speed": 1.0
+}

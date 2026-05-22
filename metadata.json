@@ -1,0 +1,8 @@
+{
+  "name": "Nebula Orbit",
+  "description": "A high-performance, interactive N-body gravity simulator of the solar system powered by a custom physics engine. Features a Gemini-powered AI astronomer assistant to answer questions about the cosmos.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}

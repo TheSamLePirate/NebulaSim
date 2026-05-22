@@ -1,0 +1,662 @@
+{
+  "version": 1,
+  "timestamp": 1765465089883,
+  "bodies": [
+    {
+      "id": "manual_1765461747271",
+      "name": "FakeTerre",
+      "mass": 530.539,
+      "radius": 18.821680412709807,
+      "color": "#3742fa",
+      "position": {
+        "x": -47,
+        "y": 37.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765461787038",
+      "name": "Pomme",
+      "mass": 1.01,
+      "radius": 0.029850992559504276,
+      "color": "#ff0000",
+      "position": {
+        "x": -47.0989488992227,
+        "y": 18.64872828058548
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false,
+      "landedOnBodyId": "manual_1765461747271",
+      "landingAngle": -1.5760452029444716
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 500,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 821.0383693733122,
+    "offset": {
+      "x": 38670.04420341476,
+      "y": -15311.321458377875
+    }
+  },
+  "flightComputerModules": [
+    {
+      "id": "fc_module_1765461694667_0_443125",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#57dd3c",
+      "inputs": {},
+      "groupId": "fc_group_1765461694667_0_536505",
+      "name": "getCamera",
+      "customScriptCode": "//async\nconst payload={valueName:\"Camera\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result==1?true:false;",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765458396969,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": false,
+      "customScriptLogs": [],
+      "customScriptOutputType": "boolean",
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1765461694667_1_951996",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#3cdd9f",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_0_443125:result",
+          "label": "getCamera - result"
+        }
+      },
+      "groupId": "fc_group_1765461694667_0_536505",
+      "changeLastValue": false,
+      "changeTriggered": false,
+      "name": "ChangeCamera"
+    },
+    {
+      "id": "fc_module_1765461694667_2_849895",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#3c9cdd",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_0_443125:result",
+          "label": "getCamera - result"
+        },
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_1_951996:triggered",
+          "label": "ChangeCamera - triggered"
+        }
+      },
+      "groupId": "fc_group_1765461694667_0_536505",
+      "customScriptCode": "game.actions.setShowCameraViewer(input[0]);",
+      "name": "SetCamera"
+    },
+    {
+      "id": "fc_module_1765461694667_0_754390",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "f8_1",
+      "referenceBodyId": "f8_1",
+      "color": "#22d3ee",
+      "inputs": {},
+      "groupId": "fc_group_1765461694667_0_535333",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://localhost:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://localhost:3009\";\nconst valueName = \"ShowImage\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.setShowImageSlideShow(true);\n}\nreturn got;",
+      "name": "Show",
+      "customScriptMode": "async",
+      "customScriptContinuousRun": true,
+      "customScriptAsyncState": true,
+      "customScriptLogs": [],
+      "customScriptLastResult": 0
+    },
+    {
+      "id": "fc_module_1765461694667_1_295724",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#a855f7",
+      "inputs": {},
+      "groupId": "fc_group_1765461694667_0_535333",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://localhost:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://localhost:3009\";\nconst valueName = \"HideImage\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.setShowImageSlideShow(false);\n}\nreturn got;",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0,
+      "name": "Hide"
+    },
+    {
+      "id": "fc_module_1765461694667_2_915212",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#f97316",
+      "inputs": {},
+      "groupId": "fc_group_1765461694667_0_535333",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://localhost:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://localhost:3009\";\nconst valueName = \"Prev\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.prevImage();\n}\nreturn got;",
+      "name": "Prev",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0
+    },
+    {
+      "id": "fc_module_1765461694667_3_884822",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#10b981",
+      "inputs": {},
+      "groupId": "fc_group_1765461694667_0_535333",
+      "customScriptCode": "const sleep = (ms) => new Promise((r) => setTimeout(r, ms));\nfunction map01ToPI(v) { return (v * 2 * Math.PI) - Math.PI;}\n\nasync function getSharedValue({\n  baseUrl = \"https://localhost:3009\",\n  valueName = \"value\",\n  sleepTime = \"sleepTime\",\n} = {}) {\n  await sleep(sleepTime)\n  const url = `${baseUrl.replace(/\\/+$/, \"\")}/apiR/${encodeURIComponent(valueName)}`;\n\n  const r = await fetch(url, { method: \"GET\" });\n\n  const data = await r.json().catch(() => ({}));\n  if (!r.ok) throw new Error(data?.error || `HTTP ${r.status}`);\n\n  return data?.[valueName];\n}\n\nconst baseUrl = \"https://localhost:3009\";\nconst valueName = \"Next\";\nconst sleepTime = 200;\nconst got = await getSharedValue({ baseUrl, valueName ,sleepTime});\nif (got==1){\ngame.actions.nextImage();\n}\nreturn got;",
+      "name": "Next",
+      "customScriptContinuousRun": true,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": 0
+    },
+    {
+      "id": "fc_module_1765461694667_0_676383",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#593cdd",
+      "inputs": {},
+      "groupId": "fc_group_1765461694667_0_981485",
+      "customScriptCode": "//async\nconst payload={valueName:\"Scene\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "customScriptOutputType": "string",
+      "customScriptMode": "async",
+      "customScriptManualTrigger": 1765460221975,
+      "customScriptAsyncState": true,
+      "customScriptLastResult": "2Ships",
+      "customScriptLogs": [],
+      "customScriptContinuousRun": true,
+      "name": "GetScene"
+    },
+    {
+      "id": "fc_module_1765461694667_1_472964",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#d73cdd",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_0_676383:result",
+          "label": "GetScene - result"
+        }
+      },
+      "groupId": "fc_group_1765461694667_0_981485",
+      "changeLastValue": "2Ships",
+      "changeTriggered": false,
+      "name": "LaunchScene"
+    },
+    {
+      "id": "fc_module_1765461694667_2_788685",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#dd3c64",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_1_472964:triggered",
+          "label": "LaunchScene - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_0_676383:result",
+          "label": "GetScene - result"
+        }
+      },
+      "groupId": "fc_group_1765461694667_0_981485",
+      "name": "SetScene",
+      "customScriptCode": "game.actions.handlePresetChange(\"imported_preset_\"+input[0])"
+    },
+    {
+      "id": "fc_module_1765461694667_0_262322",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#ef4444",
+      "inputs": {},
+      "groupId": "fc_group_1765461694667_0_940036",
+      "customScriptCode": "//async\nconst payload={valueName:\"Speed\",sleepTime:200}\nconst result=await game.actions.getApiValue(payload);\nreturn result;",
+      "customScriptManualTrigger": 1765396299888,
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "customScriptMode": "async",
+      "customScriptLastResult": 1,
+      "name": "GetSpeed",
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_module_1765461694667_1_852868",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#06b6d4",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_0_262322:result",
+          "label": "GetSpeed - result"
+        }
+      },
+      "groupId": "fc_group_1765461694667_0_940036",
+      "changeLastValue": 1,
+      "changeTriggered": false
+    },
+    {
+      "id": "fc_module_1765461694667_2_783043",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "",
+      "referenceBodyId": "",
+      "color": "#fb923c",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_1_852868:triggered",
+          "label": "Module - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_module_1765461694667_0_262322:result",
+          "label": "GetSpeed - result"
+        }
+      },
+      "groupId": "fc_group_1765461694667_0_940036",
+      "customScriptCode": "game.actions.setSpeed(input[0])"
+    },
+    {
+      "id": "fc_mod_1765461815505",
+      "type": "body_info",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#f43f5e",
+      "inputs": {
+        "target": {
+          "type": "body",
+          "value": "manual_1765461787038",
+          "label": "Pomme"
+        }
+      },
+      "groupId": null,
+      "targetBodyId": "manual_1765461787038"
+    },
+    {
+      "id": "fc_mod_1765461837038",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#facc15",
+      "inputs": {
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765462607147:triggered",
+          "label": "LaunchPomme - triggered"
+        },
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765462482386:result",
+          "label": "GetPomme - result"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_mod_1765462831279:result",
+          "label": "GetVelocity - result"
+        }
+      },
+      "groupId": null,
+      "customScriptCode": "if (input[0]===false){return;}\nconst pommeName=\"Pomme_\"+new Date();\ngame.actions.createAndSpawnBody(pommeName,1.015,0.03,\"#ff0000\",{x:-47.10,y:18.23},input[1],\"La Pomme\");\nreturn pommeName;",
+      "customScriptManualTrigger": 1765463963675,
+      "name": "CreatePomme",
+      "customScriptOutputType": "string",
+      "customScriptLogs": [],
+      "customScriptAsyncState": true
+    },
+    {
+      "id": "fc_mod_1765462084754",
+      "type": "body_info",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#6366f1",
+      "inputs": {
+        "target": {
+          "type": "module_output",
+          "value": "fc_mod_1765463863193:body",
+          "label": "PommeId - body"
+        }
+      },
+      "groupId": null,
+      "targetBodyId": "manual_1765463545812"
+    },
+    {
+      "id": "fc_mod_1765462323269",
+      "type": "marker",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#00ff9d",
+      "inputs": {
+        "primary": {
+          "type": "module_output",
+          "value": "fc_mod_1765462343986:result",
+          "label": "Module - result"
+        }
+      },
+      "groupId": null,
+      "markerShape": "triangle",
+      "markerTitle": "Pommier",
+      "markerDescription": "",
+      "markerColor": "#00ff9d",
+      "markerVisible": true,
+      "markerPulse": false
+    },
+    {
+      "id": "fc_mod_1765462343986",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#aadd3c",
+      "inputs": {},
+      "groupId": null,
+      "customScriptCode": "return {x:-47.10,y:18.23};",
+      "customScriptOutputType": "vector",
+      "customScriptManualTrigger": 1765462374346,
+      "customScriptLastResult": {
+        "x": -47.1,
+        "y": 18.23
+      },
+      "customScriptLogs": [],
+      "customScriptAsyncState": true
+    },
+    {
+      "id": "fc_mod_1765462482386",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdd4c",
+      "inputs": {},
+      "groupId": null,
+      "customScriptCode": "//async\nconst payload={valueName:\"Pomme\",sleepTime:500}\nconst result=await game.actions.getApiValueAndReset(payload);\nreturn result==1?true:false;",
+      "customScriptManualTrigger": 1765462599097,
+      "customScriptLogs": [],
+      "customScriptAsyncState": false,
+      "customScriptMode": "async",
+      "customScriptLastResult": false,
+      "customScriptContinuousRun": true,
+      "name": "GetPomme",
+      "customScriptOutputType": "boolean"
+    },
+    {
+      "id": "fc_mod_1765462607147",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cddca",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765462482386:result",
+          "label": "GetPomme - result"
+        }
+      },
+      "groupId": null,
+      "changeLastValue": false,
+      "changeTriggered": false,
+      "name": "LaunchPomme"
+    },
+    {
+      "id": "fc_mod_1765462831279",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3c71dd",
+      "inputs": {},
+      "groupId": null,
+      "name": "GetVelocity",
+      "customScriptCode": "//async\nconst payload={valueName:\"VelocityX\",sleepTime:500}\nconst resultX=await game.actions.getApiValue(payload);\nconst payloadY={valueName:\"VelocityY\",sleepTime:200}\nconst resultY=await game.actions.getApiValue(payloadY);\nreturn {x:resultX,y:resultY};",
+      "customScriptOutputType": "vector",
+      "customScriptManualTrigger": 1765463002935,
+      "customScriptLogs": [],
+      "customScriptAsyncState": true,
+      "customScriptMode": "async",
+      "customScriptLastResult": {
+        "x": 5.370007535795027,
+        "y": 0.29535864978902815
+      },
+      "customScriptContinuousRun": true
+    },
+    {
+      "id": "fc_mod_1765463743193",
+      "type": "selector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#843cdd",
+      "inputs": {},
+      "groupId": null,
+      "selectorBodyId": "manual_1765463545812"
+    },
+    {
+      "id": "fc_mod_1765463759909",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#dd3cb7",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765463863193:body",
+          "label": "PommeId - body"
+        },
+        "input_1": {
+          "type": "module_output",
+          "value": "fc_mod_1765463743193:body",
+          "label": "Module - body"
+        },
+        "trigger": {
+          "type": "module_output",
+          "value": "fc_mod_1765464902537:triggered",
+          "label": "Module - triggered"
+        }
+      },
+      "groupId": null,
+      "name": "Folow Pomme",
+      "customScriptCode": "console.log(new Date());\nif(input[0]==null){return \"none\";}\nconsole.log(input[0].id)\ngame.actions.setFollowingBody(input[0].id);\nreturn input[0].id;",
+      "customScriptManualTrigger": 1765464400253,
+      "customScriptLastResult": "none",
+      "customScriptLogs": [
+        "Thu Dec 11 2025 15:56:07 GMT+0100 (heure normale d’Europe centrale)"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptContinuousRun": false
+    },
+    {
+      "id": "fc_mod_1765463863193",
+      "type": "body_by",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#dd3f3c",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765464027931:result",
+          "label": "PommeName - result"
+        }
+      },
+      "groupId": null,
+      "bodyByMode": "name",
+      "name": "PommeId"
+    },
+    {
+      "id": "fc_mod_1765464027931",
+      "type": "custom_script",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#ddbc3c",
+      "inputs": {
+        "input_0": {
+          "type": "module_output",
+          "value": "fc_mod_1765461837038:result",
+          "label": "CreatePomme - result"
+        }
+      },
+      "groupId": null,
+      "customScriptCode": "console.log(input[0]);\nif(input[0]!=undefined){\nreturn input[0];\n}else{\n return \"\"\n}",
+      "customScriptManualTrigger": 1765464299938,
+      "customScriptLastResult": "",
+      "customScriptLogs": [
+        "null"
+      ],
+      "customScriptAsyncState": true,
+      "customScriptContinuousRun": true,
+      "customScriptOutputType": "string",
+      "name": "PommeName"
+    },
+    {
+      "id": "fc_mod_1765464309089",
+      "type": "body_info",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#7fdd3c",
+      "inputs": {
+        "target": {
+          "type": "module_output",
+          "value": "fc_mod_1765463863193:body",
+          "label": "PommeId - body"
+        }
+      },
+      "groupId": null
+    },
+    {
+      "id": "fc_mod_1765464902537",
+      "type": "change_detector",
+      "isEnabled": true,
+      "primaryBodyId": "manual_1765461747271",
+      "referenceBodyId": "manual_1765461747271",
+      "color": "#3cdd77",
+      "inputs": {
+        "value": {
+          "type": "module_output",
+          "value": "fc_mod_1765464027931:result",
+          "label": "PommeName - result"
+        }
+      },
+      "groupId": null,
+      "changeLastValue": "",
+      "changeTriggered": false
+    }
+  ],
+  "moduleGroups": [
+    {
+      "id": "fc_group_1765461694667_0_536505",
+      "name": "Camera",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1765461694667_0_535333",
+      "name": "ImageControl",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null
+    },
+    {
+      "id": "fc_group_1765461694667_0_981485",
+      "name": "SetScene",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1765461694667_0_676383",
+        "outputKey": "result"
+      }
+    },
+    {
+      "id": "fc_group_1765461694667_0_940036",
+      "name": "speedControl",
+      "color": "#10b981",
+      "isCollapsed": true,
+      "parentGroupId": null,
+      "displayOutput": {
+        "moduleId": "fc_module_1765461694667_0_262322",
+        "outputKey": "result"
+      }
+    }
+  ]
+}

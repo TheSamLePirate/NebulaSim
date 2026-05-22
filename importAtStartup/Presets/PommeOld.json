@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "timestamp": 1765466406999,
+  "bodies": [
+    {
+      "id": "manual_1765461747271",
+      "name": "FakeTerre",
+      "mass": 530.539,
+      "radius": 18.821680412709807,
+      "color": "#3742fa",
+      "position": {
+        "x": -47,
+        "y": 37.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false
+    },
+    {
+      "id": "manual_1765461787038",
+      "name": "Pomme_",
+      "mass": 1.01,
+      "radius": 0.029850992559504276,
+      "color": "#ff0000",
+      "position": {
+        "x": -47.0989488992227,
+        "y": 18.64872828058548
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "trail": [],
+      "description": "Manually placed body",
+      "realMass": "Unknown",
+      "realDiameter": "Unknown",
+      "orbitPeriod": "Unknown",
+      "isStar": false,
+      "landedOnBodyId": "manual_1765461747271",
+      "landingAngle": -1.5760452029444716
+    }
+  ],
+  "visualConfig": {
+    "showGrid": false,
+    "gridSpacing": 100,
+    "gridOpacity": 0.25,
+    "showWaves": false,
+    "waveSpeedMultiplier": 0.1,
+    "showGlow": true,
+    "glowIntensity": 1,
+    "showTrails": true,
+    "trailLength": 500,
+    "centerOfMassThreshold": 2000,
+    "showStars": true,
+    "showNebula": true,
+    "starDensity": 800,
+    "starTwinkleSpeed": 2,
+    "nebulaCloudCount": 40,
+    "nebulaOpacity": 0.9,
+    "showCenterOfMass": false,
+    "showEclipses": false
+  },
+  "physicsConfig": {
+    "gravitationalConstant": 0.5,
+    "collisions": true,
+    "timeStep": 0.008,
+    "timeReverseDuration": 4
+  },
+  "camera": {
+    "scale": 821.0383693733122,
+    "offset": {
+      "x": 38650.04420341476,
+      "y": -15196.321458377875
+    }
+  },
+  "flightComputerModules": [],
+  "moduleGroups": [],
+  "followBodyId": "manual_1765461787038",
+  "followCenterOfMass": false,
+  "speed": 1.0
+}
