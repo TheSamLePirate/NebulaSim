@@ -326,11 +326,22 @@
           "angleOffset": 0,
           "progress": 0,
           "status": "pending",
-          "param": "300:ascending",
+          "param": "590:ascending",
           "parentBodyId": "manual_1764400480186"
         },
         {
-          "id": "a1m_31_return_coast",
+          "id": "a1m_31_moon_flyby",
+          "type": "wait_for_altitude",
+          "thrust": 0,
+          "duration": 0,
+          "angleOffset": 0,
+          "progress": 0,
+          "status": "pending",
+          "param": "590:descending",
+          "parentBodyId": "manual_1764400480186"
+        },
+        {
+          "id": "a1m_31b_return_coast",
           "type": "wait_for_altitude",
           "thrust": 0,
           "duration": 0,
