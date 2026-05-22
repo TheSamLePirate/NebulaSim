@@ -48,7 +48,7 @@ Pour rendre la séparation **autonome** (et pas seulement déclenchée à la mai
 
 ### Option 2 — Télécharger le préréglage
 
-[**⬇ Télécharger `1ArtemisMultiStage.json`**](importAtStartup/Presets/1ArtemisMultiStage.json?raw=1)
+[**⬇ Télécharger `1ArtemisMultiStage.json`**](https://github.com/TheSamLePirate/NebulaSim/blob/main/importAtStartup/Presets/1ArtemisMultiStage.json)
 
 Puis, dans l'application, importez le fichier via le menu *Charger un préréglage*.
 
