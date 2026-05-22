@@ -202,12 +202,13 @@
 
   /* Stack diagram + side info */
   .stack-figure {
-    display: grid; grid-template-columns: 300px 1fr; gap: 56px;
+    display: grid; grid-template-columns: 380px 1fr; gap: 48px;
     margin: 48px 0; padding: 40px; border: 1px solid var(--line);
     background: linear-gradient(180deg, var(--surface), var(--bg-2));
+    align-items: start;
   }
   @media (max-width: 880px) { .stack-figure { grid-template-columns: 1fr; gap: 32px; padding: 28px; } }
-  .stack-figure svg { display: block; margin: 0 auto; }
+  .stack-figure svg { display: block; margin: 0 auto; width: 100%; max-width: 380px; height: auto; overflow: visible; }
   .stack-figure .annotation h4 {
     font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--core); margin-bottom: 14px;
@@ -769,7 +770,7 @@
 
   <div class="stack-figure reveal">
     <!-- Stack diagram -->
-    <svg viewBox="0 0 300 600" aria-hidden="true">
+    <svg viewBox="0 0 380 600" aria-hidden="true">
       <!-- Launch escape system (peak) -->
       <polygon points="150,20 142,60 158,60" fill="#d63333"/>
       <rect x="142" y="60" width="16" height="30" fill="#d63333"/>
