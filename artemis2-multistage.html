@@ -1,0 +1,1063 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mission Brief 02 — Artemis II Multi-Stage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #ede4cf;          /* warm cream */
+    --ink-dim: #98a1b8;      /* cool grey */
+    --ink-faint: #5b6378;
+    --bg: #0a0d18;           /* deep navy near-black */
+    --bg-2: #0f1424;
+    --surface: #141a2c;
+    --line: #1f2740;
+    --core: #f06e1f;         /* Saturn V orange */
+    --icps: #c6c7cc;         /* aluminum */
+    --orion: #6aa4d8;        /* Orion blue */
+    --red: #d63333;          /* mission red */
+    --mint: #7fc8b3;         /* telemetry */
+    --warn: #f5c451;
+
+    --display: "Bricolage Grotesque", "Helvetica Neue", system-ui, sans-serif;
+    --body: "Newsreader", Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    font-optical-sizing: auto;
+    font-size: 17px;
+    line-height: 1.55;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* Grain + stars backdrop */
+  body::before, body::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  }
+  body::before {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(240,110,31,0.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 90%, rgba(106,164,216,0.10), transparent 60%),
+      radial-gradient(1px 1px at 20% 12%, rgba(255,255,255,0.55), transparent 50%),
+      radial-gradient(1px 1px at 78% 22%, rgba(255,255,255,0.4), transparent 50%),
+      radial-gradient(1.5px 1.5px at 47% 84%, rgba(255,255,255,0.6), transparent 50%),
+      radial-gradient(1px 1px at 12% 67%, rgba(255,255,255,0.4), transparent 50%),
+      radial-gradient(1px 1px at 92% 70%, rgba(255,255,255,0.5), transparent 50%),
+      radial-gradient(1.5px 1.5px at 33% 32%, rgba(255,255,255,0.45), transparent 50%),
+      radial-gradient(1px 1px at 65% 48%, rgba(255,255,255,0.35), transparent 50%);
+  }
+  body::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay; opacity: 0.6;
+  }
+
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* ── Nav bar ── */
+  nav.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 32px; border-bottom: 1px solid var(--line);
+    position: relative; z-index: 5; backdrop-filter: blur(8px);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  nav.top .left { color: var(--ink-dim); }
+  nav.top .left strong { color: var(--core); font-weight: 700; letter-spacing: 0.22em; }
+  nav.top .right { display: flex; gap: 18px; align-items: center; }
+  nav.top .right a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s; }
+  nav.top .right a:hover { color: var(--ink); }
+  nav.top .right .lang { display: flex; gap: 4px; }
+  nav.top .right .lang a { padding: 4px 10px; border: 1px solid var(--line); border-radius: 0; }
+  nav.top .right .lang a.active { background: var(--core); color: var(--bg); border-color: var(--core); }
+
+  /* ── Hero ── */
+  .hero { padding: 88px 0 120px; position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: end; }
+  @media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .hero .docnum {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.3em;
+    color: var(--core); margin-bottom: 28px;
+    display: flex; gap: 18px; align-items: center;
+  }
+  .hero .docnum::after {
+    content: ""; flex: 1; max-width: 80px; height: 1px; background: var(--core); opacity: 0.4;
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    font-size: clamp(56px, 9vw, 132px);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+    color: var(--ink);
+  }
+  .hero h1 .display-italic {
+    font-family: var(--body); font-style: italic; font-weight: 400;
+    color: var(--core); letter-spacing: -0.02em;
+  }
+  .hero h1 .stamp {
+    display: inline-block; font-family: var(--mono); font-size: 0.18em; font-weight: 700;
+    letter-spacing: 0.1em; vertical-align: 0.85em;
+    border: 2px solid var(--red); color: var(--red);
+    padding: 6px 10px; transform: rotate(-3deg); margin-left: 0.3em;
+    text-transform: uppercase;
+  }
+  .hero .lede {
+    font-family: var(--body); font-size: 19px; line-height: 1.55;
+    max-width: 60ch; color: var(--ink-dim);
+  }
+  .hero .lede em { font-style: italic; color: var(--ink); }
+
+  /* Mission patch SVG */
+  .patch { width: 240px; height: 240px; justify-self: end; animation: rotate 80s linear infinite; }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @media (max-width: 880px) { .patch { justify-self: start; } }
+
+  /* ── Section frame ── */
+  section.major {
+    padding: 110px 0 30px; position: relative;
+    border-top: 1px solid var(--line);
+  }
+  section.major:first-of-type { border-top: none; padding-top: 0; }
+
+  .sec-head { display: grid; grid-template-columns: 60px 1fr; gap: 24px; margin-bottom: 56px; }
+  .sec-head .num {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.2em;
+    color: var(--core); padding-top: 12px;
+  }
+  .sec-head .num::before { content: ""; display: block; width: 36px; height: 1px; background: var(--core); margin-bottom: 16px; }
+  .sec-head h2 {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 72;
+    font-size: clamp(36px, 5vw, 64px); line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .sec-head h2 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+  .sec-head p.kicker {
+    font-family: var(--body); font-size: 18px; max-width: 65ch; margin-top: 18px;
+    color: var(--ink-dim);
+  }
+
+  /* ── Stage architecture cards ── */
+  .stack-arch {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  @media (max-width: 880px) { .stack-arch { grid-template-columns: 1fr; } }
+  .stage-cell {
+    padding: 36px 30px; border-right: 1px solid var(--line); position: relative;
+  }
+  @media (max-width: 880px) { .stage-cell { border-right: none; border-bottom: 1px solid var(--line); } }
+  .stage-cell:last-child { border-right: none; }
+  .stage-cell .stripe {
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  }
+  .stage-cell.s1 .stripe { background: var(--core); }
+  .stage-cell.s2 .stripe { background: var(--icps); }
+  .stage-cell.s3 .stripe { background: var(--orion); }
+  .stage-cell .tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 12px;
+  }
+  .stage-cell h3 {
+    font-family: var(--display); font-weight: 700; font-size: 28px; line-height: 1.05;
+    letter-spacing: -0.015em; color: var(--ink); margin-bottom: 14px;
+  }
+  .stage-cell.s1 h3::first-letter { color: var(--core); }
+  .stage-cell.s2 h3::first-letter { color: var(--icps); }
+  .stage-cell.s3 h3::first-letter { color: var(--orion); }
+  .stage-cell .blurb {
+    font-family: var(--body); font-size: 15px; color: var(--ink-dim);
+    line-height: 1.55; margin-bottom: 24px; max-width: 36ch;
+  }
+  .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .specs .row { display: flex; flex-direction: column; gap: 2px; }
+  .specs .k {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .specs .v {
+    font-family: var(--mono); font-size: 18px; font-weight: 500; color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Callout pull-quote ── */
+  .pull {
+    margin: 56px 0; padding: 36px 40px 36px 56px;
+    background: linear-gradient(135deg, rgba(240,110,31,0.06), rgba(240,110,31,0.02));
+    border-left: 4px solid var(--core); position: relative;
+  }
+  .pull::before {
+    content: "—"; position: absolute; left: 20px; top: 30px;
+    font-family: var(--display); font-size: 32px; font-weight: 800; color: var(--core);
+  }
+  .pull p {
+    font-family: var(--body); font-style: italic; font-size: 22px; line-height: 1.45;
+    color: var(--ink); max-width: 60ch;
+  }
+  .pull strong {
+    font-style: normal; font-weight: 700; color: var(--core);
+    font-family: var(--display); letter-spacing: -0.005em;
+  }
+  .pull.red { background: linear-gradient(135deg, rgba(214,51,51,0.07), rgba(214,51,51,0.02)); border-left-color: var(--red); }
+  .pull.red::before { color: var(--red); }
+  .pull.red strong { color: var(--red); }
+  .pull.mint { background: linear-gradient(135deg, rgba(127,200,179,0.06), rgba(127,200,179,0.02)); border-left-color: var(--mint); }
+  .pull.mint::before { color: var(--mint); }
+  .pull.mint strong { color: var(--mint); }
+
+  /* ── Code-change ledger ── */
+  .ledger { border-top: 1px solid var(--line); }
+  .ledger .row {
+    display: grid; grid-template-columns: 280px 1fr 60px;
+    border-bottom: 1px solid var(--line); padding: 22px 0; gap: 24px; align-items: baseline;
+    transition: background 0.2s;
+  }
+  .ledger .row:hover { background: rgba(240,110,31,0.03); }
+  @media (max-width: 880px) { .ledger .row { grid-template-columns: 1fr; gap: 8px; } }
+  .ledger .file {
+    font-family: var(--mono); font-size: 13px; color: var(--core); font-weight: 500;
+  }
+  .ledger .desc { font-family: var(--body); font-size: 16px; color: var(--ink-dim); }
+  .ledger .desc strong { font-weight: 600; color: var(--ink); font-style: italic; }
+  .ledger .delta {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-faint); text-align: right;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Telemetry / big stat cards ── */
+  .telemetry {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 40px 0;
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 880px) { .telemetry { grid-template-columns: 1fr 1fr; } }
+  .tcell {
+    padding: 28px 24px; border-right: 1px solid var(--line);
+    position: relative; overflow: hidden;
+  }
+  .tcell:last-child { border-right: none; }
+  .tcell .k {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 8px;
+  }
+  .tcell .v {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    font-size: 56px; line-height: 1; letter-spacing: -0.035em;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .tcell .sub {
+    font-family: var(--body); font-style: italic; font-size: 13px; color: var(--ink-dim);
+  }
+  .tcell.warn .v { color: var(--core); }
+  .tcell.red .v { color: var(--red); }
+  .tcell.mint .v { color: var(--mint); }
+
+  /* ── Phase rows for landing ── */
+  .phases { margin-top: 24px; }
+  .phase {
+    display: grid; grid-template-columns: 72px 1fr 1fr; gap: 32px;
+    padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;
+  }
+  @media (max-width: 880px) { .phase { grid-template-columns: 56px 1fr; } .phase .vis { display: none; } }
+  .phase .marker {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 2px solid var(--core);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-weight: 800; font-size: 24px; color: var(--core);
+    background: var(--bg);
+  }
+  .phase .body h3 {
+    font-family: var(--display); font-weight: 700; font-size: 32px; line-height: 1; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .phase .body .meta {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--core); margin-bottom: 18px;
+  }
+  .phase .body p {
+    font-family: var(--body); font-size: 17px; line-height: 1.6; color: var(--ink-dim);
+    max-width: 50ch;
+  }
+  .phase .body p code {
+    font-family: var(--mono); font-size: 13px; padding: 2px 6px;
+    background: rgba(240,110,31,0.1); color: var(--core); border-radius: 2px;
+  }
+  .phase .vis {
+    padding: 20px; border: 1px solid var(--line); background: var(--surface);
+    font-family: var(--mono); font-size: 11px; color: var(--ink-dim); line-height: 1.7;
+    align-self: stretch;
+  }
+  .phase .vis .lbl {
+    font-size: 9px; letter-spacing: 0.22em; color: var(--ink-faint);
+    margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line);
+  }
+  .phase .vis .vlist b { color: var(--ink); font-weight: 500; }
+
+  /* ── Mapping table ── */
+  .mapping {
+    width: 100%; border-collapse: collapse; margin-top: 24px;
+    font-family: var(--body);
+  }
+  .mapping th, .mapping td { padding: 18px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .mapping th {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-faint); font-weight: 500;
+  }
+  .mapping td.phase-name { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+  .mapping td.sim-steps { font-family: var(--mono); font-size: 13px; color: var(--ink-dim); }
+  .mapping td.stage-tag { white-space: nowrap; }
+  .mapping tr:hover td { background: rgba(240,110,31,0.03); }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 5px 10px; border: 1px solid var(--line); color: var(--ink-dim);
+  }
+  .pill::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+  }
+  .pill.core::before { background: var(--core); }
+  .pill.icps::before { background: var(--icps); }
+  .pill.orion::before { background: var(--orion); }
+  .pill.core { color: var(--core); border-color: rgba(240,110,31,0.4); }
+  .pill.icps { color: var(--icps); border-color: rgba(198,199,204,0.3); }
+  .pill.orion { color: var(--orion); border-color: rgba(106,164,216,0.4); }
+
+  /* ── Footer ── */
+  footer.foot {
+    margin-top: 120px; padding: 80px 0 64px; border-top: 1px solid var(--line);
+    background: linear-gradient(180deg, transparent, rgba(15,20,36,0.6));
+  }
+  footer.foot .row1 {
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-bottom: 40px;
+  }
+  footer.foot h3 {
+    font-family: var(--display); font-weight: 800; font-size: clamp(40px, 6vw, 88px);
+    line-height: 0.92; letter-spacing: -0.03em; color: var(--ink); max-width: 18ch;
+  }
+  footer.foot h3 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+  footer.foot .meta {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex; flex-direction: column; gap: 6px; text-align: right;
+  }
+  footer.foot .meta span { color: var(--ink-dim); }
+  footer.foot .meta b { color: var(--core); font-weight: 700; }
+  footer.foot .signature {
+    border-top: 1px solid var(--line); padding-top: 24px; display: flex;
+    justify-content: space-between; gap: 24px; align-items: baseline;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  footer.foot .signature .preset { color: var(--ink-dim); }
+
+  /* Asymmetric flow for code change explanation */
+  .arch-flow {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    margin: 40px 0 64px; border: 1px solid var(--line);
+  }
+  @media (max-width: 880px) { .arch-flow { grid-template-columns: 1fr; } }
+  .arch-flow .col {
+    padding: 32px 28px; border-right: 1px solid var(--line);
+  }
+  .arch-flow .col:last-child { border-right: none; }
+  @media (max-width: 880px) {
+    .arch-flow .col { border-right: none; border-bottom: 1px solid var(--line); }
+    .arch-flow .col:last-child { border-bottom: none; }
+  }
+  .arch-flow h4 {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--core); margin-bottom: 16px;
+  }
+  .arch-flow p { font-family: var(--body); font-size: 16px; color: var(--ink-dim); line-height: 1.6; max-width: 36ch; }
+  .arch-flow .codeblock {
+    font-family: var(--mono); font-size: 12px; line-height: 1.65; color: var(--ink-dim);
+    padding: 16px 18px; margin-top: 18px; background: var(--bg-2); border-left: 2px solid var(--core);
+    white-space: pre; overflow-x: auto;
+  }
+  .arch-flow .codeblock .k { color: var(--mint); }
+  .arch-flow .codeblock .s { color: var(--core); }
+  .arch-flow .codeblock .c { color: var(--ink-faint); font-style: italic; }
+
+  /* Reveal animations */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,0.62,0.36,1); }
+  .reveal.shown { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .reveal.delay-3 { transition-delay: 0.3s; }
+  .reveal.delay-4 { transition-delay: 0.4s; }
+
+  /* Hero letter stagger */
+  .stagger > * { display: inline-block; opacity: 0; transform: translateY(40px); animation: rise 1s cubic-bezier(0.22,0.62,0.36,1) forwards; }
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.18s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.31s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.44s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.57s; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  /* Subtle hover lift */
+  .stage-cell, .tcell { transition: background 0.3s ease, transform 0.4s ease; }
+  .stage-cell:hover { background: rgba(240,110,31,0.03); }
+
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="left">Nebula Orbit · <strong>Mission Brief 02</strong> · Artemis II Multi-Stage</div>
+  <div class="right">
+    <span>Rev 1972.05</span>
+    <div class="lang">
+      <a href="artemis2-multistage.html" class="active">EN</a>
+      <a href="artemis2-multistage.fr.html">FR</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ─────── HERO ─────── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="docnum">Brief 02 / Vol III / Three-stage stack</div>
+      <h1 class="stagger">
+        <span>The</span>&nbsp;
+        <span>stack</span>&nbsp;
+        <span class="display-italic">that</span>&nbsp;
+        <span>sheds</span>&nbsp;
+        <span>itself.</span>
+      </h1>
+      <p class="lede">
+        The single-stage simulation flew the mission with one monolithic vehicle — physically wrong.
+        Real launch stacks <em>jettison empty fuel tanks as they climb</em>, because every kilogram of
+        dead weight costs propellant. This brief documents the three-stage Artemis II architecture,
+        the new <span style="font-family:var(--mono); color:var(--core); font-size:0.92em">stage</span>
+        maneuver that was added to make autonomous separation possible, and the cinematic propulsive
+        landing that closes the mission.
+      </p>
+    </div>
+
+    <svg class="patch" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <radialGradient id="patchBg" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#1a2545"/>
+          <stop offset="100%" stop-color="#0a0d18"/>
+        </radialGradient>
+        <linearGradient id="trail" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f06e1f"/>
+          <stop offset="100%" stop-color="#6aa4d8"/>
+        </linearGradient>
+      </defs>
+      <!-- outer rings -->
+      <circle cx="120" cy="120" r="115" fill="none" stroke="#1f2740" stroke-width="1"/>
+      <circle cx="120" cy="120" r="108" fill="url(#patchBg)" stroke="#f06e1f" stroke-width="2"/>
+      <circle cx="120" cy="120" r="100" fill="none" stroke="#1f2740" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <!-- Earth crescent -->
+      <circle cx="78" cy="170" r="34" fill="#0f1424" stroke="#7fc8b3" stroke-width="1.5"/>
+      <path d="M 78 136 A 34 34 0 0 1 78 204" fill="#7fc8b3" opacity="0.35"/>
+      <!-- Moon disc -->
+      <circle cx="172" cy="80" r="14" fill="#c6c7cc" opacity="0.85"/>
+      <circle cx="168" cy="76" r="2" fill="#0f1424"/>
+      <circle cx="176" cy="82" r="1.5" fill="#0f1424"/>
+      <!-- Trajectory -->
+      <path d="M 78 170 Q 60 90, 172 80" fill="none" stroke="url(#trail)" stroke-width="2" stroke-dasharray="3 3"/>
+      <path d="M 172 80 Q 200 130, 78 170" fill="none" stroke="#f06e1f" stroke-width="1.5" stroke-dasharray="1 5" opacity="0.6"/>
+      <!-- Rocket icons -->
+      <g transform="translate(120,120)">
+        <polygon points="-3,-12 3,-12 4,-4 -4,-4" fill="#f06e1f"/>
+        <rect x="-3" y="-4" width="6" height="10" fill="#c6c7cc"/>
+        <rect x="-3" y="6" width="6" height="6" fill="#6aa4d8"/>
+        <polygon points="-3,12 3,12 0,16" fill="#d63333"/>
+      </g>
+      <!-- Text path -->
+      <defs>
+        <path id="topArc" d="M 120 120 m -88 0 a 88 88 0 0 1 176 0" fill="none"/>
+        <path id="botArc" d="M 120 120 m -88 0 a 88 88 0 0 0 176 0" fill="none"/>
+      </defs>
+      <text font-family="Bricolage Grotesque" font-weight="800" font-size="14" letter-spacing="3" fill="#ede4cf">
+        <textPath href="#topArc" startOffset="50%" text-anchor="middle">ARTEMIS · II · ORION</textPath>
+      </text>
+      <text font-family="JetBrains Mono" font-weight="700" font-size="9" letter-spacing="3" fill="#f06e1f">
+        <textPath href="#botArc" startOffset="50%" text-anchor="middle">SLS · ICPS · CSM</textPath>
+      </text>
+      <!-- corner crosses -->
+      <g stroke="#5b6378" stroke-width="0.8">
+        <line x1="120" y1="8" x2="120" y2="14"/>
+        <line x1="120" y1="226" x2="120" y2="232"/>
+        <line x1="8" y1="120" x2="14" y2="120"/>
+        <line x1="226" y1="120" x2="232" y2="120"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- ─────── 01 · REAL STACK ─────── -->
+<section class="major" id="real-stack">
+  <div class="sec-head reveal">
+    <div class="num">01</div>
+    <div>
+      <h2>The real launch stack, <em>three vehicles bolted together</em>.</h2>
+      <p class="kicker">
+        Artemis II launches on SLS Block 1 — the most powerful rocket currently flying.
+        The full stack is roughly 98 metres tall and 2,600 tonnes at liftoff.
+        It splits into three independent vehicles during the mission, each engineered for its own job.
+      </p>
+    </div>
+  </div>
+
+  <div class="stack-arch reveal delay-1">
+    <div class="stage-cell s1">
+      <div class="stripe"></div>
+      <div class="tag">Stage 01 — Core + boosters</div>
+      <h3>SLS Core Stage<br>+ twin SRBs</h3>
+      <p class="blurb">
+        Liquid hydrogen / liquid oxygen core driving four RS-25 engines, flanked by two five-segment
+        solid rocket boosters.
+      </p>
+      <div class="specs">
+        <div class="row"><span class="k">Wet mass</span><span class="v">2,300 t</span></div>
+        <div class="row"><span class="k">Thrust</span><span class="v">39,000 kN</span></div>
+        <div class="row"><span class="k">Burn time</span><span class="v">~8 min</span></div>
+        <div class="row"><span class="k">Job</span><span class="v">→ LEO</span></div>
+      </div>
+    </div>
+    <div class="stage-cell s2">
+      <div class="stripe"></div>
+      <div class="tag">Stage 02 — Upper stage</div>
+      <h3>ICPS<br><span style="font-size:0.55em; font-weight:500; color:var(--ink-dim)">Interim Cryogenic Propulsion Stage</span></h3>
+      <p class="blurb">
+        Single RL10 engine running LH₂ / LOX. Inherited from the Delta IV upper stage; will give way
+        to the Exploration Upper Stage on later Artemis flights.
+      </p>
+      <div class="specs">
+        <div class="row"><span class="k">Wet mass</span><span class="v">30.7 t</span></div>
+        <div class="row"><span class="k">Thrust</span><span class="v">110 kN</span></div>
+        <div class="row"><span class="k">ΔV (TLI)</span><span class="v">3 km/s</span></div>
+        <div class="row"><span class="k">Job</span><span class="v">HEO + TLI</span></div>
+      </div>
+    </div>
+    <div class="stage-cell s3">
+      <div class="stripe"></div>
+      <div class="tag">Stage 03 — Payload</div>
+      <h3>Orion CSM<br><span style="font-size:0.55em; font-weight:500; color:var(--ink-dim)">Crew + Service Module</span></h3>
+      <p class="blurb">
+        Crew module with the four-person crew, mated to the European Service Module and its AJ-10
+        engine for in-space maneuvers, attitude, and re-entry prep.
+      </p>
+      <div class="specs">
+        <div class="row"><span class="k">Wet mass</span><span class="v">26.5 t</span></div>
+        <div class="row"><span class="k">Thrust</span><span class="v">26 kN</span></div>
+        <div class="row"><span class="k">ΔV</span><span class="v">1.3 km/s</span></div>
+        <div class="row"><span class="k">Job</span><span class="v">MCC → entry</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull reveal">
+    <p>
+      <strong>Why stage at all?</strong> Empty fuel tanks are dead weight. To accelerate the upper
+      stages further you'd need to push those tanks too — costing enormous extra propellant. Drop
+      them, and the smaller lighter remainder reaches the Moon with engines a fraction the size.
+      SLS = 39,000 kN. ICPS = 110 kN <em>(354× smaller)</em>. Orion = 26 kN <em>(1,500× smaller than SLS)</em>.
+    </p>
+  </div>
+</section>
+
+<!-- ─────── 02 · THE STAGE MANEUVER ─────── -->
+<section class="major" id="stage-maneuver">
+  <div class="sec-head reveal">
+    <div class="num">02</div>
+    <div>
+      <h2>The new <em>stage</em> maneuver.</h2>
+      <p class="kicker">
+        The simulator had a hidden limitation: stage separation existed only as a manual UI button —
+        <code style="font-family:var(--mono); font-size:0.92em; color:var(--core)">handleStageRocket()</code>
+        — with no way to script it into an autonomous flight plan. We fixed that.
+      </p>
+    </div>
+  </div>
+
+  <div class="arch-flow reveal delay-1">
+    <div class="col">
+      <h4>The constraint</h4>
+      <p>
+        The physics engine is pure. It runs in a Web Worker and cannot call React state setters like
+        <span style="font-family:var(--mono); color:var(--core)">setBodies</span>. So a new maneuver
+        can't simply spawn debris from inside the engine.
+      </p>
+    </div>
+    <div class="col">
+      <h4>The pattern</h4>
+      <p>
+        Follow the side-effect approach already used by
+        <span style="font-family:var(--mono); color:var(--core)">change_simulation_speed</span> —
+        push a <span style="font-family:var(--mono); color:var(--core)">SystemEvent</span> onto the
+        physics result; the main thread processes it after the worker returns.
+      </p>
+      <div class="codeblock"><span class="c">// physicsEngineNew.ts</span>
+<span class="k">else if</span> (m.type === <span class="s">'stage'</span>) {
+  <span class="k">const</span> struct = updatedBody.shipStructure;
+  <span class="k">if</span> (struct && struct.currentStageIndex
+       &lt; struct.stages.length - 1) {
+    systemEvents.push({
+      type: <span class="s">'stage_rocket'</span>,
+      rocketId: updatedBody.id
+    });
+  }
+  m.status = <span class="s">'completed'</span>;
+}</div>
+    </div>
+  </div>
+
+  <div class="ledger reveal">
+    <div class="row">
+      <div class="file">types.ts</div>
+      <div class="desc"><strong>Added</strong> 'stage' to the <code style="font-family:var(--mono); color:var(--core);">Maneuver.type</code> union; extended <code style="font-family:var(--mono); color:var(--core);">SystemEvent</code> with a <code style="font-family:var(--mono); color:var(--core);">stage_rocket</code> variant carrying a <code style="font-family:var(--mono); color:var(--core);">rocketId</code>.</div>
+      <div class="delta">+3 / −2</div>
+    </div>
+    <div class="row">
+      <div class="file">services/physicsEngineNew.ts</div>
+      <div class="desc">New dispatch branch alongside <code style="font-family:var(--mono); color:var(--core);">change_simulation_speed</code>. Emits the system event when the maneuver fires, marks complete in one frame — same model as <em>rotate</em>, <em>sas</em>.</div>
+      <div class="delta">+13 / 0</div>
+    </div>
+    <div class="row">
+      <div class="file">services/physicsEngine.ts</div>
+      <div class="desc">Same branch added to the legacy engine for parity.</div>
+      <div class="delta">+12 / 0</div>
+    </div>
+    <div class="row">
+      <div class="file">App.tsx</div>
+      <div class="desc">The system-events loop now dispatches <code style="font-family:var(--mono); color:var(--core);">stage_rocket</code> events to the existing <code style="font-family:var(--mono); color:var(--core);">handleStageRocket()</code> — reusing the debris-creation logic the UI button already used. <code style="font-family:var(--mono); color:var(--core);">buildManeuverFromModule</code> received a <em>case 'stage'</em>.</div>
+      <div class="delta">+5 / 0</div>
+    </div>
+    <div class="row">
+      <div class="file">flight_computer/utils.ts</div>
+      <div class="desc">"Stage Separation" appended to <code style="font-family:var(--mono); color:var(--core);">MANEUVER_TYPE_OPTIONS</code>.</div>
+      <div class="delta">+1 / 0</div>
+    </div>
+    <div class="row">
+      <div class="file">ManeuverExecutorModule.tsx</div>
+      <div class="desc">Info-text block for <code style="font-family:var(--mono); color:var(--core);">execType === 'stage'</code> — no parameters needed; reads as documentation in-app.</div>
+      <div class="delta">+5 / 0</div>
+    </div>
+    <div class="row">
+      <div class="file">MissionTab(Desktop / Mobile).tsx</div>
+      <div class="desc">Added <code style="font-family:var(--mono); color:var(--core);">&lt;option value="stage"&gt;</code> to both maneuver pickers so users can drop it into flight plans by hand.</div>
+      <div class="delta">+2 / 0</div>
+    </div>
+    <div class="row">
+      <div class="file">RocketPanel.tsx</div>
+      <div class="desc">Widened the <code style="font-family:var(--mono); color:var(--core);">recordGapAndAction</code> type union so manual flight recordings can also capture user-triggered separations.</div>
+      <div class="delta">+1 / −1</div>
+    </div>
+    <div class="row">
+      <div class="file">services/geminiService.ts</div>
+      <div class="desc">Updated the AI assistant's prompt schema so it knows the new maneuver type when generating flight plans.</div>
+      <div class="delta">+2 / −1</div>
+    </div>
+  </div>
+
+  <div class="pull mint reveal">
+    <p>
+      <strong>One handler, two entry points.</strong> The same <em>handleStageRocket()</em> now serves
+      both the UI button and the maneuver queue. The debris becomes a separate body, the rocket's mass
+      and fuel recalculate from the remaining stages, and the timestamp guard prevents the worker from
+      overwriting the staged state in-flight.
+    </p>
+  </div>
+</section>
+
+<!-- ─────── 03 · SIM STACK ─────── -->
+<section class="major" id="sim-stack">
+  <div class="sec-head reveal">
+    <div class="num">03</div>
+    <div>
+      <h2>The simulated stack — <em>scaled for play</em>.</h2>
+      <p class="kicker">
+        The preset's <code style="font-family:var(--mono); color:var(--core); font-size:0.92em">shipStructure.stages[]</code> array models all three vehicles. Real-world mass proportions
+        (Core 97% / ICPS 1.5% / Orion 1.5%) would make the upper stages invisible at the sim's scale,
+        so we flatten to 60/30/10 — the architecture is faithful even where the numbers aren't.
+      </p>
+    </div>
+  </div>
+
+  <div class="stack-arch reveal delay-1">
+    <div class="stage-cell s1">
+      <div class="stripe"></div>
+      <div class="tag">SIM Stage 01</div>
+      <h3>SLS Core + SRBs</h3>
+      <p class="blurb">Carries every burn of the launch and LEO insertion. Jettisoned the moment the parking orbit is clean.</p>
+      <div class="specs">
+        <div class="row"><span class="k">Color</span><span class="v" style="color:var(--core)">NASA Orange</span></div>
+        <div class="row"><span class="k">Dry mass</span><span class="v">0.0006</span></div>
+        <div class="row"><span class="k">Fuel</span><span class="v">2,500</span></div>
+        <div class="row"><span class="k">Engine</span><span class="v">0.025</span></div>
+      </div>
+    </div>
+    <div class="stage-cell s2">
+      <div class="stripe"></div>
+      <div class="tag">SIM Stage 02</div>
+      <h3>ICPS</h3>
+      <p class="blurb">Performs the High Earth Orbit checkout loop and the Trans-Lunar Injection. Spent ICPS is dropped on its way out of Earth's gravity well.</p>
+      <div class="specs">
+        <div class="row"><span class="k">Color</span><span class="v" style="color:var(--icps)">Aluminum</span></div>
+        <div class="row"><span class="k">Dry mass</span><span class="v">0.0003</span></div>
+        <div class="row"><span class="k">Fuel</span><span class="v">700</span></div>
+        <div class="row"><span class="k">Engine</span><span class="v">0.005</span></div>
+      </div>
+    </div>
+    <div class="stage-cell s3">
+      <div class="stripe"></div>
+      <div class="tag">SIM Stage 03</div>
+      <h3>Orion CSM</h3>
+      <p class="blurb">Crew home for ten sim-days. Handles the mid-course correction, the free-return coast, and the propulsive landing back on Earth.</p>
+      <div class="specs">
+        <div class="row"><span class="k">Color</span><span class="v" style="color:var(--orion)">Orion Blue</span></div>
+        <div class="row"><span class="k">Dry mass</span><span class="v">0.0001</span></div>
+        <div class="row"><span class="k">Fuel</span><span class="v">500</span></div>
+        <div class="row"><span class="k">Engine</span><span class="v">0.002</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────── 04 · MASS DROPS ─────── -->
+<section class="major" id="mass">
+  <div class="sec-head reveal">
+    <div class="num">04</div>
+    <div>
+      <h2>Mass drops, and <em>so must the thrust</em>.</h2>
+      <p class="kicker">
+        A subtlety the single-stage preset hid: when a stage jettisons, the rocket's mass drops
+        drastically. Same thrust, much smaller mass — by Newton's second law, much higher acceleration.
+        Reuse single-stage burn values and the upper-stage engines overshoot wildly.
+      </p>
+    </div>
+  </div>
+
+  <div class="telemetry reveal delay-1">
+    <div class="tcell">
+      <div class="k">Pre-flight stack</div>
+      <div class="v">1.0×</div>
+      <div class="sub">all three stages riding together</div>
+    </div>
+    <div class="tcell warn">
+      <div class="k">After Stage 1 sep</div>
+      <div class="v">0.4×</div>
+      <div class="sub">core dropped, ICPS + Orion remain</div>
+    </div>
+    <div class="tcell red">
+      <div class="k">After Stage 2 sep</div>
+      <div class="v">0.1×</div>
+      <div class="sub">Orion alone — one tenth of original</div>
+    </div>
+    <div class="tcell mint">
+      <div class="k">ΔV per burn-second</div>
+      <div class="v">10×</div>
+      <div class="sub">Orion's engine vs full-stack acceleration</div>
+    </div>
+  </div>
+
+  <table class="mapping reveal" style="margin-top: 32px">
+    <thead>
+      <tr><th>Burn</th><th>Active stage</th><th>Mass at burn</th><th>Tuned thrust</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="phase-name">Final kick</td>
+        <td><span class="pill core">Stage 1</span></td>
+        <td class="sim-steps">0.001</td>
+        <td class="sim-steps">0.002</td>
+      </tr>
+      <tr>
+        <td class="phase-name">HEO insertion</td>
+        <td><span class="pill icps">Stage 2</span></td>
+        <td class="sim-steps">0.0004</td>
+        <td class="sim-steps"><strong style="color:var(--core)">0.0006</strong> — was 0.0015</td>
+      </tr>
+      <tr>
+        <td class="phase-name">MCC offset</td>
+        <td><span class="pill orion">Stage 3</span></td>
+        <td class="sim-steps">0.0001</td>
+        <td class="sim-steps"><strong style="color:var(--core)">10⁻⁶</strong> — tiny radial nudge</td>
+      </tr>
+      <tr>
+        <td class="phase-name">Deorbit prep</td>
+        <td><span class="pill orion">Stage 3</span></td>
+        <td class="sim-steps">0.0001</td>
+        <td class="sim-steps"><strong style="color:var(--core)">0.0001</strong> — was 0.002</td>
+      </tr>
+      <tr>
+        <td class="phase-name">Landing brakes</td>
+        <td><span class="pill orion">Stage 3</span></td>
+        <td class="sim-steps">0.0001</td>
+        <td class="sim-steps"><strong style="color:var(--core)">0.0003</strong> — deorbit + suicide</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pull red reveal">
+    <p>
+      <strong>Rule of thumb.</strong> Each time a stage separates, divide the next manual burn's
+      thrust by the mass ratio. The autopilot maneuvers
+      (<em>auto_circularize</em>, <em>auto_transfer</em>) self-correct because they compute their own
+      duration from the current mass — only hand-tuned <em>burn</em> maneuvers need adjustment.
+    </p>
+  </div>
+</section>
+
+<!-- ─────── 05 · THE LANDING ─────── -->
+<section class="major" id="landing">
+  <div class="sec-head reveal">
+    <div class="num">05</div>
+    <div>
+      <h2>A beautiful landing, <em>in five acts</em>.</h2>
+      <p class="kicker">
+        Once Orion is alone in flight and the free-return has brought it back to Earth's vicinity,
+        the sequence switches into a multi-act landing — twelve maneuvers across five distinct beats,
+        scored against the trail renderer's animation.
+      </p>
+    </div>
+  </div>
+
+  <div class="phases">
+
+    <div class="phase reveal">
+      <div class="marker">A</div>
+      <div class="body">
+        <div class="meta">Steps 41–43 · Deorbit · 1× speed</div>
+        <h3>Brake out of orbit.</h3>
+        <p>Speed reset to real-time. SAS locks <code>retrograde</code>. The engine fires for 0.8 sim-seconds and the periapsis drops below Earth's surface. Orion is now committed to landing.</p>
+      </div>
+      <div class="vis">
+        <div class="lbl">Burn parameters</div>
+        <div class="vlist">
+          <div><b>SAS</b> &nbsp;retrograde</div>
+          <div><b>Thrust</b> &nbsp;0.0003</div>
+          <div><b>Duration</b> &nbsp;0.8 s</div>
+          <div><b>Mass</b> &nbsp;0.0001</div>
+          <div><b>ΔV</b> &nbsp;2.4 sim-units</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase reveal">
+      <div class="marker">B</div>
+      <div class="body">
+        <div class="meta">Steps 44–45 · Coast · 1× speed</div>
+        <h3>Upright free-fall.</h3>
+        <p>SAS flips to <code>radial_out</code> — the rocket points away from Earth's centre and falls "tower up". <code>wait_for_altitude 25:descending</code> watches the altimeter while gravity does the work.</p>
+      </div>
+      <div class="vis">
+        <div class="lbl">Orientation</div>
+        <div class="vlist">
+          <div><b>SAS</b> &nbsp;radial out</div>
+          <div><b>Thrust</b> &nbsp;0 (coast)</div>
+          <div><b>Wait gate</b> &nbsp;alt 25, descending</div>
+          <div><b>g at alt 25</b> &nbsp;~0.26</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase reveal">
+      <div class="marker">C</div>
+      <div class="body">
+        <div class="meta">Steps 46–48 · Suicide burn · 0.5× speed</div>
+        <h3>The slow-motion burn.</h3>
+        <p>Simulation drops to <strong style="color:var(--core); font-style:normal; font-family:var(--display)">0.5×</strong>. SAS retrograde (engine pointing down, rocket facing up) and the second <code>burn</code> kills nearly all descent velocity just above the surface — the SpaceX-style propulsive moment.</p>
+      </div>
+      <div class="vis">
+        <div class="lbl">Suicide burn</div>
+        <div class="vlist">
+          <div><b>Sim speed</b> &nbsp;0.5×</div>
+          <div><b>SAS</b> &nbsp;retrograde</div>
+          <div><b>Thrust</b> &nbsp;0.0003</div>
+          <div><b>Duration</b> &nbsp;0.6 s</div>
+          <div><b>ΔV</b> &nbsp;1.8 sim-units</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase reveal">
+      <div class="marker">D</div>
+      <div class="body">
+        <div class="meta">Steps 49–50 · Approach · 0.5× speed</div>
+        <h3>Tower up, final approach.</h3>
+        <p>SAS radial-out re-engages — the rocket squares up against the local horizon. <code>wait_for_altitude 5:descending</code> waits for the vehicle to drift down to almost-ground level.</p>
+      </div>
+      <div class="vis">
+        <div class="lbl">Final attitude</div>
+        <div class="vlist">
+          <div><b>SAS</b> &nbsp;radial out</div>
+          <div><b>Angle drift</b> &nbsp;0°</div>
+          <div><b>Wait gate</b> &nbsp;alt 5, descending</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase reveal">
+      <div class="marker">E</div>
+      <div class="body">
+        <div class="meta">Steps 51–52 · Touchdown · 0.25× speed</div>
+        <h3>The kiss.</h3>
+        <p>Simulation drops further to <strong style="color:var(--core); font-style:normal; font-family:var(--display)">0.25×</strong>. <code>auto_land</code> fires — a closed-loop velocity-null. The rocket free-falls the final few units and contacts the surface. The landing-angle check passes because radial-out attitude already aligns with the surface normal.</p>
+      </div>
+      <div class="vis">
+        <div class="lbl">Touchdown</div>
+        <div class="vlist">
+          <div><b>Sim speed</b> &nbsp;0.25×</div>
+          <div><b>Maneuver</b> &nbsp;auto_land</div>
+          <div><b>Final fall</b> &nbsp;~5 units</div>
+          <div><b>Impact ΔV</b> &nbsp;&lt; 1.5 sim</div>
+          <div><b>Soft-land threshold</b> &nbsp;3.0</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pull reveal">
+    <p>
+      <strong>Why slow-motion matters.</strong> The simulator runs <em>timeStep = 0.008</em> with
+      adaptive sub-stepping; at 1× the final five seconds of descent take five seconds — easy to
+      miss. The 1× → 0.5× → 0.25× ramp gives the eye time to read the plume, watch the velocity bar
+      drop, see the rocket settle. Identical physics to 1×, only visually generous.
+    </p>
+  </div>
+</section>
+
+<!-- ─────── 06 · MAPPING ─────── -->
+<section class="major" id="mapping">
+  <div class="sec-head reveal">
+    <div class="num">06</div>
+    <div>
+      <h2>Real ↔ Simulation.</h2>
+      <p class="kicker">
+        Phase by phase, the simulation maps onto the real Artemis II mission profile. The places it
+        diverges are documented, not hidden.
+      </p>
+    </div>
+  </div>
+
+  <table class="mapping reveal delay-1">
+    <thead>
+      <tr>
+        <th>Real Artemis II phase</th>
+        <th>Sim steps</th>
+        <th>Active stage</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="phase-name">SLS liftoff &amp; gravity turn</td>
+        <td class="sim-steps">1–11 · ascent, pitch-over, LEO circularize</td>
+        <td class="stage-tag"><span class="pill core">Core + SRBs</span></td>
+      </tr>
+      <tr>
+        <td class="phase-name">Core stage separation</td>
+        <td class="sim-steps">12 · <code>stage</code> — Stage 1 becomes orange debris</td>
+        <td class="stage-tag">—</td>
+      </tr>
+      <tr>
+        <td class="phase-name">HEO checkout loop</td>
+        <td class="sim-steps">15–21 · HEO burn, apogee coast, re-circularize</td>
+        <td class="stage-tag"><span class="pill icps">ICPS</span></td>
+      </tr>
+      <tr>
+        <td class="phase-name">Trans-Lunar Injection</td>
+        <td class="sim-steps">22–23 · <code>wait_for_transfer</code> + <code>auto_transfer</code></td>
+        <td class="stage-tag"><span class="pill icps">ICPS</span></td>
+      </tr>
+      <tr>
+        <td class="phase-name">ICPS separation</td>
+        <td class="sim-steps">24 · <code>stage</code> — Stage 2 becomes silver debris</td>
+        <td class="stage-tag">—</td>
+      </tr>
+      <tr>
+        <td class="phase-name">Mid-course correction</td>
+        <td class="sim-steps">26–27 · radial nudge for free-return offset</td>
+        <td class="stage-tag"><span class="pill orion">Orion</span></td>
+      </tr>
+      <tr>
+        <td class="phase-name">4-day translunar coast · lunar flyby · return</td>
+        <td class="sim-steps">28–32 · coast, gravity assist, return cruise</td>
+        <td class="stage-tag"><span class="pill orion">Orion</span></td>
+      </tr>
+      <tr>
+        <td class="phase-name">Re-entry preparation</td>
+        <td class="sim-steps">33–40 · deorbit burn, low-orbit recircularization</td>
+        <td class="stage-tag"><span class="pill orion">Orion</span></td>
+      </tr>
+      <tr>
+        <td class="phase-name">Propulsive landing <em style="color:var(--core); font-family:var(--body); font-style:italic">(sim only)</em></td>
+        <td class="sim-steps">41–52 · deorbit → free-fall → suicide burn → auto_land</td>
+        <td class="stage-tag"><span class="pill orion">Orion</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pull red reveal">
+    <p>
+      <strong>Where the sim diverges.</strong> Three deliberate departures.
+      <em>One:</em> the real Artemis II splashes down under parachutes; the sim has no atmosphere or
+      chutes, so the descent is propulsive. <em>Two:</em> the real TLI bakes the free-return offset
+      into the burn aim point; we model it as an explicit separate MCC. <em>Three:</em> mass
+      proportions are flatter (60/30/10) instead of the real (97/1.5/1.5), so the upper stages stay
+      visually distinguishable.
+    </p>
+  </div>
+</section>
+
+</div>
+
+<!-- ─────── FOOTER ─────── -->
+<footer class="foot">
+  <div class="container">
+    <div class="row1 reveal">
+      <h3>End of <em>Brief 02</em>.<br>The stack has come home.</h3>
+      <div class="meta">
+        <span>Preset</span>
+        <b>1ArtemisMultiStage.json</b>
+        <span>52 maneuvers</span>
+        <span>3 stages</span>
+        <span>2 autonomous separations</span>
+        <span>1 cinematic landing</span>
+      </div>
+    </div>
+    <div class="signature">
+      <div>Mission Brief 02 · Rev 1972.05 · Nebula Orbit</div>
+      <div class="preset">⟢  imported via /importAtStartup/Presets/1ArtemisMultiStage.json</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Intersection-observer reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('shown');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1723 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Artemis II — La mécanique d'un retour libre lunaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #ede4cf;
+    --ink-dim: #98a1b8;
+    --ink-faint: #5b6378;
+    --bg: #0a0d18;
+    --bg-2: #0f1424;
+    --surface: #141a2c;
+    --line: #1f2740;
+    --core: #f06e1f;
+    --icps: #c6c7cc;
+    --orion: #6aa4d8;
+    --red: #d63333;
+    --mint: #7fc8b3;
+    --warn: #f5c451;
+    --display: "Bricolage Grotesque", "Helvetica Neue", sans-serif;
+    --body: "Newsreader", Georgia, serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--body);
+    font-optical-sizing: auto; font-size: 17px; line-height: 1.6;
+    overflow-x: hidden; min-height: 100vh;
+  }
+  body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+  body::before {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(240,110,31,0.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 90%, rgba(106,164,216,0.10), transparent 60%),
+      radial-gradient(1.5px 1.5px at 11% 16%, rgba(255,255,255,0.55), transparent 50%),
+      radial-gradient(1px 1px at 78% 22%, rgba(255,255,255,0.4), transparent 50%),
+      radial-gradient(1.5px 1.5px at 47% 84%, rgba(255,255,255,0.6), transparent 50%),
+      radial-gradient(1px 1px at 12% 67%, rgba(255,255,255,0.4), transparent 50%),
+      radial-gradient(1px 1px at 92% 70%, rgba(255,255,255,0.5), transparent 50%),
+      radial-gradient(1.5px 1.5px at 33% 32%, rgba(255,255,255,0.45), transparent 50%),
+      radial-gradient(1px 1px at 65% 48%, rgba(255,255,255,0.35), transparent 50%),
+      radial-gradient(1px 1px at 88% 55%, rgba(255,255,255,0.4), transparent 50%);
+  }
+  body::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='5'/%3E%3CfeColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.8 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay; opacity: 0.55;
+  }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+  /* Nav */
+  nav.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 32px; border-bottom: 1px solid var(--line);
+    position: relative; z-index: 5; backdrop-filter: blur(8px);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  nav.top .left { color: var(--ink-dim); }
+  nav.top .left strong { color: var(--core); font-weight: 700; letter-spacing: 0.22em; }
+  nav.top .right { display: flex; gap: 18px; align-items: center; }
+  nav.top .right .lang { display: flex; gap: 4px; }
+  nav.top .right .lang a { padding: 4px 10px; border: 1px solid var(--line); color: var(--ink-dim); text-decoration: none; transition: all 0.2s; }
+  nav.top .right .lang a.active { background: var(--core); color: var(--bg); border-color: var(--core); }
+  nav.top .right .lang a:hover:not(.active) { color: var(--ink); border-color: var(--ink-faint); }
+
+  /* Hero */
+  .hero { padding: 100px 0 110px; position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 1fr 280px; gap: 60px; align-items: end; }
+  @media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; gap: 48px; } }
+  .docnum {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.3em;
+    color: var(--core); margin-bottom: 28px; display: flex; gap: 18px; align-items: center;
+  }
+  .docnum::after { content: ""; flex: 1; max-width: 110px; height: 1px; background: var(--core); opacity: 0.4; }
+  .hero h1 {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    font-size: clamp(48px, 8vw, 108px); line-height: 0.9; letter-spacing: -0.04em;
+    margin-bottom: 28px; color: var(--ink);
+  }
+  .hero h1 em {
+    font-family: var(--body); font-style: italic; font-weight: 500;
+    color: var(--core); letter-spacing: -0.02em;
+  }
+  .hero .lede {
+    font-family: var(--body); font-size: 20px; line-height: 1.55;
+    max-width: 60ch; color: var(--ink-dim);
+  }
+  .hero .lede em { font-style: italic; color: var(--ink); }
+  .hero .meta-line {
+    margin-top: 38px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 28px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .hero .meta-line span b { color: var(--core); font-weight: 700; }
+  .patch { width: 240px; height: 240px; justify-self: end; animation: rotate 80s linear infinite; }
+  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @media (max-width: 880px) { .patch { justify-self: start; } }
+
+  /* Table of contents */
+  .toc {
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 40px 0; margin-bottom: 32px;
+    display: grid; grid-template-columns: 220px 1fr; gap: 60px;
+  }
+  @media (max-width: 880px) { .toc { grid-template-columns: 1fr; gap: 24px; } }
+  .toc .label {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--core); padding-top: 6px;
+  }
+  .toc ol {
+    list-style: none; counter-reset: toc;
+    columns: 2; column-gap: 48px;
+  }
+  @media (max-width: 880px) { .toc ol { columns: 1; } }
+  .toc li {
+    counter-increment: toc; padding: 8px 0;
+    font-family: var(--body); font-size: 16px;
+    display: flex; gap: 16px; align-items: baseline;
+    break-inside: avoid;
+  }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    font-family: var(--mono); font-size: 10px; color: var(--ink-faint); letter-spacing: 0.1em;
+  }
+  .toc li a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s; }
+  .toc li a:hover { color: var(--core); }
+
+  /* Section frame */
+  section.major {
+    padding: 90px 0 24px; position: relative;
+    border-top: 1px solid var(--line);
+  }
+  section.major:first-of-type { border-top: none; }
+  .sec-head { display: grid; grid-template-columns: 80px 1fr; gap: 28px; margin-bottom: 48px; }
+  @media (max-width: 880px) { .sec-head { grid-template-columns: 1fr; gap: 12px; } }
+  .sec-head .num {
+    font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: 0.22em;
+    color: var(--core); padding-top: 14px;
+  }
+  .sec-head .num::before { content: ""; display: block; width: 40px; height: 1px; background: var(--core); margin-bottom: 18px; }
+  .sec-head h2 {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 72;
+    font-size: clamp(32px, 4.5vw, 56px); line-height: 0.96; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .sec-head h2 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+  .sec-head p.kicker {
+    font-family: var(--body); font-size: 19px; max-width: 64ch; color: var(--ink-dim); line-height: 1.55;
+  }
+  .sec-head p.kicker em { font-style: italic; color: var(--ink); }
+
+  /* Body prose */
+  .prose { max-width: 70ch; }
+  .prose p {
+    font-family: var(--body); font-size: 18px; line-height: 1.7;
+    color: var(--ink); margin-bottom: 22px;
+  }
+  .prose p.dim { color: var(--ink-dim); }
+  .prose em { font-style: italic; color: var(--core); }
+  .prose strong { font-weight: 600; color: var(--ink); }
+  .prose h3 {
+    font-family: var(--display); font-weight: 700; font-size: 28px; line-height: 1.1;
+    letter-spacing: -0.015em; color: var(--ink); margin: 40px 0 16px;
+  }
+  .prose h4 {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--core); margin: 32px 0 12px;
+  }
+  .prose ul {
+    margin: 16px 0 22px; padding-left: 0; list-style: none;
+  }
+  .prose ul li {
+    font-family: var(--body); font-size: 17px; line-height: 1.65; color: var(--ink);
+    padding: 6px 0 6px 28px; position: relative;
+  }
+  .prose ul li::before {
+    content: "—"; position: absolute; left: 0; color: var(--core); font-family: var(--display); font-weight: 700;
+  }
+
+  /* Drop cap for major prose blocks */
+  .dropcap::first-letter {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    font-size: 88px; line-height: 0.85; float: left;
+    color: var(--core); margin: 6px 12px 0 0; padding: 0;
+  }
+
+  /* Two-column for some sections */
+  .twocol {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    margin: 32px 0;
+  }
+  @media (max-width: 880px) { .twocol { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* Stack diagram + side info */
+  .stack-figure {
+    display: grid; grid-template-columns: 300px 1fr; gap: 56px;
+    margin: 48px 0; padding: 40px; border: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  }
+  @media (max-width: 880px) { .stack-figure { grid-template-columns: 1fr; gap: 32px; padding: 28px; } }
+  .stack-figure svg { display: block; margin: 0 auto; }
+  .stack-figure .annotation h4 {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--core); margin-bottom: 14px;
+  }
+  .stack-figure .annotation h5 {
+    font-family: var(--display); font-weight: 700; font-size: 22px;
+    color: var(--ink); margin: 24px 0 8px;
+  }
+  .stack-figure .annotation p {
+    font-family: var(--body); font-size: 15px; line-height: 1.6; color: var(--ink-dim); margin-bottom: 12px;
+  }
+  .stack-figure .annotation .specs {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-dim); margin-top: 8px;
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .stack-figure .annotation .specs b { color: var(--ink); font-weight: 500; }
+
+  /* Crew grid */
+  .crew {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--line); margin: 32px 0 48px;
+  }
+  @media (max-width: 880px) { .crew { grid-template-columns: 1fr 1fr; } }
+  .crew .person {
+    padding: 28px 22px; border-right: 1px solid var(--line); position: relative;
+  }
+  .crew .person:last-child { border-right: none; }
+  @media (max-width: 880px) {
+    .crew .person:nth-child(2n) { border-right: none; }
+    .crew .person { border-bottom: 1px solid var(--line); }
+    .crew .person:nth-last-child(-n+2) { border-bottom: none; }
+  }
+  .crew .role {
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--core); margin-bottom: 10px;
+  }
+  .crew h4 {
+    font-family: var(--display); font-weight: 700; font-size: 21px; line-height: 1.05;
+    letter-spacing: -0.01em; color: var(--ink); margin-bottom: 8px;
+  }
+  .crew p {
+    font-family: var(--body); font-size: 14px; line-height: 1.55; color: var(--ink-dim);
+  }
+  .crew .flag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line);
+  }
+
+  /* Pull quote */
+  .pull {
+    margin: 48px 0; padding: 36px 40px 36px 56px;
+    background: linear-gradient(135deg, rgba(240,110,31,0.06), rgba(240,110,31,0.02));
+    border-left: 4px solid var(--core); position: relative;
+  }
+  .pull::before {
+    content: "—"; position: absolute; left: 20px; top: 30px;
+    font-family: var(--display); font-size: 32px; font-weight: 800; color: var(--core);
+  }
+  .pull p {
+    font-family: var(--body); font-style: italic; font-size: 22px; line-height: 1.5;
+    color: var(--ink); max-width: 62ch;
+  }
+  .pull strong {
+    font-style: normal; font-weight: 700; color: var(--core);
+    font-family: var(--display); letter-spacing: -0.005em;
+  }
+  .pull.red { background: linear-gradient(135deg, rgba(214,51,51,0.07), rgba(214,51,51,0.02)); border-left-color: var(--red); }
+  .pull.red::before, .pull.red strong { color: var(--red); }
+  .pull.mint { background: linear-gradient(135deg, rgba(127,200,179,0.06), rgba(127,200,179,0.02)); border-left-color: var(--mint); }
+  .pull.mint::before, .pull.mint strong { color: var(--mint); }
+
+  /* Stat row */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--line); margin: 32px 0;
+  }
+  @media (max-width: 880px) { .stats { grid-template-columns: 1fr 1fr; } }
+  .stats .cell {
+    padding: 28px 22px; border-right: 1px solid var(--line);
+  }
+  .stats .cell:last-child { border-right: none; }
+  @media (max-width: 880px) {
+    .stats .cell:nth-child(2n) { border-right: none; }
+    .stats .cell { border-bottom: 1px solid var(--line); }
+    .stats .cell:nth-last-child(-n+2) { border-bottom: none; }
+  }
+  .stats .k {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 8px;
+  }
+  .stats .v {
+    font-family: var(--display); font-weight: 800;
+    font-variation-settings: "opsz" 96;
+    font-size: 44px; line-height: 1; letter-spacing: -0.03em;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .stats .v.core { color: var(--core); }
+  .stats .v.red { color: var(--red); }
+  .stats .v.mint { color: var(--mint); }
+  .stats .sub { font-family: var(--body); font-style: italic; font-size: 13px; color: var(--ink-dim); }
+
+  /* Trajectory figure */
+  .traj-figure {
+    margin: 40px 0; padding: 40px; border: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  }
+  /* Real screenshot figure */
+  .app-figure {
+    margin: 48px 0; border: 1px solid var(--line);
+    background: var(--bg-2); position: relative; overflow: hidden;
+  }
+  .app-figure .frame-bar {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 18px; border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(20,26,44,0.7), rgba(15,20,36,0.5));
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  .app-figure .frame-bar .dots { display: flex; gap: 6px; }
+  .app-figure .frame-bar .dots span {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--line);
+  }
+  .app-figure .frame-bar .dots span:nth-child(1) { background: var(--red); opacity: 0.7; }
+  .app-figure .frame-bar .dots span:nth-child(2) { background: var(--warn); opacity: 0.7; }
+  .app-figure .frame-bar .dots span:nth-child(3) { background: var(--mint); opacity: 0.7; }
+  .app-figure .frame-bar .label { color: var(--ink-dim); }
+  .app-figure .frame-bar .meta { margin-left: auto; color: var(--core); }
+  .app-figure img {
+    display: block; width: 100%; height: auto;
+    filter: contrast(1.02) saturate(1.05);
+  }
+  .app-figure .caption {
+    padding: 22px 28px 26px; font-family: var(--body); font-style: italic;
+    font-size: 14px; color: var(--ink-dim); line-height: 1.6;
+    border-top: 1px solid var(--line);
+  }
+  .app-figure .caption b { font-style: normal; color: var(--core); font-weight: 600; }
+  .app-figure .caption strong { font-style: normal; color: var(--ink); font-weight: 600; }
+  .traj-figure .caption {
+    margin-top: 24px; font-family: var(--body); font-style: italic; font-size: 14px;
+    color: var(--ink-dim); text-align: center; max-width: 70ch; margin-left: auto; margin-right: auto;
+  }
+  .traj-figure .caption b { font-style: normal; color: var(--core); }
+  .traj-figure svg { display: block; width: 100%; height: auto; max-height: 480px; }
+
+  /* Phase walkthrough */
+  .phase-block {
+    display: grid; grid-template-columns: 100px 1fr; gap: 36px;
+    padding: 40px 0; border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 880px) { .phase-block { grid-template-columns: 60px 1fr; gap: 20px; } }
+  .phase-block .roman {
+    font-family: var(--display); font-weight: 800; font-size: 56px; line-height: 1;
+    letter-spacing: -0.04em; color: var(--core); padding-top: 4px;
+  }
+  .phase-block .body h3 {
+    font-family: var(--display); font-weight: 700; font-size: 32px; line-height: 1.05;
+    letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px;
+  }
+  .phase-block .body h3 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+  .phase-block .body .timing {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 18px;
+  }
+  .phase-block .body p {
+    font-family: var(--body); font-size: 17px; line-height: 1.65; color: var(--ink-dim);
+    margin-bottom: 14px; max-width: 64ch;
+  }
+  .phase-block .body p strong { color: var(--ink); font-weight: 600; }
+  .phase-block .body p em { font-style: italic; color: var(--core); }
+  .phase-block .body .maneuvers {
+    margin-top: 22px; padding: 18px 20px; border-left: 2px solid var(--core);
+    background: rgba(240,110,31,0.04); font-family: var(--mono); font-size: 12px;
+    color: var(--ink-dim); line-height: 1.8;
+  }
+  .phase-block .body .maneuvers .lbl {
+    font-size: 9px; letter-spacing: 0.22em; color: var(--core); margin-bottom: 10px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--line); text-transform: uppercase;
+  }
+  .phase-block .body .maneuvers .m-row { display: flex; gap: 14px; padding: 3px 0; }
+  .phase-block .body .maneuvers .m-row .id { color: var(--core); min-width: 80px; }
+  .phase-block .body .maneuvers .m-row .desc { color: var(--ink-dim); }
+
+  /* Comparison list */
+  .compare-list { margin-top: 24px; }
+  .compare-row {
+    display: grid; grid-template-columns: 1fr 1fr 80px; gap: 32px;
+    padding: 28px 0; border-bottom: 1px solid var(--line); align-items: start;
+  }
+  @media (max-width: 880px) { .compare-row { grid-template-columns: 1fr; gap: 16px; } }
+  .compare-row .topic {
+    font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.15;
+    letter-spacing: -0.01em; color: var(--ink);
+  }
+  .compare-row .vs {
+    font-family: var(--body); font-size: 16px; line-height: 1.6; color: var(--ink-dim);
+  }
+  .compare-row .vs b { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--core); margin-bottom: 6px; font-weight: 500; }
+  .compare-row .impact {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint); text-align: right;
+  }
+  @media (max-width: 880px) { .compare-row .impact { text-align: left; } }
+
+  /* Real-flight timeline table */
+  .nasa-timeline {
+    margin: 32px 0 40px; border: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  }
+  .nasa-timeline .tl-head {
+    display: grid; grid-template-columns: 110px 1fr 190px 150px;
+    gap: 20px; padding: 14px 22px; border-bottom: 1px solid var(--line);
+    background: rgba(240,110,31,0.05);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--core);
+  }
+  @media (max-width: 720px) {
+    .nasa-timeline .tl-head { display: none; }
+  }
+  .nasa-timeline .tl-row {
+    display: grid; grid-template-columns: 110px 1fr 190px 150px;
+    gap: 20px; padding: 12px 22px;
+    border-bottom: 1px solid rgba(31,39,64,0.6);
+    align-items: baseline;
+  }
+  .nasa-timeline .tl-row:last-child { border-bottom: none; }
+  @media (max-width: 720px) {
+    .nasa-timeline .tl-row {
+      grid-template-columns: 1fr; gap: 4px; padding: 14px 18px;
+    }
+  }
+  .nasa-timeline .tl-row.phase {
+    background: rgba(106,164,216,0.04);
+    border-left: 2px solid var(--orion);
+  }
+  .nasa-timeline .tl-row.key {
+    background: rgba(240,110,31,0.04);
+    border-left: 2px solid var(--core);
+  }
+  .nasa-timeline .tl-row.crit {
+    background: rgba(214,51,51,0.04);
+    border-left: 2px solid var(--red);
+  }
+  .nasa-timeline .tl-time {
+    font-family: var(--mono); font-size: 12px; font-weight: 700;
+    color: var(--core); letter-spacing: 0.05em; white-space: nowrap;
+  }
+  .nasa-timeline .tl-row.crit .tl-time { color: var(--red); }
+  .nasa-timeline .tl-event {
+    font-family: var(--body); font-size: 15px; line-height: 1.5; color: var(--ink);
+  }
+  .nasa-timeline .tl-event em { font-style: italic; color: var(--core); }
+  .nasa-timeline .tl-event b { font-weight: 600; color: var(--ink); }
+  .nasa-timeline .tl-alt {
+    font-family: var(--mono); font-size: 11px; line-height: 1.5;
+    color: var(--ink-dim); letter-spacing: 0.02em;
+  }
+  .nasa-timeline .tl-alt b { color: var(--mint); font-weight: 500; }
+  .nasa-timeline .tl-alt .nd { color: var(--ink-faint); font-style: italic; }
+  .nasa-timeline .tl-sim {
+    font-family: var(--mono); font-size: 11px; line-height: 1.5;
+    color: var(--orion); letter-spacing: 0.02em;
+  }
+  .nasa-timeline .tl-sim b { color: var(--core); font-weight: 700; }
+  .nasa-timeline .tl-sim .ns { color: var(--ink-faint); font-style: italic; }
+  @media (max-width: 720px) {
+    .nasa-timeline .tl-sim::before {
+      content: "Simulation · "; color: var(--ink-faint); letter-spacing: 0.15em;
+      text-transform: uppercase; font-size: 9px;
+    }
+  }
+  @media (max-width: 720px) {
+    .nasa-timeline .tl-alt::before {
+      content: "Altitude · "; color: var(--ink-faint); letter-spacing: 0.15em;
+      text-transform: uppercase; font-size: 9px;
+    }
+  }
+
+  /* Mini summary cards (separations, orbites) */
+  .summary-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 32px 0;
+  }
+  @media (max-width: 880px) { .summary-grid { grid-template-columns: 1fr; } }
+  .summary-card {
+    padding: 24px 26px; border: 1px solid var(--line); background: var(--bg-2);
+  }
+  .summary-card h4 {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--core); margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--line);
+  }
+  .summary-card .s-row {
+    display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 8px 0;
+    align-items: baseline; font-family: var(--body); font-size: 14px; line-height: 1.5;
+  }
+  .summary-card .s-row .t {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--core); letter-spacing: 0.05em;
+  }
+  .summary-card .s-row .d { color: var(--ink); }
+  .summary-card .s-row .d em { font-style: italic; color: var(--mint); font-family: var(--mono); font-size: 11px; }
+
+  /* Source note */
+  .src-note {
+    margin: 24px 0; padding: 14px 20px;
+    border-left: 2px solid var(--ink-faint); background: rgba(91,99,120,0.06);
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.05em;
+    color: var(--ink-dim); line-height: 1.65;
+  }
+  .src-note b { color: var(--core); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* Footer */
+  footer.foot {
+    margin-top: 120px; padding: 80px 0 56px;
+    border-top: 1px solid var(--line);
+    background: linear-gradient(180deg, transparent, rgba(15,20,36,0.6));
+  }
+  footer.foot .row1 {
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end; margin-bottom: 40px;
+  }
+  @media (max-width: 880px) { footer.foot .row1 { grid-template-columns: 1fr; } }
+  footer.foot h3 {
+    font-family: var(--display); font-weight: 800; font-size: clamp(36px, 5.5vw, 76px);
+    line-height: 0.95; letter-spacing: -0.03em; color: var(--ink); max-width: 18ch;
+  }
+  footer.foot h3 em { font-family: var(--body); font-style: italic; font-weight: 500; color: var(--core); }
+  footer.foot .meta {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-faint); display: flex; flex-direction: column; gap: 6px; text-align: right;
+  }
+  footer.foot .meta span { color: var(--ink-dim); }
+  footer.foot .meta b { color: var(--core); font-weight: 700; }
+  footer.foot .signature {
+    border-top: 1px solid var(--line); padding-top: 24px;
+    display: flex; justify-content: space-between; gap: 24px; align-items: baseline; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* Reveals */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22,0.62,0.36,1); }
+  .reveal.shown { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 0.1s; }
+  .reveal.delay-2 { transition-delay: 0.2s; }
+  .stagger > * { display: inline-block; opacity: 0; transform: translateY(40px); animation: rise 1s cubic-bezier(0.22,0.62,0.36,1) forwards; }
+  .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.18s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.31s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.44s; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+  ::selection { background: var(--core); color: var(--bg); }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="left">Nebula Orbit · <strong>Revue Scientifique</strong> · Artemis II</div>
+  <div class="right">
+    <span>Volume I · 2026</span>
+    <div class="lang">
+      <a href="artemis2-multistage.html">EN</a>
+      <a href="artemis2-multistage.fr.html" class="active">FR</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="docnum">Document I · La mission · Retour libre lunaire</div>
+      <h1 class="stagger">
+        <span>Artemis&nbsp;II,</span>&nbsp;
+        <span class="display-italic" style="font-family:var(--body); font-style:italic; font-weight:500; color:var(--core);">ou&nbsp;la</span>&nbsp;
+        <span>mécanique</span>&nbsp;
+        <span>d'un&nbsp;<em>retour&nbsp;libre</em>.</span>
+      </h1>
+      <p class="lede">
+        Pour la première fois depuis Apollo 17 en 1972, un équipage humain s'apprête à quitter l'orbite
+        terrestre basse. Quatre astronautes, trois véhicules superposés, une trajectoire qui ne se met
+        jamais en orbite autour de la Lune mais que <em>la gravité lunaire elle-même</em> ramène à la
+        Terre. Ce document explique d'abord la mission réelle, étape par étape, puis montre comment
+        chaque phase est reproduite, fidèlement et avec ses approximations honnêtes, dans la
+        simulation 2D du preset Nebula Orbit.
+      </p>
+      <div class="meta-line">
+        <span>Lecture · <b>~24 min</b></span>
+        <span>Chapitres · <b>11</b></span>
+        <span>Niveau · <b>Vulgarisation</b></span>
+        <span>Auteur · <b>Nebula Orbit</b></span>
+      </div>
+    </div>
+
+    <!-- Mission patch -->
+    <svg class="patch" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <radialGradient id="patchBg" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#1a2545"/>
+          <stop offset="100%" stop-color="#0a0d18"/>
+        </radialGradient>
+        <linearGradient id="trail" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f06e1f"/>
+          <stop offset="100%" stop-color="#6aa4d8"/>
+        </linearGradient>
+      </defs>
+      <circle cx="120" cy="120" r="115" fill="none" stroke="#1f2740" stroke-width="1"/>
+      <circle cx="120" cy="120" r="108" fill="url(#patchBg)" stroke="#f06e1f" stroke-width="2"/>
+      <circle cx="120" cy="120" r="100" fill="none" stroke="#1f2740" stroke-width="0.5" stroke-dasharray="2 4"/>
+      <circle cx="78" cy="170" r="34" fill="#0f1424" stroke="#7fc8b3" stroke-width="1.5"/>
+      <path d="M 78 136 A 34 34 0 0 1 78 204" fill="#7fc8b3" opacity="0.35"/>
+      <circle cx="172" cy="80" r="14" fill="#c6c7cc" opacity="0.85"/>
+      <circle cx="168" cy="76" r="2" fill="#0f1424"/>
+      <circle cx="176" cy="82" r="1.5" fill="#0f1424"/>
+      <path d="M 78 170 Q 60 90, 172 80" fill="none" stroke="url(#trail)" stroke-width="2" stroke-dasharray="3 3"/>
+      <path d="M 172 80 Q 200 130, 78 170" fill="none" stroke="#f06e1f" stroke-width="1.5" stroke-dasharray="1 5" opacity="0.6"/>
+      <g transform="translate(120,120)">
+        <polygon points="-3,-12 3,-12 4,-4 -4,-4" fill="#f06e1f"/>
+        <rect x="-3" y="-4" width="6" height="10" fill="#c6c7cc"/>
+        <rect x="-3" y="6" width="6" height="6" fill="#6aa4d8"/>
+        <polygon points="-3,12 3,12 0,16" fill="#d63333"/>
+      </g>
+      <defs>
+        <path id="topArc" d="M 120 120 m -88 0 a 88 88 0 0 1 176 0" fill="none"/>
+        <path id="botArc" d="M 120 120 m -88 0 a 88 88 0 0 0 176 0" fill="none"/>
+      </defs>
+      <text font-family="Bricolage Grotesque" font-weight="800" font-size="14" letter-spacing="3" fill="#ede4cf">
+        <textPath href="#topArc" startOffset="50%" text-anchor="middle">ARTEMIS · II · ORION</textPath>
+      </text>
+      <text font-family="JetBrains Mono" font-weight="700" font-size="9" letter-spacing="3" fill="#f06e1f">
+        <textPath href="#botArc" startOffset="50%" text-anchor="middle">SLS · ICPS · CSM</textPath>
+      </text>
+    </svg>
+  </div>
+</section>
+
+<!-- TOC -->
+<div class="toc reveal">
+  <div class="label">Sommaire<br>11 chapitres</div>
+  <ol>
+    <li><a href="#preambule">Préambule — un retour aux confins lunaires</a></li>
+    <li><a href="#programme">Le programme Artemis dans son contexte</a></li>
+    <li><a href="#equipage">L'équipage des quatre</a></li>
+    <li><a href="#materiel">Le matériel — SLS, ICPS, Orion</a></li>
+    <li><a href="#retourlibre">Anatomie d'un retour libre</a></li>
+    <li><a href="#phases">Les six phases du vol réel</a></li>
+    <li><a href="#simulation">La simulation, vue d'ensemble</a></li>
+    <li><a href="#chronologie">Chronologie complète des manœuvres</a></li>
+    <li><a href="#comparaison">Réel <i style="color:var(--core); font-family:var(--body);">vs</i> simulation</a></li>
+    <li><a href="#nasa-data">Chronologie réelle Artemis II — données NASA</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ol>
+</div>
+
+<!-- ─── 01 PRÉAMBULE ─── -->
+<section class="major" id="preambule">
+  <div class="sec-head reveal">
+    <div class="num">01</div>
+    <div>
+      <h2>Préambule — <em>un retour aux confins lunaires</em>.</h2>
+      <p class="kicker">Il y a un peu plus de cinquante ans, Eugene Cernan refermait l'écoutille du module lunaire Challenger. Personne, depuis, n'a quitté l'orbite terrestre basse. Artemis II rouvre la porte — mais sans alunir.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p class="dropcap">Le 14 décembre 1972, le module lunaire Challenger d'Apollo 17 décollait de la vallée de Taurus-Littrow. Depuis ce jour, aucun être humain n'est jamais reparti au-delà de l'orbite terrestre basse, ce mince anneau situé à quelques centaines de kilomètres au-dessus de nos têtes. Toutes les stations spatiales habitées — Saliout, Skylab, Mir, l'ISS — orbitent à moins de 500 km. La Lune, elle, est à 384 400 km.</p>
+
+    <p>Artemis II changera cela. Au cours d'un vol d'environ dix jours, un équipage de quatre personnes embarquera à bord du vaisseau Orion, sera propulsé par la fusée la plus puissante actuellement en service, et effectuera un <em>survol circumlunaire</em>. Le vaisseau ne se mettra pas en orbite autour de la Lune. Il passera à environ 10 300 kilomètres de la face cachée, puis la gravité lunaire elle-même infléchira sa trajectoire pour le ramener vers la Terre. Aucune mise à feu majeure ne sera nécessaire pour le retour.</p>
+
+    <p>Cette trajectoire porte un nom : on l'appelle un <strong>retour libre</strong>. C'est l'un des objets les plus élégants de la mécanique céleste — un compromis entre la simplicité, la sécurité et l'économie de propergol qui a déjà servi pour Apollo 8, 10 et 11, puis a sauvé Apollo 13. Cette même trajectoire constitue le cœur d'Artemis II.</p>
+
+    <p>Ce document raconte la mission dans son intégralité. La première moitié décrit le vrai vol : son équipage, son matériel, sa physique. La seconde moitié explique comment le simulateur Nebula Orbit reproduit ce vol, manœuvre par manœuvre, dans un univers 2D simplifié. Enfin, nous comparerons honnêtement ce que la simulation capture et ce qu'elle simplifie.</p>
+  </div>
+</section>
+
+<!-- ─── 02 PROGRAMME ─── -->
+<section class="major" id="programme">
+  <div class="sec-head reveal">
+    <div class="num">02</div>
+    <div>
+      <h2>Le programme Artemis, <em>dans son contexte</em>.</h2>
+      <p class="kicker">Une feuille de route en plusieurs missions, dont Artemis II est le second vol, mais le premier vol habité.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Le programme Artemis est l'initiative américaine — menée par la NASA, mais avec des contributions européennes, canadiennes et japonaises — visant à ramener des humains sur la Lune dans les années 2020. Son architecture est progressive :</p>
+
+    <ul>
+      <li><strong>Artemis I</strong> (2022) — Vol d'essai non habité d'Orion. Le vaisseau a effectué une orbite rétrograde lointaine autour de la Lune et est rentré sain et sauf. Mission accomplie.</li>
+      <li><strong>Artemis II</strong> — Premier vol habité d'Orion. Survol circumlunaire avec retour libre. L'objet de ce document.</li>
+      <li><strong>Artemis III</strong> — Premier alunissage habité depuis Apollo 17. Pose au pôle sud lunaire, à l'aide du véhicule lunaire SpaceX Starship HLS.</li>
+      <li><strong>Artemis IV et au-delà</strong> — Construction de la station Gateway en orbite lunaire, missions de surface plus longues.</li>
+    </ul>
+
+    <p>Artemis II joue un rôle bien précis dans cette progression : <strong>vérifier qu'Orion fonctionne avec un équipage à bord, dans les conditions du vol lunaire</strong>. Tous les systèmes — survie, communications longue distance, pilotage manuel, navigation — doivent être testés <em>en présence humaine</em> avant qu'on confie un alunissage au programme. Le retour libre est la garantie de sécurité : si quelque chose tombe en panne en cours de route, la trajectoire seule ramène l'équipage.</p>
+  </div>
+</section>
+
+<!-- ─── 03 ÉQUIPAGE ─── -->
+<section class="major" id="equipage">
+  <div class="sec-head reveal">
+    <div class="num">03</div>
+    <div>
+      <h2>L'équipage <em>des quatre</em>.</h2>
+      <p class="kicker">Quatre astronautes — trois Américains et un Canadien — prendront place à bord d'Orion. Première mission de plusieurs records.</p>
+    </div>
+  </div>
+
+  <div class="crew reveal">
+    <div class="person">
+      <div class="role">Commandant</div>
+      <h4>Reid Wiseman</h4>
+      <p>Pilote de chasse naval américain, ancien commandant de l'ISS en 2014 (Expedition 41). 165 jours en orbite avant Artemis II.</p>
+      <div class="flag">🇺🇸 USA · NASA</div>
+    </div>
+    <div class="person">
+      <div class="role">Pilote</div>
+      <h4>Victor Glover</h4>
+      <p>Pilote d'essai de l'US Navy. A volé sur la mission SpaceX Crew-1 (2020–2021), 168 jours sur l'ISS. Premier Afro-Américain à voler vers la Lune.</p>
+      <div class="flag">🇺🇸 USA · NASA</div>
+    </div>
+    <div class="person">
+      <div class="role">Spécialiste de mission</div>
+      <h4>Christina Koch</h4>
+      <p>Ingénieure en électrique. Détient le record du plus long vol spatial féminin en continu (328 jours, 2019–2020). Première femme à voler vers la Lune.</p>
+      <div class="flag">🇺🇸 USA · NASA</div>
+    </div>
+    <div class="person">
+      <div class="role">Spécialiste de mission</div>
+      <h4>Jeremy Hansen</h4>
+      <p>Pilote de chasse canadien. Premier vol spatial pour lui, et premier non-Américain à voler au-delà de l'orbite terrestre basse.</p>
+      <div class="flag">🇨🇦 CAN · ASC/CSA</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Trois <em>premières</em> dans ce manifeste : la première femme, le premier Afro-Américain, et le premier non-Américain à voler au-delà de l'orbite terrestre basse. Cinquante-deux ans après le dernier vol Apollo, c'est une déclaration d'ouverture.</p>
+  </div>
+</section>
+
+<!-- ─── 04 MATÉRIEL ─── -->
+<section class="major" id="materiel">
+  <div class="sec-head reveal">
+    <div class="num">04</div>
+    <div>
+      <h2>Le matériel — <em>trois véhicules superposés</em>.</h2>
+      <p class="kicker">SLS Block 1, l'étage cryogénique ICPS, et le vaisseau Orion. Au décollage, la pile mesure 98 mètres et pèse 2 600 tonnes. Six jours plus tard, il ne restera qu'Orion — environ 26 tonnes.</p>
+    </div>
+  </div>
+
+  <div class="stack-figure reveal">
+    <!-- Stack diagram -->
+    <svg viewBox="0 0 300 600" aria-hidden="true">
+      <!-- Launch escape system (peak) -->
+      <polygon points="150,20 142,60 158,60" fill="#d63333"/>
+      <rect x="142" y="60" width="16" height="30" fill="#d63333"/>
+      <!-- Orion CSM -->
+      <polygon points="135,90 165,90 168,120 132,120" fill="#6aa4d8"/>
+      <rect x="132" y="120" width="36" height="40" fill="#6aa4d8"/>
+      <rect x="130" y="160" width="40" height="6" fill="#5b6378"/>
+      <!-- Solar panels -->
+      <rect x="100" y="138" width="30" height="20" fill="#1f2740" stroke="#6aa4d8" stroke-width="0.5"/>
+      <rect x="170" y="138" width="30" height="20" fill="#1f2740" stroke="#6aa4d8" stroke-width="0.5"/>
+      <!-- ICPS -->
+      <rect x="130" y="166" width="40" height="80" fill="#c6c7cc"/>
+      <rect x="128" y="246" width="44" height="6" fill="#5b6378"/>
+      <!-- Core stage -->
+      <rect x="120" y="252" width="60" height="240" fill="#f06e1f"/>
+      <!-- Core engine nozzles -->
+      <polygon points="125,492 135,492 132,520" fill="#1f2740"/>
+      <polygon points="140,492 150,492 147,520" fill="#1f2740"/>
+      <polygon points="150,492 160,492 157,520" fill="#1f2740"/>
+      <polygon points="165,492 175,492 172,520" fill="#1f2740"/>
+      <!-- SRBs -->
+      <rect x="92" y="272" width="22" height="220" fill="#ede4cf"/>
+      <polygon points="92,272 114,272 103,250" fill="#ede4cf"/>
+      <polygon points="92,492 114,492 103,514" fill="#1f2740"/>
+      <rect x="186" y="272" width="22" height="220" fill="#ede4cf"/>
+      <polygon points="186,272 208,272 197,250" fill="#ede4cf"/>
+      <polygon points="186,492 208,492 197,514" fill="#1f2740"/>
+      <!-- Ground -->
+      <line x1="40" y1="540" x2="260" y2="540" stroke="#5b6378" stroke-width="1"/>
+      <line x1="40" y1="544" x2="260" y2="544" stroke="#1f2740" stroke-width="0.5"/>
+      <!-- Labels with leaders -->
+      <g font-family="JetBrains Mono" font-size="9" fill="#98a1b8" letter-spacing="1.5">
+        <line x1="160" y1="50" x2="220" y2="50" stroke="#5b6378" stroke-width="0.5"/>
+        <text x="225" y="53">LAS · 16 m</text>
+
+        <line x1="170" y1="125" x2="240" y2="125" stroke="#5b6378" stroke-width="0.5"/>
+        <text x="245" y="128" fill="#6aa4d8">ORION CSM</text>
+        <text x="245" y="140" font-size="8" fill="#5b6378">~26 t · 5 m Ø</text>
+
+        <line x1="170" y1="200" x2="240" y2="200" stroke="#5b6378" stroke-width="0.5"/>
+        <text x="245" y="203" fill="#c6c7cc">ICPS</text>
+        <text x="245" y="215" font-size="8" fill="#5b6378">~30,7 t · 110 kN</text>
+
+        <line x1="180" y1="370" x2="245" y2="370" stroke="#5b6378" stroke-width="0.5"/>
+        <text x="250" y="373" fill="#f06e1f">CORE STAGE</text>
+        <text x="250" y="385" font-size="8" fill="#5b6378">4× RS-25 · LH₂/LOX</text>
+
+        <line x1="92" y1="380" x2="40" y2="380" stroke="#5b6378" stroke-width="0.5"/>
+        <text x="38" y="383" text-anchor="end" fill="#ede4cf">SRB ×2</text>
+        <text x="38" y="395" text-anchor="end" font-size="8" fill="#5b6378">5 segments</text>
+
+        <line x1="150" y1="525" x2="150" y2="555" stroke="#5b6378" stroke-width="0.5"/>
+        <text x="150" y="568" text-anchor="middle" font-size="8" fill="#5b6378">39 000 kN · décollage</text>
+      </g>
+    </svg>
+    <div class="annotation">
+      <h4>L'empilement complet, 98 m de haut</h4>
+
+      <h5>Étage central SLS</h5>
+      <p>Vingt mille fois plus puissant qu'un moteur de voiture. Réservoir d'hydrogène liquide à −253 °C, oxygène liquide à −183 °C, quatre moteurs RS-25 récupérés des navettes spatiales.</p>
+      <div class="specs"><b>Hauteur</b><span>65 m</span><b>Masse plein</b><span>~1 100 t</span></div>
+
+      <h5>Boosters à poudre (SRB)</h5>
+      <p>Deux propulseurs latéraux à propergol solide, chacun 730 tonnes de combustible. Brûlent pendant 126 secondes, fournissent 75 % de la poussée au décollage, puis sont largués dans l'Atlantique.</p>
+      <div class="specs"><b>Hauteur</b><span>54 m</span><b>Poussée</b><span>16 000 kN ch.</span></div>
+
+      <h5>ICPS — étage cryogénique</h5>
+      <p>Interim Cryogenic Propulsion Stage. Hérité de la fusée Delta IV. Un seul moteur RL-10 hydrogène-oxygène. C'est lui qui effectuera l'injection trans-lunaire.</p>
+      <div class="specs"><b>Hauteur</b><span>13,7 m</span><b>Poussée</b><span>110 kN</span></div>
+
+      <h5>Orion CSM</h5>
+      <p>Crew Module (capsule équipage, 6 m³ habitables pressurisés, héritière de la forme Apollo) et European Service Module fourni par l'ESA — propulsion, énergie, support vie, panneaux solaires.</p>
+      <div class="specs"><b>Habitable</b><span>~9 m³</span><b>Équipage</b><span>4 personnes</span></div>
+    </div>
+  </div>
+
+  <div class="pull">
+    <p><strong>Pourquoi étager ?</strong> Une fois un réservoir vide, c'est du poids mort. Pour continuer à accélérer, il faudrait pousser ces réservoirs vides — ce qui coûterait énormément de propergol. <em>Les larguer permet aux étages supérieurs, plus légers, d'utiliser des moteurs bien plus modestes</em>. Chaque moteur successif est plus petit : SLS 39 000 kN → ICPS 110 kN (354× plus petit) → Orion 26 kN (encore 4× plus petit).</p>
+  </div>
+</section>
+
+<!-- ─── 05 RETOUR LIBRE ─── -->
+<section class="major" id="retourlibre">
+  <div class="sec-head reveal">
+    <div class="num">05</div>
+    <div>
+      <h2>Anatomie <em>d'un retour libre</em>.</h2>
+      <p class="kicker">Le concept central de la mission. Une trajectoire conçue dès le départ pour ramener l'équipage <em>même si aucun moteur ne se rallume jamais</em>.</p>
+    </div>
+  </div>
+
+  <div class="traj-figure reveal">
+    <svg viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <linearGradient id="returnTrail" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#f06e1f"/>
+          <stop offset="100%" stop-color="#6aa4d8"/>
+        </linearGradient>
+      </defs>
+      <!-- Earth -->
+      <circle cx="120" cy="180" r="40" fill="#0f1424" stroke="#7fc8b3" stroke-width="2"/>
+      <path d="M 120 140 A 40 40 0 0 1 120 220" fill="#7fc8b3" opacity="0.35"/>
+      <text x="120" y="245" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="700" font-size="14" fill="#7fc8b3">TERRE</text>
+      <!-- Moon -->
+      <circle cx="640" cy="180" r="22" fill="#c6c7cc"/>
+      <circle cx="635" cy="175" r="3" fill="#0f1424"/>
+      <circle cx="648" cy="185" r="2" fill="#0f1424"/>
+      <text x="640" y="225" text-anchor="middle" font-family="Bricolage Grotesque" font-weight="700" font-size="14" fill="#c6c7cc">LUNE</text>
+      <text x="640" y="240" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#5b6378">384 400 km</text>
+      <!-- Outbound trajectory (TLI to flyby) -->
+      <path d="M 145 180 Q 380 50, 615 165" fill="none" stroke="#f06e1f" stroke-width="2"/>
+      <!-- Return trajectory (free return) -->
+      <path d="M 670 180 Q 400 320, 145 200" fill="none" stroke="#6aa4d8" stroke-width="2"/>
+      <!-- Flyby curve around moon -->
+      <path d="M 615 165 Q 680 165, 670 180" fill="none" stroke="#f5c451" stroke-width="2"/>
+      <!-- Annotations -->
+      <text x="375" y="40" text-anchor="middle" font-family="JetBrains Mono" font-weight="500" font-size="10" letter-spacing="2" fill="#f06e1f">ALLER · ~4 JOURS</text>
+      <text x="375" y="345" text-anchor="middle" font-family="JetBrains Mono" font-weight="500" font-size="10" letter-spacing="2" fill="#6aa4d8">RETOUR · ~4 JOURS</text>
+      <text x="700" y="155" font-family="JetBrains Mono" font-size="9" fill="#f5c451" letter-spacing="1">SURVOL</text>
+      <text x="700" y="167" font-family="JetBrains Mono" font-size="9" fill="#5b6378" letter-spacing="1">~10 300 km</text>
+      <!-- Burns -->
+      <circle cx="145" cy="180" r="5" fill="#f06e1f"/>
+      <text x="145" y="160" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#f06e1f" letter-spacing="1">TLI</text>
+      <circle cx="145" cy="200" r="5" fill="#6aa4d8"/>
+      <text x="145" y="220" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#6aa4d8" letter-spacing="1">RENTRÉE</text>
+      <!-- Orion icon at flyby -->
+      <g transform="translate(640,160) rotate(45)">
+        <rect x="-2" y="-5" width="4" height="10" fill="#6aa4d8"/>
+        <polygon points="-2,-5 2,-5 0,-9" fill="#d63333"/>
+      </g>
+    </svg>
+    <div class="caption">
+      <b>Fig. 1 —</b> Géométrie du retour libre. Une seule mise à feu majeure (la TLI) propulse Orion sur une orbite très allongée qui frôle la Lune. La gravité lunaire infléchit la trajectoire d'environ 180° et la renvoie vers la Terre. Aucune nouvelle mise à feu n'est nécessaire pour le retour ; quelques petites corrections de mi-parcours peuvent affiner l'angle de rentrée.
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Une orbite qui se boucle d'elle-même.</h3>
+    <p>Imaginons que vous lanciez une balle vers le haut d'une colline. Si vous lui donnez juste assez de vitesse, elle atteindra le sommet, ralentira jusqu'à s'arrêter, puis redescendra par le même chemin. Un retour libre repose sur la même intuition, à ceci près que la "colline" est le puits gravitationnel terrestre, et qu'au "sommet" de cette montée, la Lune <em>est là</em>, prête à incurver la trajectoire.</p>
+
+    <p>Mathématiquement, on parle d'une ellipse très allongée dont l'apogée (le point le plus éloigné de la Terre) coïncide avec l'orbite lunaire. Si le timing est juste, Orion atteint l'apogée au moment précis où la Lune passe par là. Mais — et c'est crucial — la mise à feu ne vise <em>pas</em> le centre de la Lune. Elle vise un point situé environ 10 000 km <strong>au-delà</strong> de la face cachée.</p>
+
+    <p>En arrivant à la sphère d'influence lunaire, Orion ne se met pas en orbite : il passe en hyperbole derrière la Lune, et la gravité de celle-ci change la direction du vaisseau d'environ 90° à 180°. Vu depuis la Terre, c'est comme si la trajectoire faisait un grand <em>huit</em> autour des deux corps. Vu depuis Orion, c'est un demi-tour cosmique gratuit.</p>
+
+    <h3>L'héritage Apollo.</h3>
+    <p>Apollo 8, 10 et 11 ont toutes utilisé des variantes du retour libre pour leurs vols aller. La nouveauté n'est pas le concept — c'est qu'Artemis II y reste accroché du début à la fin. Apollo allait au-delà : une fois rassurés, les vaisseaux Apollo effectuaient une <strong>insertion en orbite lunaire</strong> en allumant leur moteur principal au passage. Cette insertion les engageait sur une autre trajectoire ; sans la mise à feu de sortie, ils restaient prisonniers de la Lune.</p>
+
+    <p>Apollo 13 a illustré la sécurité du retour libre. Quand le module de service explosa, l'équipage utilisa la gravité lunaire et quelques mises à feu mineures du module lunaire pour rentrer. Ce que faisait Apollo 13 dans l'urgence, Artemis II le fait par conception.</p>
+  </div>
+
+  <div class="pull mint">
+    <p><strong>L'idée centrale.</strong> Le retour libre n'est pas un tour de magie — c'est la conséquence mathématique d'une géométrie soigneusement choisie. <em>La gravité fait le travail</em>. Le seul vrai coût est de viser légèrement à côté de la Lune, et non en plein dessus.</p>
+  </div>
+</section>
+
+<!-- ─── 06 PHASES RÉELLES ─── -->
+<section class="major" id="phases">
+  <div class="sec-head reveal">
+    <div class="num">06</div>
+    <div>
+      <h2>Les <em>six phases</em> du vol réel.</h2>
+      <p class="kicker">Du décollage à l'amerrissage, dix jours de mission divisés en six chapitres distincts.</p>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">I</div>
+    <div class="body">
+      <div class="timing">Phase 1 · T+0 → T+8 min · Décollage</div>
+      <h3>Le SLS arrache 2&nbsp;600&nbsp;tonnes du sol.</h3>
+      <p>Au Centre spatial Kennedy en Floride, à T-0, les quatre moteurs RS-25 et les deux SRB s'allument. La poussée combinée — environ 39 000 kilonewtons, soit <strong>15 % de plus qu'une Saturn V</strong> — soulève la pile.</p>
+      <p>À T+2 minutes, les SRB épuisés sont largués et tombent dans l'Atlantique. À T+8 minutes, l'étage central a brûlé tout son hydrogène et son oxygène : il est largué à son tour. La pile est désormais l'ICPS surmontée d'Orion, en orbite terrestre basse autour de 185 × 1 800 km.</p>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">II</div>
+    <div class="body">
+      <div class="timing">Phase 2 · T+90 min → T+25 h · Orbite haute (HEO)</div>
+      <h3>Vingt-quatre heures de <em>checkout</em> en orbite elliptique.</h3>
+      <p>L'ICPS effectue une première mise à feu qui élève l'apogée à environ 71&nbsp;000 km. C'est <em>unique à Artemis II</em> — aucune mission Apollo n'a fait cela. Pendant 24 heures, Orion va parcourir cette orbite très allongée, périgée bas, apogée trois fois plus haut que la Lune en distance.</p>
+      <p>Pourquoi ? Pour <strong>tester tout</strong> avant de s'engager : le support vie, les communications dans l'espace profond, la propulsion d'Orion, et — chose rare — une simulation de rendez-vous orbital où l'équipage utilise les commandes manuelles d'Orion pour s'approcher puis s'éloigner du second étage ICPS désormais inerte. Si quelque chose ne fonctionne pas, Orion peut encore rebrousser chemin sans avoir quitté la sphère d'influence terrestre.</p>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">III</div>
+    <div class="body">
+      <div class="timing">Phase 3 · T+25 h · Injection trans-lunaire (TLI)</div>
+      <h3>L'ICPS donne le coup d'envoi.</h3>
+      <p>De retour au périgée — là où la vitesse orbitale est maximale et le puits gravitationnel le plus profond — l'ICPS rallume son moteur RL-10 une dernière fois. Cette mise à feu, d'environ 18 minutes, ajoute environ <strong>3,05 km/s de delta-V</strong>. C'est l'<em>injection trans-lunaire</em>.</p>
+      <p>Désormais, Orion est sur sa trajectoire vers la Lune. Pendant les quatre jours qui suivent, il dérive — pas de moteur principal allumé, juste de petites corrections d'attitude. L'ICPS est largué peu après ; il continuera sur une trajectoire désaffectée, où la gravité solaire le perdra dans le système solaire intérieur.</p>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">IV</div>
+    <div class="body">
+      <div class="timing">Phase 4 · T+5 jours · Survol de la face cachée</div>
+      <h3>Le record le plus éloigné de la Terre, jamais.</h3>
+      <p>Au cinquième jour, Orion atteint la sphère d'influence lunaire. La Lune apparaît énorme — sa face cachée, jamais vue depuis Apollo 17, s'étend devant les hublots. Le vaisseau passe à <strong>environ 10 300 km</strong> au-dessus du sol lunaire.</p>
+      <p>L'équipage est désormais à environ <em>400 000 km de la Terre</em>, soit 1,5 % de plus que ne l'a fait Apollo 13 (record précédent à 400 171 km). Trois nouveaux records personnels par astronaute, tous battus simultanément.</p>
+      <p>Aucune mise à feu n'a lieu. La gravité lunaire courbe la trajectoire d'Orion d'environ 180° et la renvoie vers la Terre.</p>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">V</div>
+    <div class="body">
+      <div class="timing">Phase 5 · T+5 j → T+10 j · Retour libre</div>
+      <h3>Quatre à cinq jours de croisière, presque sans moteur.</h3>
+      <p>La géométrie initiale du retour libre fait son travail. Quelques petites corrections de mi-parcours (manœuvres de l'ordre de 1 m/s) peuvent affiner le couloir de rentrée — mais aucune mise à feu majeure n'est planifiée. C'est exactement le scénario qui a sauvé Apollo 13.</p>
+      <p>Orion regagne progressivement le puits gravitationnel terrestre. Sa vitesse, qui avait diminué jusqu'à environ 200 m/s à l'apoapsis, recommence à grimper, jusqu'à atteindre <strong>11 km/s</strong> au moment de la rentrée. C'est trois fois plus vite qu'un retour depuis l'ISS.</p>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">VI</div>
+    <div class="body">
+      <div class="timing">Phase 6 · T+10 j · Rentrée et amerrissage</div>
+      <h3>Sept minutes, un bouclier thermique, et l'océan Pacifique.</h3>
+      <p>À environ T+10 jours, le module de service européen est largué (il sera détruit dans l'atmosphère). La capsule équipage seule poursuit, protégée par un bouclier thermique ablatif. À 11 km/s, l'entrée dans l'atmosphère porte le bouclier à environ <strong>2 800 °C</strong> — plus chaud que la fusion de l'acier.</p>
+      <p>Pour gérer cette chaleur extrême, Orion utilise une <em>rentrée par "skip" </em> : la capsule rebondit une fois sur les couches supérieures de l'atmosphère, ralentit, puis redescend pour l'entrée finale. Cela répartit la dissipation thermique et permet un atterrissage plus précis.</p>
+      <p>Trois parachutes drogue puis trois parachutes principaux s'ouvrent à 7 500 m. La capsule amerrit dans l'océan Pacifique au large de la Californie. L'équipage est récupéré par la marine américaine. Fin de mission.</p>
+    </div>
+  </div>
+
+  <div class="pull red">
+    <p><strong>Le saviez-vous ?</strong> La capsule Orion utilise le même profil de forme — un cône émoussé — que la capsule Apollo. Cette géométrie a été choisie il y a soixante ans précisément parce qu'elle <em>autostabilise</em> dans l'atmosphère : si la capsule entre légèrement de travers, l'aérodynamique la redresse automatiquement, bouclier en avant. C'est l'un des héritages les plus durables du programme spatial américain.</p>
+  </div>
+</section>
+
+<!-- ─── 07 LA SIMULATION ─── -->
+<section class="major" id="simulation">
+  <div class="sec-head reveal">
+    <div class="num">07</div>
+    <div>
+      <h2>La simulation, <em>vue d'ensemble</em>.</h2>
+      <p class="kicker">Nebula Orbit modélise Artemis II en deux dimensions, à l'aide d'un solveur N-corps. Trois étages, trente-huit manœuvres, dix actes.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Le simulateur ne triche pas. À chaque pas de temps, il calcule la gravité exercée par chaque corps (Terre, Lune, vaisseau) sur chaque autre corps. La trajectoire d'Orion émerge naturellement de ces forces — la gravité terrestre, la gravité lunaire, et la poussée du moteur quand il est allumé. Aucune trajectoire n'est "scriptée" ; le retour libre que vous voyez à l'écran est la conséquence physique de la mise à feu initiale.</p>
+
+    <p>Trois éléments composent le vaisseau dans le preset <span style="font-family:var(--mono); color:var(--core); font-size:0.9em">1ArtemisMultiStage.json</span> :</p>
+  </div>
+
+  <div class="stats reveal">
+    <div class="cell">
+      <div class="k">Étage 1 — SLS</div>
+      <div class="v core">0,0006</div>
+      <div class="sub">Masse à sec · 60 % de la pile</div>
+    </div>
+    <div class="cell">
+      <div class="k">Étage 2 — ICPS</div>
+      <div class="v">0,0003</div>
+      <div class="sub">Masse à sec · 30 %</div>
+    </div>
+    <div class="cell">
+      <div class="k">Étage 3 — Orion</div>
+      <div class="v" style="color:var(--orion)">0,0001</div>
+      <div class="sub">Masse à sec · 10 %</div>
+    </div>
+    <div class="cell">
+      <div class="k">Total au décollage</div>
+      <div class="v mint">0,001</div>
+      <div class="sub">unités-sim, échelle de jeu</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Les proportions sont volontairement <em>plus plates</em> que dans la réalité (où l'étage central représente 97 % de la pile). À l'échelle du jeu, les vrais ratios rendraient les étages supérieurs invisibles ; la simulation choisit l'instructif sur le strictement véridique.</p>
+
+    <p>La mission se déroule en dix actes, sans changement de vitesse de simulation — toutes les manœuvres ont lieu à <strong>1× temps réel</strong>. Vous voyez l'ascension décoller, l'orbite haute s'allonger, l'injection trans-lunaire propulser le vaisseau vers la Lune, la trace se courber autour de notre satellite, et le vaisseau revenir, ralentir, et se poser.</p>
+  </div>
+
+  <figure class="app-figure reveal">
+    <div class="frame-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="label">Nebula Orbit · Preset 1ArtemisMultiStage.json</div>
+      <div class="meta">Capture en vol · Live trace</div>
+    </div>
+    <img src="artemis_path_in_app.png" alt="Capture d'écran de la simulation Nebula Orbit montrant la trajectoire complète d'Artemis 2 : orbite basse, transfert trans-lunaire, survol de la Lune et retour libre vers la Terre." loading="lazy">
+    <figcaption class="caption">
+      <b>Fig. 2 —</b> Capture de la simulation en cours d'exécution. La trace lumineuse dessine exactement la géométrie décrite en théorie : la <strong>boucle resserrée</strong> autour de la Terre (orbite basse puis orbite haute de vérification), le <strong>grand arc orange</strong> de l'injection trans-lunaire, la <strong>déflexion</strong> autour de la Lune (face cachée à droite), et le <strong>retour libre bleu</strong> qui ramène le vaisseau vers la Terre sans aucune nouvelle mise à feu. Les débris des étages largués apparaissent comme des points colorés détachés du vaisseau principal.
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ─── 08 CHRONOLOGIE COMPLÈTE ─── -->
+<section class="major" id="chronologie">
+  <div class="sec-head reveal">
+    <div class="num">08</div>
+    <div>
+      <h2>Chronologie complète <em>des manœuvres</em>.</h2>
+      <p class="kicker">Les trente-huit étapes du preset, regroupées en dix actes mécaniques. Chaque acte correspond à une phase de la mission réelle.</p>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">I</div>
+    <div class="body">
+      <div class="timing">Acte I · Décollage et ascension</div>
+      <h3>Une <em>gravity turn</em> en cinq inclinations.</h3>
+      <p>Le vaisseau part posé verticalement sur Terre. Une première mise à feu sur l'axe vertical libère le sol. Puis, alternativement, le vaisseau s'incline un peu plus à chaque étape (20°, 40°, 40°, 5°, 15°) et poursuit sa montée avec les nouveaux angles. La poussée acquise se répartit progressivement entre vertical et horizontal — c'est la signature classique d'une <em>gravity turn</em>, exactement comme le fait un vrai SLS.</p>
+      <p>L'étage SLS Core s'épuise une fois l'altitude orbitale atteinte ; sa séparation et la mise en orbite proprement dite sont traitées dans l'acte suivant.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvres a1m_01 → a1m_09</div>
+        <div class="m-row"><span class="id">a1m_01</span><span class="desc">Liftoff — poussée verticale jusqu'à altitude 1</span></div>
+        <div class="m-row"><span class="id">a1m_02</span><span class="desc">Pitch +20°</span></div>
+        <div class="m-row"><span class="id">a1m_03</span><span class="desc">Climb to alt 3</span></div>
+        <div class="m-row"><span class="id">a1m_04</span><span class="desc">Pitch +40°</span></div>
+        <div class="m-row"><span class="id">a1m_05</span><span class="desc">Climb to alt 4</span></div>
+        <div class="m-row"><span class="id">a1m_06</span><span class="desc">Pitch +40°</span></div>
+        <div class="m-row"><span class="id">a1m_07</span><span class="desc">Climb to alt 5</span></div>
+        <div class="m-row"><span class="id">a1m_08</span><span class="desc">Pitch +5°</span></div>
+        <div class="m-row"><span class="id">a1m_09</span><span class="desc">Pitch +15° (mise en quasi-horizontal)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">II</div>
+    <div class="body">
+      <div class="timing">Acte II · Largage du premier étage et insertion en orbite</div>
+      <h3>L'étage SLS Core <em>se détache</em>, l'ICPS ferme l'orbite.</h3>
+      <p>L'étage 1 a fait son travail. Une manœuvre <em>stage</em> dédiée le jette : la pile crée à l'écran un débris orange (la masse à sec et le carburant restant du premier étage), et le vaisseau principal recalcule sa masse à 0,0004 — soit <strong>40 % de la masse de départ</strong>. C'est <strong>l'ICPS, désormais en tête</strong>, qui prend immédiatement le relais : l'autopilote <em>auto_circularize</em> affine la vitesse et ferme l'orbite basse en circulaire propre.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvres a1m_12 → a1m_11</div>
+        <div class="m-row"><span class="id">a1m_12</span><span class="desc">stage — séparation autonome de l'étage 1 (SLS Core)</span></div>
+        <div class="m-row"><span class="id">a1m_11</span><span class="desc">Auto-circularize — l'ICPS boucle l'orbite en LEO</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">III</div>
+    <div class="body">
+      <div class="timing">Acte III · Boucle de vérification en orbite haute</div>
+      <h3>Un détour <em>elliptique</em> avant la Lune.</h3>
+      <p>L'ICPS s'allume une première fois pour élever l'apogée. Le vaisseau dérive jusqu'au plus haut de cette orbite haute (altitude ~50), puis redescend en frôlant le périgée (altitude ~6). Un second auto-circularize ramène le vaisseau en orbite basse circulaire — propre, prêt pour le transfert lunaire. C'est l'écho direct des 24 heures de checkout réelles.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvres a1m_15 → a1m_21</div>
+        <div class="m-row"><span class="id">a1m_15</span><span class="desc">SAS prograde — verrouille l'attitude sur la vitesse</span></div>
+        <div class="m-row"><span class="id">a1m_16</span><span class="desc">HEO burn — moteur ICPS, monte l'apogée</span></div>
+        <div class="m-row"><span class="id">a1m_18</span><span class="desc">Wait altitude 50 ascending — coast jusqu'à l'apogée</span></div>
+        <div class="m-row"><span class="id">a1m_19</span><span class="desc">Wait altitude 6 descending — retour au périgée</span></div>
+        <div class="m-row"><span class="id">a1m_21</span><span class="desc">Auto-circularize — re-cale en LEO</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">IV</div>
+    <div class="body">
+      <div class="timing">Acte IV · Injection trans-lunaire</div>
+      <h3>Le grand <em>coup d'envoi</em> vers la Lune.</h3>
+      <p>L'autopilote attend que la Lune et le vaisseau soient en bonne position relative — c'est la <em>fenêtre de transfert de Hohmann</em>. Au moment précis où l'angle de phase est correct, l'autopilote ICPS calcule et tire la mise à feu d'injection. Cette dernière oriente Orion sur une ellipse trans-lunaire qui le mènera à la Lune.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvres a1m_22 → a1m_23</div>
+        <div class="m-row"><span class="id">a1m_22</span><span class="desc">Wait for transfer — attend l'alignement de phase</span></div>
+        <div class="m-row"><span class="id">a1m_23</span><span class="desc">auto_transfer — TLI calculée et brûlée par l'autopilote</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">V</div>
+    <div class="body">
+      <div class="timing">Acte V · Largage de l'ICPS</div>
+      <h3>L'<em>ICPS</em> à son tour est jeté.</h3>
+      <p>Sa mission accomplie, le second étage est largué. Un débris argenté apparaît à l'écran, et la masse du vaisseau chute à 0,0001 — soit <strong>10 % de la masse de départ</strong>. Orion CSM continue seul vers la Lune.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvre a1m_24</div>
+        <div class="m-row"><span class="id">a1m_24</span><span class="desc">stage — séparation autonome de l'étage 2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">VI</div>
+    <div class="body">
+      <div class="timing">Acte VI · Correction de mi-parcours</div>
+      <h3>Un infime <em>coup de pouce</em> pour viser à côté.</h3>
+      <p>L'autopilote de transfert vise par défaut le centre de la Lune. Or, pour un retour libre, on ne veut <em>pas</em> heurter la Lune — on veut passer à côté. Orion allume son moteur AJ-10 pendant un dixième de seconde, avec une poussée minuscule (10⁻⁵ unités). Cette nudge ridicule, intégrée sur les quatre jours de croisière à venir, suffit à décaler le point d'arrivée de plusieurs dizaines d'unités-sim — assez pour que la trajectoire passe au-dessus du sol lunaire au lieu de s'y écraser.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvre a1m_27</div>
+        <div class="m-row"><span class="id">a1m_27</span><span class="desc">MCC offset — burn microscopique (poussée 3×10⁻⁶, durée 0,1 s)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">VII</div>
+    <div class="body">
+      <div class="timing">Acte VII · Croisière trans-lunaire et survol</div>
+      <h3>La gravité <em>fait le travail</em>.</h3>
+      <p>Plus aucune mise à feu pendant des jours de simulation. Le vaisseau monte vers la Lune, atteint une altitude de l'ordre de 300 (mesurée depuis la Terre), passe dans la sphère d'influence lunaire, est dévié par la gravité de la Lune, puis commence à retomber vers la Terre. Tout cela <em>sans aucun moteur allumé</em> — c'est exactement le retour libre, vu en accéléré dans la trace de la simulation.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvre a1m_29</div>
+        <div class="m-row"><span class="id">a1m_29</span><span class="desc">Wait altitude 300 ascending — coast jusqu'au survol</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">VIII</div>
+    <div class="body">
+      <div class="timing">Acte VIII · Retour</div>
+      <h3>La <em>descente vers la Terre</em>.</h3>
+      <p>Le vaisseau, accéléré par la gravité terrestre, redescend. À une altitude descendante de 250, l'autopilote sort de la phase de croisière et entre en approche. La vitesse augmente rapidement à mesure que l'altitude diminue — c'est la conséquence directe de la conservation de l'énergie orbitale : tout ce qui descend dans un puits gravitationnel y gagne de la vitesse.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvre a1m_31</div>
+        <div class="m-row"><span class="id">a1m_31</span><span class="desc">Wait altitude 250 descending — détecte le retour</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">IX</div>
+    <div class="body">
+      <div class="timing">Acte IX · Désorbitation et approche finale</div>
+      <h3>Préparer l'<em>atterrissage</em>.</h3>
+      <p>Le simulateur n'a ni atmosphère ni parachutes : impossible de freiner par la traînée comme le ferait la vraie capsule. À la place, Orion utilise son moteur de service comme propulsion de freinage. Une première mise à feu rétrograde commence à baisser l'orbite. À altitude 58, un auto-circularize stabilise une orbite basse de parking. L'attitude bascule en <em>radial out</em> — c'est-à-dire le vaisseau pointé tour-vers-le-haut, prêt pour la descente verticale.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvres a1m_33 → a1m_40</div>
+        <div class="m-row"><span class="id">a1m_33</span><span class="desc">Wait altitude 158 descending</span></div>
+        <div class="m-row"><span class="id">a1m_35</span><span class="desc">SAS retrograde</span></div>
+        <div class="m-row"><span class="id">a1m_36</span><span class="desc">Deorbit burn — première mise à feu de freinage</span></div>
+        <div class="m-row"><span class="id">a1m_37</span><span class="desc">Wait altitude 58 descending</span></div>
+        <div class="m-row"><span class="id">a1m_39</span><span class="desc">Auto-circularize — orbite basse de parking</span></div>
+        <div class="m-row"><span class="id">a1m_40</span><span class="desc">SAS radial out — tour-vers-le-haut</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-block reveal">
+    <div class="roman">X</div>
+    <div class="body">
+      <div class="timing">Acte X · Atterrissage propulsif</div>
+      <h3>Le <em>suicide burn</em> avant le toucher.</h3>
+      <p>Le clou du spectacle. Une seconde mise à feu rétrograde fait chuter le périgée sous la surface terrestre — le vaisseau est désormais engagé dans la descente. Il tombe en chute libre, droit comme un I, jusqu'à atteindre une altitude de 25.</p>
+      <p>Alors, juste au-dessus du sol, le moteur se rallume une dernière fois, rétrograde — le moteur pointé vers le bas, le vaisseau pointé vers le haut, comme un Falcon 9 qui revient se poser à Cape Canaveral. C'est ce qu'on appelle un <em>suicide burn</em> : une seule mise à feu, calibrée pour annuler la vitesse verticale juste avant le contact.</p>
+      <p>Puis le vaisseau se redresse une dernière fois, attend de descendre jusqu'à 5 unités du sol, et toucher.</p>
+      <div class="maneuvers">
+        <div class="lbl">Manœuvres a1m_42 → a1m_51</div>
+        <div class="m-row"><span class="id">a1m_42</span><span class="desc">SAS retrograde — moteur vers le bas</span></div>
+        <div class="m-row"><span class="id">a1m_43</span><span class="desc">Deorbit kick — engage la descente</span></div>
+        <div class="m-row"><span class="id">a1m_44</span><span class="desc">SAS radial out — vaisseau redressé en chute libre</span></div>
+        <div class="m-row"><span class="id">a1m_45</span><span class="desc">Wait altitude 25 descending — attend la descente</span></div>
+        <div class="m-row"><span class="id">a1m_47</span><span class="desc">SAS retrograde — pour le suicide burn</span></div>
+        <div class="m-row"><span class="id">a1m_48</span><span class="desc">Suicide burn — freinage final</span></div>
+        <div class="m-row"><span class="id">a1m_49</span><span class="desc">SAS radial out — redressement final</span></div>
+        <div class="m-row"><span class="id">a1m_50</span><span class="desc">Wait altitude 5 descending — approche du sol</span></div>
+        <div class="m-row"><span class="id">a1m_51</span><span class="desc">Landing burn — coussin final (poussée 0,0002 · durée 2 s)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pull">
+    <p><strong>Manœuvres autopilote, manœuvres manuelles.</strong> Certaines mises à feu sont calculées en boucle fermée par l'autopilote (auto_circularize, auto_transfer) — il vise un état orbital cible et ajuste la poussée jusqu'à l'atteindre. D'autres (les <em>burn</em> simples) ont leur poussée et leur durée fixées à l'avance. Les premières s'adaptent automatiquement à la masse changeante ; les secondes ont été calibrées à la main pour chaque étage.</p>
+  </div>
+</section>
+
+<!-- ─── 09 RÉEL VS SIM ─── -->
+<section class="major" id="comparaison">
+  <div class="sec-head reveal">
+    <div class="num">09</div>
+    <div>
+      <h2>Réel <em>vs</em> simulation.</h2>
+      <p class="kicker">La simulation est honnête sur ses approximations. Voici, point par point, ce qui correspond et ce qui s'écarte.</p>
+    </div>
+  </div>
+
+  <div class="compare-list">
+
+    <div class="compare-row reveal">
+      <div class="topic">Dimensions de l'espace.</div>
+      <div class="vs">
+        <b>Réel</b>L'espace réel est tridimensionnel ; les trajectoires interplanétaires se déploient dans des plans inclinés et utilisent des effets hors-plan.
+        <br><br>
+        <b>Simulation</b>Tout se passe dans un plan 2D unique. Pas de plan orbital, pas de nœuds ascendants. Acceptable pour ce vol parce que la mission réelle est elle-même quasi-coplanaire.
+      </div>
+      <div class="impact">Cosmétique</div>
+    </div>
+
+    <div class="compare-row reveal">
+      <div class="topic">Atmosphère et parachutes.</div>
+      <div class="vs">
+        <b>Réel</b>Bouclier thermique ablatif, rentrée par "skip", trois parachutes drogue puis trois parachutes principaux, amerrissage dans le Pacifique à environ 7 m/s.
+        <br><br>
+        <b>Simulation</b>Aucune atmosphère, donc aucun frottement, donc aucun parachute possible. La simulation remplace tout cela par un atterrissage propulsif à la SpaceX — un freinage moteur juste au-dessus du sol.
+      </div>
+      <div class="impact">Majeur</div>
+    </div>
+
+    <div class="compare-row reveal">
+      <div class="topic">Proportions de masse.</div>
+      <div class="vs">
+        <b>Réel</b>L'étage central SLS représente 97 % de la masse de la pile. L'ICPS et Orion, à peine 1,5 % chacun.
+        <br><br>
+        <b>Simulation</b>Pour rester visuellement lisible à l'écran, les proportions sont plus plates : 60 % / 30 % / 10 %. Les chutes de masse au largage sont donc moins spectaculaires que dans la réalité.
+      </div>
+      <div class="impact">Pédagogique</div>
+    </div>
+
+    <div class="compare-row reveal">
+      <div class="topic">Visée du retour libre.</div>
+      <div class="vs">
+        <b>Réel</b>La trajectoire TLI vise dès le départ un point au-delà de la Lune. L'offset est intégré dans le calcul de la mise à feu d'injection.
+        <br><br>
+        <b>Simulation</b>L'autopilote de transfert vise par défaut le centre de la Lune ; on ajoute une mise à feu MCC séparée et explicite pour décaler la trajectoire. Le résultat orbital est équivalent.
+      </div>
+      <div class="impact">Conceptuel</div>
+    </div>
+
+    <div class="compare-row reveal">
+      <div class="topic">Échelle de temps.</div>
+      <div class="vs">
+        <b>Réel</b>Dix jours de mission, dont quatre jours d'aller et quatre jours de retour à vitesse de croisière.
+        <br><br>
+        <b>Simulation</b>Toute la mission se déroule à 1× temps simulé — les phases de croisière sont représentées par des manœuvres <em>wait_for_altitude</em>. Le temps simulé n'est pas du temps réel ; il y a une équivalence symbolique, pas physique.
+      </div>
+      <div class="impact">Schématique</div>
+    </div>
+
+    <div class="compare-row reveal">
+      <div class="topic">Équipage et contrôle.</div>
+      <div class="vs">
+        <b>Réel</b>Quatre astronautes à bord, contrôle Houston en boucle, des centaines de procédures, des correctifs manuels possibles à chaque instant.
+        <br><br>
+        <b>Simulation</b>Tout est piloté par une file de manœuvres préprogrammées. Aucun équipage. Aucun centre de contrôle. Tout ce qui peut mal tourner doit être anticipé dans le script.
+      </div>
+      <div class="impact">Évident</div>
+    </div>
+
+    <div class="compare-row reveal">
+      <div class="topic">Trajectoire générale.</div>
+      <div class="vs">
+        <b>Réel</b>Décollage → LEO → HEO → TLI → survol lunaire → retour libre → rentrée → amerrissage.
+        <br><br>
+        <b>Simulation</b>La séquence est identique. Chaque acte de la chronologie a son équivalent réel ; rien ne manque, rien n'est inventé. Seule la résolution change.
+      </div>
+      <div class="impact">Fidèle</div>
+    </div>
+
+  </div>
+
+  <div class="pull mint">
+    <p><strong>Une simulation pédagogique.</strong> Cette simulation n'est pas un substitut à un solveur professionnel — elle ne calcule pas avec assez de précision pour planifier une vraie mission. Mais elle est <em>fidèle aux concepts</em> : la mécanique orbitale, la dynamique du staging, la gravité comme force de cohésion, le retour libre comme géométrie élégante. Ce qu'elle simplifie, elle le simplifie honnêtement.</p>
+  </div>
+</section>
+
+<!-- ─── 10 CHRONOLOGIE RÉELLE NASA ─── -->
+<section class="major" id="nasa-data">
+  <div class="sec-head reveal">
+    <div class="num">10</div>
+    <div>
+      <h2>Chronologie réelle <em>Artemis II</em> — données NASA.</h2>
+      <p class="kicker">Le profil de vol authentique tel qu'il a été exécuté entre le <em>1<sup>er</sup> avril 2026</em> (décollage) et le <em>10 avril 2026</em> (amerrissage). Durée officielle : <em>9 jours, 1 h 32 min</em>. Toutes les altitudes proviennent du <em>NASA Artemis II Press Kit</em> et du graphique <em>Ascent and Mission Timeline</em>.</p>
+    </div>
+  </div>
+
+  <div class="src-note reveal">
+    <b>Source ·</b> NASA Artemis II Press Kit · Graphique « Ascent and Mission Timeline » · Mission Overview. Altitudes converties des unités impériales (pieds, miles) en kilomètres. Quand la NASA donne une orbite, le format est <i>périgée × apogée</i>. Les altitudes non publiées sont signalées « n.d. ».
+  </div>
+
+  <h3 style="font-family:var(--display); font-weight:700; font-size:24px; color:var(--ink); margin:40px 0 18px; letter-spacing:-0.01em;">Chronologie complète avec altitudes</h3>
+
+  <div class="nasa-timeline reveal">
+    <div class="tl-head">
+      <div>Temps mission</div>
+      <div>Événement</div>
+      <div>Altitude NASA → conversion</div>
+      <div>Simulation Nebula</div>
+    </div>
+
+    <div class="tl-row key">
+      <div class="tl-time">T+00:00</div>
+      <div class="tl-event"><b>Décollage</b> depuis LC-39B, Kennedy Space Center. Allumage RS-25 + SRB.</div>
+      <div class="tl-alt">0 ft · <b>0 km</b></div>
+      <div class="tl-sim"><b>a1m_01_liftoff</b></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+00:09</div>
+      <div class="tl-event">Dégagement de la tour + manœuvre <em>roll/pitch</em>.</div>
+      <div class="tl-alt">598 ft · <b>0,18 km</b></div>
+      <div class="tl-sim"><b>a1m_02_pitch_20</b></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+00:56</div>
+      <div class="tl-event">Passage <em>supersonique</em> (Mach 1).</div>
+      <div class="tl-alt"><span class="nd">non donnée</span></div>
+      <div class="tl-sim">gravity turn (a1m_03→07)</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+01:11</div>
+      <div class="tl-event"><b>Max Q</b> — pression dynamique maximale.</div>
+      <div class="tl-alt">42 091 ft · <b>12,83 km</b></div>
+      <div class="tl-sim">gravity turn (a1m_04→07)</div>
+    </div>
+    <div class="tl-row key">
+      <div class="tl-time">T+02:09</div>
+      <div class="tl-event"><b>Séparation des boosters SRB</b>. Les deux propulseurs solides retombent dans l'Atlantique (vitesse ~5 000 km/h).</div>
+      <div class="tl-alt">155 958 ft · <b>47,54 km</b></div>
+      <div class="tl-sim"><span class="ns">intégré au stage 1</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+03:18</div>
+      <div class="tl-event">Largage du <em>Launch Abort System</em> (tour d'éjection d'urgence).</div>
+      <div class="tl-alt">285 334 ft · <b>86,97 km</b></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+08:03</div>
+      <div class="tl-event"><b>MECO</b> — arrêt des quatre moteurs RS-25 de l'étage central.</div>
+      <div class="tl-alt">510 891 ft · <b>155,72 km</b></div>
+      <div class="tl-sim">fin stage 1 SLS Core</div>
+    </div>
+    <div class="tl-row key">
+      <div class="tl-time">T+08:18</div>
+      <div class="tl-event"><b>Séparation étage central SLS</b> · ICPS + Orion poursuivent.</div>
+      <div class="tl-alt">533 273 ft · <b>162,54 km</b></div>
+      <div class="tl-sim"><b>a1m_12_sep_stage_1</b></div>
+    </div>
+    <div class="tl-row phase">
+      <div class="tl-time">T+08:18</div>
+      <div class="tl-event">Orbite initiale après séparation de l'étage central.</div>
+      <div class="tl-alt">1 381 × 17 mi · <b>2 223 × 27 km</b></div>
+      <div class="tl-sim">post a1m_12</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+20:00</div>
+      <div class="tl-event">Déploiement des <em>panneaux solaires</em> Orion.</div>
+      <div class="tl-alt"><span class="nd">orbite elliptique initiale</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row key">
+      <div class="tl-time">T+49:00</div>
+      <div class="tl-event"><b>Perigee Raise Maneuver</b> — premier allumage ICPS. Le périgée est relevé pour stabiliser l'orbite.</div>
+      <div class="tl-alt">7 189 694 ft · <b>2 191 km</b></div>
+      <div class="tl-sim"><b>a1m_11_leo_circularize</b></div>
+    </div>
+    <div class="tl-row phase">
+      <div class="tl-time">après T+49:00</div>
+      <div class="tl-event">Orbite sûre Orion + ICPS.</div>
+      <div class="tl-alt">1 381 × 115 mi · <b>2 223 × 185 km</b></div>
+      <div class="tl-sim">post a1m_11</div>
+    </div>
+    <div class="tl-row key">
+      <div class="tl-time">T+01:47:57</div>
+      <div class="tl-event"><b>Apogee Raise Burn</b> — second allumage ICPS. Le vaisseau monte vers la haute orbite terrestre.</div>
+      <div class="tl-alt">631 789 ft (au burn) · <b>192,57 km</b></div>
+      <div class="tl-sim"><b>a1m_16_heo_burn</b></div>
+    </div>
+    <div class="tl-row phase">
+      <div class="tl-time">après ARB</div>
+      <div class="tl-event">Haute orbite terrestre de vérification (~23 h).</div>
+      <div class="tl-alt">44 525 × 115 mi · <b>71 656 × 185 km</b></div>
+      <div class="tl-sim">a1m_18 → a1m_19</div>
+      <div class="tl-sim"><b>a1m_16</b> → <b>a1m_18</b></div>
+    </div>
+    <div class="tl-row key">
+      <div class="tl-time">T+03:24:15</div>
+      <div class="tl-event"><b>Séparation Orion / ICPS</b>. Début de la démonstration de proximité.</div>
+      <div class="tl-alt">73 093 408 ft · <b>22 279 km</b></div>
+      <div class="tl-sim"><b>a1m_24_sep_stage_2</b></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+03:24 → 04:35</div>
+      <div class="tl-event"><em>Proximity Operations Demo</em> — pilotage manuel d'Orion autour de l'ICPS (cible de rendez-vous).</div>
+      <div class="tl-alt">~22 279 km au début</div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+04:52</div>
+      <div class="tl-event"><em>Orion Upper Stage Separation Burn</em> — Orion s'éloigne définitivement de l'ICPS.</div>
+      <div class="tl-alt"><span class="nd">haute orbite terrestre</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+05:00 → 05:02</div>
+      <div class="tl-event"><em>Disposal burn</em> ICPS — désorbitation vers le Pacifique.</div>
+      <div class="tl-alt"><span class="nd">haute orbite terrestre</span></div>
+      <div class="tl-sim"><span class="ns">débris autonome</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+05:04</div>
+      <div class="tl-event">Déploiement des <em>CubeSats</em> par l'ICPS (à 1 min d'intervalle).</div>
+      <div class="tl-alt"><span class="nd">proche ICPS</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+13:44</div>
+      <div class="tl-event"><em>Perigee Raise Burn</em> Orion — préparation géométrique pour la TLI.</div>
+      <div class="tl-alt"><span class="nd">haute orbite terrestre</span></div>
+      <div class="tl-sim">a1m_21_recircularize_leo</div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">T+1 j 01:37</div>
+      <div class="tl-event"><b>TLI — Translunar Injection</b>. Le moteur principal d'Orion place le vaisseau sur la trajectoire de retour libre vers la Lune.</div>
+      <div class="tl-alt"><span class="nd">depuis HEO</span></div>
+      <div class="tl-sim"><b>a1m_22</b> + <b>a1m_23_tli_burn</b></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+1 j 23:25</div>
+      <div class="tl-event">Burn de correction de trajectoire.</div>
+      <div class="tl-alt"><span class="nd">transit Terre-Lune</span></div>
+      <div class="tl-sim"><b>a1m_27_mcc_offset</b></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+2 j 00:07</div>
+      <div class="tl-event">Correction trajectoire #1.</div>
+      <div class="tl-alt"><span class="nd">transit translunaire</span></div>
+      <div class="tl-sim">a1m_27 (intégré)</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+3 j 00:12</div>
+      <div class="tl-event">Correction trajectoire #2.</div>
+      <div class="tl-alt"><span class="nd">transit translunaire</span></div>
+      <div class="tl-sim">a1m_27 (intégré)</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+4 j 05:23</div>
+      <div class="tl-event">Correction trajectoire #3.</div>
+      <div class="tl-alt"><span class="nd">approche Lune</span></div>
+      <div class="tl-sim">a1m_27 (intégré)</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+4 j 06:59</div>
+      <div class="tl-event"><b>Entrée dans la sphère d'influence lunaire</b> — la gravité de la Lune devient dominante.</div>
+      <div class="tl-alt"><span class="nd">SOI lunaire</span></div>
+      <div class="tl-sim">pendant a1m_29</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+4 j 22:00</div>
+      <div class="tl-event">Début du <em>survol lunaire</em> — observations et imagerie.</div>
+      <div class="tl-alt"><span class="nd">approche Lune</span></div>
+      <div class="tl-sim"><b>a1m_29_outbound_coast</b></div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">T+5 j 01:23</div>
+      <div class="tl-event"><b>Plus proche approche de la Lune</b>. Passage derrière la face cachée · blackout radio 30–50 min.</div>
+      <div class="tl-alt">4 000–6 000 mi · <b>6 400–9 700 km</b></div>
+      <div class="tl-sim">apex trans-lunaire (a1m_29)</div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">T+5 j 01:26</div>
+      <div class="tl-event"><b>Distance maximale à la Terre</b> · ~4 600 mi au-delà de la face cachée lunaire. Point le plus lointain de la mission.</div>
+      <div class="tl-alt">~250 000 mi · <b>402 000 km</b></div>
+      <div class="tl-sim">apogée Terre (a1m_29)</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+5 j 19:47</div>
+      <div class="tl-event">Sortie de la sphère d'influence lunaire — début du <em>retour libre</em>.</div>
+      <div class="tl-alt"><span class="nd">retour Terre</span></div>
+      <div class="tl-sim">début a1m_31_return_coast</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+6 j 04:23</div>
+      <div class="tl-event">Correction retour #1.</div>
+      <div class="tl-alt"><span class="nd">trajet retour</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+8 j 04:33</div>
+      <div class="tl-event">Correction retour #2.</div>
+      <div class="tl-alt"><span class="nd">trajet retour</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+8 j 20:33</div>
+      <div class="tl-event">Correction retour #3 (~5 h avant interface d'entrée).</div>
+      <div class="tl-alt"><span class="nd">trajet retour</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row key">
+      <div class="tl-time">T+9 j 01:13</div>
+      <div class="tl-event"><b>Séparation module d'équipage / module de service</b>. Le module de service européen est largué; le bouclier thermique est exposé.</div>
+      <div class="tl-alt"><span class="nd">pré-rentrée</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">T+9 j 01:16</div>
+      <div class="tl-event"><em>Crew Module Raise Burn</em> — petite manœuvre d'angle de rentrée.</div>
+      <div class="tl-alt"><span class="nd">pré-rentrée</span></div>
+      <div class="tl-sim"><span class="ns">non simulé</span></div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">T+9 j 01:33</div>
+      <div class="tl-event"><b>Entry Interface</b> — début des effets atmosphériques. Plasma, blackout radio, ~1 650 °C.</div>
+      <div class="tl-alt">400 000 ft · <b>121,92 km</b></div>
+      <div class="tl-sim"><b>a1m_33</b> + a1m_35/36</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">—</div>
+      <div class="tl-event">Ouverture du capot de la baie avant (libère les parachutes).</div>
+      <div class="tl-alt">&lt; 36 000 ft · <b>&lt; 10,97 km</b></div>
+      <div class="tl-sim"><span class="ns">pas d'atmosphère</span></div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">—</div>
+      <div class="tl-event">Déploiement des <em>parachutes drogues</em> (deux).</div>
+      <div class="tl-alt">25 000 ft · <b>7,62 km</b></div>
+      <div class="tl-sim">a1m_43_deorbit_kick</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">—</div>
+      <div class="tl-event">Déploiement des <em>parachutes pilotes</em> (trois).</div>
+      <div class="tl-alt">9 500 ft · <b>2,90 km</b></div>
+      <div class="tl-sim">a1m_47 + a1m_48 (suicide)</div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">—</div>
+      <div class="tl-event">Parachutes principaux (trois) — vitesse de descente ramenée de ~130 mph à 17 mph.</div>
+      <div class="tl-alt">descente finale</div>
+      <div class="tl-sim"><b>a1m_51_landing_burn</b></div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">T+9 j 01:46</div>
+      <div class="tl-event"><b>Splashdown</b> dans le Pacifique. Récupération par l'US Navy.</div>
+      <div class="tl-alt">0 ft · <b>0 km</b></div>
+      <div class="tl-sim">touchdown sim (T+20:00)</div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display); font-weight:700; font-size:24px; color:var(--ink); margin:48px 0 18px; letter-spacing:-0.01em;">Résumé des huit séparations</h3>
+
+  <div class="summary-grid">
+    <div class="summary-card reveal">
+      <h4>Séparations en vol</h4>
+      <div class="s-row"><span class="t">T+02:09</span><span class="d">Boosters SRB · <em>47,54 km</em></span></div>
+      <div class="s-row"><span class="t">T+03:18</span><span class="d">Launch Abort System · <em>86,97 km</em></span></div>
+      <div class="s-row"><span class="t">T+08:18</span><span class="d">Étage central SLS · <em>162,54 km</em></span></div>
+      <div class="s-row"><span class="t">T+03:24:15</span><span class="d">Orion ↔ ICPS · <em>22 279 km</em></span></div>
+      <div class="s-row"><span class="t">T+05:00</span><span class="d">Disposal burn ICPS · <em>n.d.</em></span></div>
+      <div class="s-row"><span class="t">T+05:04</span><span class="d">CubeSats largués · <em>n.d.</em></span></div>
+      <div class="s-row"><span class="t">T+9 j 01:13</span><span class="d">Module équipage ↔ service · <em>n.d.</em></span></div>
+    </div>
+    <div class="summary-card reveal">
+      <h4>Séquence parachutes (rentrée)</h4>
+      <div class="s-row"><span class="t">&lt; 36 000 ft</span><span class="d">Capot baie avant · <em>&lt; 10,97 km</em></span></div>
+      <div class="s-row"><span class="t">25 000 ft</span><span class="d">Parachutes drogues · <em>7,62 km</em></span></div>
+      <div class="s-row"><span class="t">9 500 ft</span><span class="d">Parachutes pilotes · <em>2,90 km</em></span></div>
+      <div class="s-row"><span class="t">~ sol</span><span class="d">Trois parachutes principaux · <em>~17 mph @ splashdown</em></span></div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display); font-weight:700; font-size:24px; color:var(--ink); margin:48px 0 18px; letter-spacing:-0.01em;">Orbites clés</h3>
+
+  <div class="nasa-timeline reveal">
+    <div class="tl-head">
+      <div>Phase</div>
+      <div>Caractéristique orbitale</div>
+      <div>Altitude / périgée × apogée</div>
+      <div>Manœuvre simulation</div>
+    </div>
+    <div class="tl-row phase">
+      <div class="tl-time">Acte 1</div>
+      <div class="tl-event">Après séparation étage central SLS.</div>
+      <div class="tl-alt">1 381 × 17 mi · <b>2 223 × 27 km</b></div>
+      <div class="tl-sim">post a1m_12</div>
+    </div>
+    <div class="tl-row phase">
+      <div class="tl-time">Acte 2</div>
+      <div class="tl-event">Après <em>Perigee Raise</em> par l'ICPS — orbite stabilisée.</div>
+      <div class="tl-alt">1 381 × 115 mi · <b>2 223 × 185 km</b></div>
+      <div class="tl-sim"><b>a1m_11</b></div>
+    </div>
+    <div class="tl-row phase">
+      <div class="tl-time">Acte 3</div>
+      <div class="tl-event">Haute orbite terrestre de vérification (~23 h).</div>
+      <div class="tl-alt">44 525 × 115 mi · <b>71 656 × 185 km</b></div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">Acte 4</div>
+      <div class="tl-event">Après TLI — trajectoire translunaire, plus d'orbite terrestre fermée.</div>
+      <div class="tl-alt">retour libre</div>
+      <div class="tl-sim"><b>a1m_23</b> + a1m_27</div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">Acte 5</div>
+      <div class="tl-event">Plus proche approche de la Lune — <em>pas d'insertion en orbite</em>, simple survol.</div>
+      <div class="tl-alt">4 000–6 000 mi · <b>6 400–9 700 km</b></div>
+      <div class="tl-sim">apex de a1m_29</div>
+    </div>
+    <div class="tl-row crit">
+      <div class="tl-time">Rentrée</div>
+      <div class="tl-event">Interface atmosphérique.</div>
+      <div class="tl-alt">400 000 ft · <b>121,92 km</b></div>
+      <div class="tl-sim"><b>a1m_33</b> → a1m_51</div>
+    </div>
+  </div>
+
+  <div class="pull mint">
+    <p><strong>Ce que cette chronologie ajoute.</strong> Les chapitres précédents décrivent la <em>géométrie</em> du retour libre et la <em>structure</em> des dix actes de simulation. Cette table donne les <em>chiffres réels</em> — les altitudes mesurées au pied près par la NASA — pour ancrer cette mécanique dans la mission qui s'est effectivement déroulée entre le 1<sup>er</sup> et le 10 avril 2026.</p>
+  </div>
+</section>
+
+<!-- ─── 11 CONCLUSION ─── -->
+<section class="major" id="conclusion">
+  <div class="sec-head reveal">
+    <div class="num">11</div>
+    <div>
+      <h2>Conclusion.</h2>
+      <p class="kicker">Ce que la mission Artemis II nous dit de notre époque — et ce que cette simulation espère transmettre.</p>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p class="dropcap">Artemis II n'est pas la mission la plus ambitieuse de notre siècle. Elle ne pose personne sur la Lune. Elle ne ramène pas d'échantillons. Elle ne construit rien. Sur le papier, elle ressemble à un détour — un test, une répétition générale avant les vraies grandes manœuvres qui suivront.</p>
+
+    <p>Mais c'est précisément ce qui la rend importante. Avant Artemis II, aucun être humain n'a quitté l'orbite terrestre basse depuis cinquante-deux ans. Quatre personnes vont y aller. Trois d'entre elles font leurs <em>premières</em> — première femme, premier Afro-Américain, premier non-Américain à voyager au-delà de la LEO. La trajectoire choisie est la plus sûre possible : si le moteur principal ne se rallume jamais, la gravité ramène l'équipage. La mécanique céleste fait office de filet de sécurité.</p>
+
+    <p>Ce document a essayé d'expliquer comment cette mécanique fonctionne. Le retour libre n'est ni mystérieux ni miraculeux — c'est de la géométrie orbitale, une trajectoire choisie avec soin pour que le coût en propergol soit minimal et le coût en risque encore plus bas. C'est l'idée pour laquelle la simulation Nebula Orbit a été instrumentée.</p>
+
+    <p>Si vous regardez la trace de la simulation se dérouler — la boucle de l'orbite basse, l'allongement de l'orbite haute, le grand arc trans-lunaire, le retour qui se courbe autour de la Lune et revient — vous voyez la même géométrie que Reid Wiseman et son équipage verront depuis leurs hublots. À l'échelle près, à la dimension près, le dessin est le même. <em>C'est tout l'intérêt</em>.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer class="foot">
+  <div class="container">
+    <div class="row1 reveal">
+      <h3>Fin du document.<br><em>Bon vol, Orion</em>.</h3>
+      <div class="meta">
+        <span>Revue Scientifique · Volume I</span>
+        <b>Artemis II — Multi-étages</b>
+        <span>11 chapitres · ~28 min de lecture</span>
+        <span>38 manœuvres · 3 étages · 2 séparations autonomes</span>
+        <span>Preset · 1ArtemisMultiStage.json</span>
+      </div>
+    </div>
+    <div class="signature">
+      <div>Nebula Orbit · 2026 · Pour la culture scientifique du vol spatial habité</div>
+      <div>⟢  Document en français · une version anglaise est disponible</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('shown');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

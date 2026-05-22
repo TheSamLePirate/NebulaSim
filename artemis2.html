@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Artemis 2 — Mission &amp; Simulation</title>
+<style>
+  :root {
+    --bg: #07080d;
+    --panel: #0f1320;
+    --panel-2: #131a2c;
+    --ink: #d8e2ff;
+    --muted: #8b97b8;
+    --accent: #3c7eb6;
+    --accent-2: #4ECDC4;
+    --hot: #f97316;
+    --warn: #f5c451;
+    --grid: #1e2a48;
+    --border: #1f2a44;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.55; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(60,126,182,0.18), transparent 60%),
+      radial-gradient(900px 500px at -10% 80%, rgba(78,205,196,0.10), transparent 60%),
+      var(--bg);
+    min-height: 100vh;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 64px 24px 96px; }
+  header { margin-bottom: 48px; }
+  .eyebrow { color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.18em; font-size: 12px; font-weight: 600; margin-bottom: 12px; }
+  h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em; }
+  h1 span { background: linear-gradient(90deg, #4ECDC4, #3c7eb6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { color: var(--muted); font-size: 18px; max-width: 70ch; }
+  h2 { font-size: 28px; margin: 64px 0 16px; letter-spacing: -0.01em; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  h3 { font-size: 19px; margin: 28px 0 8px; color: var(--accent-2); }
+  p { color: var(--ink); }
+  .muted { color: var(--muted); }
+  a { color: var(--accent-2); }
+
+  .grid { display: grid; gap: 16px; }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+  .card {
+    background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .stat .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+  .stat .v { font-size: 22px; font-weight: 600; margin-top: 4px; }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    align-items: start;
+    padding: 18px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .phase:last-child { border-bottom: none; }
+  .badge {
+    width: 56px; height: 56px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 18px;
+    background: radial-gradient(circle at 30% 30%, #2a3b66, #131a2c);
+    border: 1px solid var(--border);
+    color: var(--accent-2);
+  }
+  .phase h3 { margin: 4px 0 6px; color: var(--ink); }
+  .phase .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(60,126,182,0.15); color: var(--accent); margin-right: 6px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .phase .tag.orange { background: rgba(249,115,22,0.15); color: var(--hot); }
+  .phase .tag.warn { background: rgba(245,196,81,0.15); color: var(--warn); }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.12em; background: rgba(255,255,255,0.02); }
+  td code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; color: var(--accent-2); }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .callout {
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    background: rgba(60,126,182,0.06);
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+  }
+  .callout.warn { border-color: var(--warn); background: rgba(245,196,81,0.06); }
+  .callout.hot { border-color: var(--hot); background: rgba(249,115,22,0.06); }
+  .callout strong { color: var(--accent-2); }
+  .callout.warn strong { color: var(--warn); }
+  .callout.hot strong { color: var(--hot); }
+
+  /* Diagram */
+  .diagram { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin: 16px 0; }
+  .diagram svg { width: 100%; height: auto; display: block; }
+
+  /* Mission timeline */
+  .timeline { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 8px; }
+  .real-vs-sim { display: grid; grid-template-columns: 1fr; gap: 0; }
+  @media (min-width: 760px) { .real-vs-sim { grid-template-columns: 1fr 1fr; gap: 0; } .real-vs-sim .col + .col { border-left: 1px solid var(--border); padding-left: 20px; } .real-vs-sim .col:first-child { padding-right: 20px; } }
+  .col-title { font-weight: 600; color: var(--accent-2); margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; }
+
+  footer { color: var(--muted); font-size: 13px; margin-top: 64px; text-align: center; border-top: 1px solid var(--border); padding-top: 24px; }
+
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--border); margin-right: 6px; }
+  .pill.accent { color: var(--accent-2); border-color: rgba(78,205,196,0.4); background: rgba(78,205,196,0.06); }
+  .pill.hot { color: var(--hot); border-color: rgba(249,115,22,0.4); background: rgba(249,115,22,0.06); }
+  .langswitch { position: absolute; top: 20px; right: 24px; font-size: 13px; }
+  .langswitch a { margin-left: 12px; color: var(--muted); text-decoration: none; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; }
+  .langswitch a.active { color: var(--accent-2); border-color: rgba(78,205,196,0.4); background: rgba(78,205,196,0.06); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="langswitch">
+  <a class="active" href="artemis2.html">EN</a>
+  <a href="artemis2.fr.html">FR</a>
+</div>
+
+<header>
+  <div class="eyebrow">Mission Profile · Lunar Free-Return</div>
+  <h1>Artemis 2 <span>— Orion's first crewed lunar mission</span></h1>
+  <p class="lede">
+    Artemis 2 is NASA's first crewed flight of the Orion spacecraft beyond low Earth orbit since Apollo 17 in 1972.
+    Unlike a landing mission, Orion does not orbit the Moon — it loops around the far side on a free-return trajectory
+    and uses lunar gravity to slingshot back to Earth. This document walks through the real mission and then
+    explains how each step is recreated in the simulation preset <code>2Artemis.json</code>.
+  </p>
+</header>
+
+<section>
+  <h2>1 · The Real Mission</h2>
+
+  <div class="grid grid-4">
+    <div class="card stat"><div class="k">Crew</div><div class="v">4</div><div class="muted">Wiseman · Glover · Koch · Hansen</div></div>
+    <div class="card stat"><div class="k">Vehicle</div><div class="v">SLS&nbsp;Block&nbsp;1</div><div class="muted">+ Orion + ICPS</div></div>
+    <div class="card stat"><div class="k">Closest lunar approach</div><div class="v">~10,300&nbsp;km</div><div class="muted">Far side flyby</div></div>
+    <div class="card stat"><div class="k">Duration</div><div class="v">~10&nbsp;days</div><div class="muted">Earth → Moon → Earth</div></div>
+  </div>
+
+  <p style="margin-top:24px">
+    Artemis 2 is unique among lunar missions because Orion never enters lunar orbit. Instead it executes a
+    <strong>circumlunar free-return</strong>: a trajectory chosen so that, even with no further engine firings,
+    the Moon's gravity will deflect the spacecraft back toward Earth on its own. It is the safest possible
+    flight path for a crewed test, and is also the cheapest in propellant.
+  </p>
+
+  <h3>The six mission phases</h3>
+
+  <div class="timeline">
+
+    <div class="phase">
+      <div class="badge">1</div>
+      <div>
+        <span class="tag">Launch</span>
+        <h3>SLS ascent to LEO</h3>
+        <p>The Space Launch System lifts off from Kennedy Space Center. The core stage and solid boosters
+        burn out, then the Interim Cryogenic Propulsion Stage (ICPS) places Orion in a low parking orbit
+        around Earth at roughly <em>185 × 1,800 km</em>.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="badge">2</div>
+      <div>
+        <span class="tag">HEO checkout</span>
+        <h3>High Earth Orbit shakedown</h3>
+        <p>Unique to Artemis 2 — before going to the Moon, the ICPS performs a perigee raise that puts
+        Orion in a highly elliptical orbit (perigee ~185 km, apogee ~71,000 km). Over ~24 hours, the crew
+        checks every system: life support, manual piloting, proximity-operations rendezvous practice with
+        the spent ICPS, deep-space comms. If anything fails, Orion stays Earth-bound. <em>This phase has
+        no analog in Apollo and is the safety hallmark of Artemis 2.</em></p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="badge">3</div>
+      <div>
+        <span class="tag warn">TLI</span>
+        <h3>Trans-Lunar Injection</h3>
+        <p>At HEO perigee — moving fastest, deepest in Earth's gravity well — Orion fires the ICPS one
+        final time. This single burn (~3.05 km/s of Δv) adds the energy needed to reach lunar distance.
+        Orion separates and coasts toward the Moon for about <strong>4 days</strong>.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="badge">4</div>
+      <div>
+        <span class="tag hot">Flyby</span>
+        <h3>Lunar far-side encounter</h3>
+        <p>Orion does <em>not</em> brake into orbit. It passes <strong>~10,300 km above the far side</strong>,
+        and the Moon's gravity bends its path through roughly 180° back toward Earth. From the crew's
+        perspective they become the humans farthest from Earth in history (~400,000 km).</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="badge">5</div>
+      <div>
+        <span class="tag">Free return</span>
+        <h3>Coast back to Earth</h3>
+        <p>About 4–5 more days of coasting. Small mid-course corrections may refine the entry corridor,
+        but no major burns are needed — the trajectory was designed to land Orion at Earth from the moment
+        TLI fired.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="badge">6</div>
+      <div>
+        <span class="tag hot">Re-entry</span>
+        <h3>Atmospheric entry &amp; splashdown</h3>
+        <p>Orion's service module is jettisoned. The crew capsule re-enters at ~11 km/s, ablates through
+        peak heating (~2,800 °C), deploys parachutes, and splashes down in the Pacific Ocean off the
+        California coast.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    <strong>Free return — the key idea.</strong>
+    A free-return trajectory is one where, after the trans-lunar injection burn, no further propulsion is required
+    to come back. The TLI is aimed slightly <em>past</em> the Moon, not at it; the Moon's gravity then acts as a
+    natural U-turn. Apollo 8, 10, and 11 used variants of this; Apollo 13 famously fell back on a free-return
+    after the explosion that disabled its main engine.
+  </div>
+</section>
+
+<section>
+  <h2>2 · The Simulation — <code>2Artemis.json</code></h2>
+
+  <p>
+    The preset stages a single rocket, <strong>Artemis 2 (Orion)</strong>, beginning landed on Earth, with a queue
+    of <strong>31 maneuvers</strong> that fly the entire mission autonomously. The 2D N-body simulator means the
+    Moon's gravity is always acting on the spacecraft — so a real free-return is physically possible, not faked.
+  </p>
+
+  <h3>Maneuver primitives used</h3>
+  <table>
+    <thead>
+      <tr><th>Type</th><th>What it does</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>burn_until_altitude</code></td><td>Thrusts until rocket reaches a target altitude. Used to clear the surface.</td></tr>
+      <tr><td><code>burn</code></td><td>Fires thrusters for a fixed duration in a direction relative to current heading.</td></tr>
+      <tr><td><code>sas</code></td><td>Attitude autopilot: holds <em>prograde</em>, <em>retrograde</em>, or <em>radial out</em>.</td></tr>
+      <tr><td><code>rotate</code></td><td>Instant rotation of the rocket's heading by N degrees.</td></tr>
+      <tr><td><code>auto_circularize</code></td><td>Closed-loop autopilot that brings the orbit to circular at the current radius.</td></tr>
+      <tr><td><code>wait_for_transfer</code></td><td>Holds until the phase angle to a target body matches a Hohmann transfer window.</td></tr>
+      <tr><td><code>auto_transfer</code></td><td>Fires a Hohmann transfer burn to a target body's orbital radius.</td></tr>
+      <tr><td><code>wait_for_altitude</code></td><td>Passive wait until altitude crosses a threshold while ascending / descending.</td></tr>
+      <tr><td><code>change_simulation_speed</code></td><td>Adjusts the time multiplier — used to skip long coast phases.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The flight plan, step by step</h3>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Maneuver</th><th>What &amp; why</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><code>burn_until_altitude</code> param 5</td><td><strong>Lift off.</strong> Strong vertical thrust until 5 sim-units of altitude — clears the surface.</td></tr>
+      <tr><td>2</td><td><code>burn</code> π offset, 0.5 s</td><td>Kills the radial (upward) velocity component so the rocket is hanging.</td></tr>
+      <tr><td>3</td><td><code>sas</code> off</td><td>Releases attitude lock so the rocket can be rotated manually.</td></tr>
+      <tr><td>4</td><td><code>rotate</code> 90°</td><td>Points the rocket along the prograde direction for a tangential push.</td></tr>
+      <tr><td>5</td><td><code>burn</code> 0 offset, 0.5 s</td><td>Sideways kick — gives the rocket the tangential velocity needed to start orbiting.</td></tr>
+      <tr><td>6</td><td><code>auto_circularize</code> (Earth)</td><td><strong>LEO insertion.</strong> Closed-loop autopilot trims the orbit to a clean circle.</td></tr>
+      <tr><td>7</td><td><code>change_simulation_speed</code> 10×</td><td>Speeds time up for the HEO phase.</td></tr>
+      <tr><td>8</td><td><code>sas</code> prograde</td><td>Locks attitude to the velocity vector — needed for a clean prograde burn.</td></tr>
+      <tr><td>9</td><td><code>burn</code> 0 offset, 0.5 s</td><td><strong>HEO burn.</strong> Prograde push at LEO perigee raises the apogee → highly elliptical "checkout" orbit.</td></tr>
+      <tr><td>10–12</td><td><code>wait_for_altitude</code> 60 ↑ &amp; 20 ↓</td><td>Coast: rocket climbs to HEO apogee then falls back to perigee, completing a checkout loop.</td></tr>
+      <tr><td>13</td><td><code>change_simulation_speed</code> 10×</td><td>Hold cadence for precise burns.</td></tr>
+      <tr><td>14</td><td><code>auto_circularize</code> (Earth)</td><td><strong>Re-circularize.</strong> Restores a clean circular parking orbit at LEO altitude. This step is critical — <code>wait_for_transfer</code> assumes circular orbits to compute phasing.</td></tr>
+      <tr><td>15</td><td><code>wait_for_transfer</code> (Moon)</td><td>Waits until the Earth–Orion–Moon geometry aligns for a Hohmann transfer.</td></tr>
+      <tr><td>16</td><td><code>auto_transfer</code> (Moon)</td><td><strong>TLI.</strong> Computes and fires the Hohmann burn that sends Orion to lunar distance.</td></tr>
+      <tr><td>17</td><td><code>sas</code> prograde</td><td>Keep attitude on velocity for the MCC.</td></tr>
+      <tr><td>18</td><td><code>burn</code> 0 offset, tiny thrust</td><td><strong>Mid-Course Correction.</strong> A small prograde nudge that slightly shifts the apoapsis location — enough that Orion misses the Moon's centre and arrives on a flyby trajectory rather than a collision course.</td></tr>
+      <tr><td>19–20</td><td>speed 10× → <code>wait_for_altitude</code> 300 ↑</td><td>Outbound translunar coast. Lunar gravity bends the path on the far side.</td></tr>
+      <tr><td>21–22</td><td>speed 10× → <code>wait_for_altitude</code> 250 ↓</td><td>Return coast — Orion falls back toward Earth on its own. <em>No engine firing needed.</em></td></tr>
+      <tr><td>23–24</td><td>speed 10× → <code>wait_for_altitude</code> 80 ↓</td><td>Earth-approach trigger; the rocket is now committed to re-entry.</td></tr>
+      <tr><td>25</td><td><code>change_simulation_speed</code> 1×</td><td>Drop back to real-time for the precise braking.</td></tr>
+      <tr><td>26–27</td><td><code>sas</code> retrograde → <code>burn</code> 0.7 s</td><td><strong>Deorbit burn.</strong> Heavy retrograde brake that drops the periapsis below the surface.</td></tr>
+      <tr><td>28</td><td><code>wait_for_altitude</code> 10 ↓</td><td>Hold until very close to ground — minimises remaining free-fall.</td></tr>
+      <tr><td>29</td><td><code>change_simulation_speed</code> 1×</td><td>Real-time for touchdown.</td></tr>
+      <tr><td>30</td><td><code>auto_circularize</code> (Earth)</td><td>Final closed-loop velocity trim — kills horizontal speed for a vertical descent.</td></tr>
+      <tr><td>31</td><td><code>sas</code> radial out</td><td>Points the rocket upright (radially away from Earth's centre) so the landing-angle check passes — soft touchdown.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <strong>Why the MCC is the whole point.</strong>
+    Without step 18, <code>wait_for_transfer</code> + <code>auto_transfer</code> compute a Hohmann ellipse
+    arriving at the Moon's <em>exact position</em> at the <em>exact time</em> the Moon is there — a guaranteed
+    collision. The MCC nudges the trajectory just enough that Orion reaches lunar distance offset from the
+    Moon's centre, the Moon's gravity well grabs it, and the free-return geometry takes care of the rest.
+    In real Artemis 2 the TLI itself already aims past the Moon — same physics, same outcome.
+  </div>
+</section>
+
+<section>
+  <h2>3 · Real ↔ Simulation</h2>
+
+  <p>Each phase of the real mission maps to one or more maneuvers in the queue. The simulation is 2D and
+  uses gameplay-tuned units, but the orbital mechanics are faithful: the same trajectory shape, the same
+  reliance on lunar gravity to do the U-turn, the same checkout-before-TLI architecture.</p>
+
+  <table>
+    <thead>
+      <tr><th>Real Artemis 2 phase</th><th>Simulation steps</th><th>Fidelity notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>SLS launch → LEO</strong></td>
+        <td>Steps 1–6 (ascend, kill vertical, rotate, sideways burn, circularize)</td>
+        <td>The sim splits the ascent into discrete burns. Real SLS does it in one continuous gravity turn, but the end state — clean circular LEO — is identical.</td>
+      </tr>
+      <tr>
+        <td><strong>HEO checkout (24 h)</strong></td>
+        <td>Steps 7–13 (HEO burn, coast to apogee, coast back, re-circularize)</td>
+        <td>The signature Artemis 2 feature. The sim raises apogee, completes one full elliptical loop, then trims back to LEO before TLI — mirroring the real checkout architecture.</td>
+      </tr>
+      <tr>
+        <td><strong>TLI at HEO perigee</strong></td>
+        <td>Steps 14–16 (re-circularize, wait for phase, <code>auto_transfer</code>)</td>
+        <td>Real TLI is the ICPS firing for ~18 minutes. The sim folds the impulse into one Hohmann burn computed by the autopilot.</td>
+      </tr>
+      <tr>
+        <td><strong>Aim past the Moon</strong></td>
+        <td>Step 18 (MCC nudge)</td>
+        <td>In reality, the offset is baked into the TLI targeting. In the sim, <code>auto_transfer</code> always aims at the body centre, so we add a separate small burn to shift the aim point.</td>
+      </tr>
+      <tr>
+        <td><strong>4-day translunar coast</strong></td>
+        <td>Step 20 (<code>wait_for_altitude</code> 300 ↑)</td>
+        <td>Time is compressed via the speed multiplier; the physics (gravity from Earth and Moon) runs at full fidelity throughout.</td>
+      </tr>
+      <tr>
+        <td><strong>Lunar flyby + gravity assist</strong></td>
+        <td>Embedded in steps 20–22</td>
+        <td>The Moon's gravity bends the trajectory automatically — no scripted maneuver. This is the genuinely Newtonian moment of the simulation.</td>
+      </tr>
+      <tr>
+        <td><strong>Free-return coast</strong></td>
+        <td>Step 22 (<code>wait_for_altitude</code> 250 ↓)</td>
+        <td>Pure coast. Demonstrates that no engine firing is required to come back — the trajectory was set at TLI.</td>
+      </tr>
+      <tr>
+        <td><strong>Re-entry &amp; splashdown</strong></td>
+        <td>Steps 23–31 (approach, deorbit, final descent, circularize, radial-out)</td>
+        <td>The sim has no atmosphere or parachutes, so the heat-shielded entry is replaced by a propulsive braking sequence ending in a vertical soft landing.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout hot">
+    <strong>What you're seeing in the trail.</strong>
+    Watch the rocket's trail unfold: a tight circular loop near Earth (LEO), then a single elongated loop reaching outward (HEO checkout), then a long arc out to the Moon, a curved deflection near the lunar far side, and finally a return arc back into the Earth's vicinity. That figure-eight–ish shape is the visual signature of a free-return trajectory, and it's what makes Artemis 2 fundamentally different from a lunar-orbit mission like Apollo 8 or Artemis 3.
+  </div>
+</section>
+
+<footer>
+  Preset · <code>importAtStartup/Presets/2Artemis.json</code> · 31 maneuvers · single ship · Earth ↔ Moon ↔ Earth.
+</footer>
+
+</div>
+</body>
+</html>
