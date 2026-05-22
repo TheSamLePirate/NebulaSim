@@ -1,5 +1,6 @@
 <div align="center">
 <img alt="NebulaSim" src="importAtStartup/docWeb/artepan2.png" />
+<img alt="Artemis II — trajectoire dans l'app" src="importAtStartup/docWeb/artemis_path_in_app.png" />
 
 # NebulaSim
 
